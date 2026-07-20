@@ -1,0 +1,238 @@
+---
+// Maneras D21: índice vertical de 4 filas gigantes (patrón "membership index"
+// de la referencia, adaptado al funnel D21 — sin inventar estructura de partido).
+// Cada fila es un ancla interna con reveal sobrio (una vez) y hover/focus que
+// rellena de lime + desplaza la flecha. Descripción visible siempre en móvil,
+// aparece al hover/focus en desktop.
+const filas = [
+  {
+    num: '01',
+    titulo: 'Escúchalo',
+    desc: 'El manifiesto completo, sin teleprompter.',
+    href: '#manifiesto',
+  },
+  {
+    num: '02',
+    titulo: 'Ponte a prueba',
+    desc: 'El test: ¿cómo de siglo 21 eres?',
+    href: '#papeleta',
+  },
+  {
+    num: '03',
+    titulo: 'Vístelo',
+    desc: 'Drop 001. Ropa que opina.',
+    href: '#coleccion',
+  },
+  {
+    num: '04',
+    titulo: 'Súmate',
+    desc: 'Deja tu email. Lo demás llega solo.',
+    href: '#unete',
+  },
+] as const;
+---
+
+<section id="maneras" class="relative bg-paper px-5 py-[12vh] md:px-8">
+  <p class="label mb-[6vh] text-ink/60 md:mb-[8vh]">El plan</p>
+
+  <div class="border-t border-ink/15">
+    {
+      filas.map((f) => (
+        <a href={f.href} class="fila" data-fila>
+          <span class="fila-fondo" aria-hidden="true" />
+          <span class="fila-inner">
+            <span class="fila-top">
+              <span class="label fila-num">{f.num}</span>
+              <span class="display fila-titulo">{f.titulo}</span>
+            </span>
+            <span class="fila-bottom">
+              <span class="fila-desc">{f.desc}</span>
+              <span class="fila-flecha" aria-hidden="true">→</span>
+            </span>
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .fila {
+    position: relative;
+    display: block;
+    border-bottom: 1px solid rgba(10, 11, 13, 0.15);
+    color: var(--color-ink);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .fila-fondo {
+    position: absolute;
+    inset: 0;
+    background: var(--color-lime);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.5s var(--ease-d21, cubic-bezier(0.65, 0.05, 0, 1));
+    pointer-events: none;
+  }
+
+  .fila:hover .fila-fondo,
+  .fila:focus-visible .fila-fondo {
+    transform: scaleX(1);
+  }
+
+  .fila-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: clamp(1.25rem, 3.4vw, 2.25rem) 0;
+  }
+
+  .fila-top {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(0.75rem, 2.4vw, 1.75rem);
+  }
+
+  .fila-num {
+    color: rgba(10, 11, 13, 0.45);
+    flex-shrink: 0;
+  }
+
+  .fila-titulo {
+    font-size: 8vw;
+    text-transform: uppercase;
+    color: var(--color-ink);
+  }
+
+  .fila-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-left: clamp(2.4rem, 6.5vw, 4.5rem);
+  }
+
+  .fila-desc {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: rgba(10, 11, 13, 0.7);
+    max-width: 32ch;
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.35s var(--ease-out-expo, ease), transform 0.35s var(--ease-out-expo, ease);
+  }
+
+  .fila-flecha {
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+    transform: translateX(0);
+    transition: transform 0.4s var(--ease-d21, cubic-bezier(0.65, 0.05, 0, 1));
+  }
+
+  .fila:hover .fila-flecha,
+  .fila:focus-visible .fila-flecha {
+    transform: translateX(0.4em);
+  }
+
+  .fila:focus-visible {
+    outline: none;
+  }
+
+  .fila:focus-visible .fila-desc {
+    color: var(--color-ink);
+  }
+
+  /* Desktop: la descripción solo aparece al hover/focus */
+  @media (hover: hover) and (pointer: fine) {
+    .fila-desc {
+      opacity: 0;
+      transform: translateY(-0.2em);
+    }
+
+    .fila:hover .fila-desc,
+    .fila:focus-visible .fila-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reveal de entrada (una vez), desactivado si reduced-motion o ya visible */
+  [data-fila] {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  [data-fila].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s var(--ease-out-expo, ease), transform 0.7s var(--ease-out-expo, ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-fila] {
+      opacity: 1;
+      transform: none;
+    }
+
+    .fila-fondo,
+    .fila-flecha,
+    .fila-desc {
+      transition: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .fila-desc {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger, prefersReducedMotion } from '@/lib/motion';
+
+  const section = document.getElementById('maneras');
+  const filas = gsap.utils.toArray<HTMLAnchorElement>('[data-fila]');
+
+  // Scroll suave a las anclas internas, con Lenis si está activo.
+  filas.forEach((fila) => {
+    fila.addEventListener('click', (e) => {
+      const href = fila.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      const lenis = (window as unknown as { __lenis?: { scrollTo: (t: string) => void } })
+        .__lenis;
+      if (lenis?.scrollTo) {
+        lenis.scrollTo(href);
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  if (section && filas.length) {
+    if (prefersReducedMotion()) {
+      filas.forEach((f) => f.classList.add('is-revealed'));
+    } else {
+      filas.forEach((fila, i) => {
+        ScrollTrigger.create({
+          trigger: fila,
+          start: 'top 88%',
+          once: true,
+          onEnter: () => {
+            gsap.delayedCall(i * 0.06, () => fila.classList.add('is-revealed'));
+          },
+        });
+      });
+    }
+  }
+
+  ScrollTrigger.refresh();
+</script>

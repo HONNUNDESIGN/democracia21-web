@@ -1,0 +1,721 @@
+---
+// Hero D21 "podium": overlay lima con el símbolo d²¹ (SVG real, ya no
+// placeholder) que crece y se disuelve con el scroll (pin largo), revelando
+// el claim etimológico "Dēmos × Krátos" sobre vídeo de Miriam a fondo.
+// En móvil / reduced-motion: sin pin, todo apilado en flujo.
+// Fuente: Figma node 47:3025 (01 Hero-overlay) + 47:3034 (02 Hero-claim).
+import heroSymbol from '@/assets/brand/hero-symbol.svg?raw';
+
+// Marquee inferior (change-order copy v4): frases del track, separadas por ✦.
+const marqueePhrases = [
+  '21 es el siglo que toca',
+  '¿y si ahora sí?',
+  '21 es un plan a diez años',
+  'la otra política',
+  '21 es la democracia que toca',
+  'no es tarde',
+  '21 es optimismo radical',
+  'sin letra pequeña',
+  '21 es posibilidad',
+  'decide quién decide',
+  '21 es presente',
+  '21 es escuchar antes de hablar',
+];
+---
+
+<!-- Sin altura fija ni overflow-clip: el pin-spacer de GSAP necesita poder
+     expandir la sección (+250%) para que el resto del flujo no pise el pin. -->
+<section id="top" class="relative bg-lime">
+  <div id="hero-pin" class="relative h-[100lvh] overflow-clip">
+    <!-- Contenido real del hero: claim "Dēmos × Krátos" sobre vídeo/foto de
+         Miriam muy tenue. Vive DEBAJO del overlay lima; se revela al
+         disolverse el símbolo. -->
+    <div
+      id="hero-content"
+      class="absolute inset-0 flex flex-col items-center justify-center gap-8 overflow-hidden px-5 py-20 text-center md:gap-10"
+    >
+      <div class="absolute inset-0 bg-ink" aria-hidden="true"></div>
+
+      <!-- Fallback siempre presente: foto de Miriam al 15% (nunca se ve roto). -->
+      <img
+        id="hero-claim-poster"
+        src="/img/hero-claim.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 h-full w-full object-cover opacity-15"
+      />
+
+      <!-- Vídeo de Miriam (pendiente: /video/miriam.mp4). Se muestra solo si
+           carga con éxito; si no, gana el fallback de foto de arriba. -->
+      <video
+        id="hero-claim-video"
+        aria-hidden="true"
+        class="absolute inset-0 hidden h-full w-full object-cover opacity-15"
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster="/img/hero-claim.webp"
+      >
+        <source src="/video/miriam.mp4" type="video/mp4" />
+      </video>
+
+      <div class="relative flex flex-col items-center gap-7 md:gap-9">
+        <!-- Pills "el pueblo" / "el poder": absolute, superpuestas POR ENCIMA
+             del H1 (z-index superior), no apiladas en flujo — calca el
+             tratamiento "sello" del Figma (fileKey 1PAfNTosRwDdLafwwUJgZm,
+             nodo 47:3034 "02 Hero-claim"). Nota: Dev Mode MCP de Figma no
+             disponible en esta sesión (requiere Figma desktop) — offsets y
+             rotación son una aproximación fiel al criterio descrito, a
+             validar contra el archivo real. -->
+        <h1
+          class="display relative flex flex-wrap items-center justify-center gap-x-4 gap-y-4 text-[15vw] text-lime sm:text-8xl md:text-9xl lg:text-[9.5rem]"
+        >
+          <span class="relative inline-block">
+            <span
+              class="pointer-events-none absolute -top-3 left-1/2 z-10 -translate-x-1/2 -rotate-6 whitespace-nowrap rounded-full border-2 border-paper bg-ink px-3.5 py-1 text-[0.7rem] font-medium normal-case leading-none tracking-normal text-paper shadow-[0_8px_24px_rgba(0,0,0,0.35)] sm:-top-5 sm:px-5 sm:py-1.5 sm:text-sm md:-top-7 md:px-6 md:py-2 md:text-lg"
+            >
+              el pueblo
+            </span>
+            <span class="relative z-0">Dēmos</span>
+          </span>
+          <span class="relative z-0 text-lime" aria-hidden="true">×</span>
+          <span class="relative inline-block">
+            <span class="relative z-0">Krátos</span>
+            <span
+              class="pointer-events-none absolute -bottom-3 left-1/2 z-10 -translate-x-1/2 rotate-6 whitespace-nowrap rounded-full border-2 border-paper bg-ink px-3.5 py-1 text-[0.7rem] font-medium normal-case leading-none tracking-normal text-paper shadow-[0_8px_24px_rgba(0,0,0,0.35)] sm:-bottom-5 sm:px-5 sm:py-1.5 sm:text-sm md:-bottom-7 md:px-6 md:py-2 md:text-lg"
+            >
+              el poder
+            </span>
+          </span>
+        </h1>
+
+        <p class="mt-6 max-w-xl text-lg text-gris md:mt-10 md:text-2xl">
+          Democracia significa exactamente eso. Ya era hora de que alguien se lo tomara en serio.
+        </p>
+
+        <button
+          type="button"
+          id="hero-play-trigger"
+          class="group isolate relative inline-flex items-center gap-3 overflow-hidden rounded-full border-2 border-lime py-2 pl-2 pr-5 text-lime transition-colors duration-500 [transition-timing-function:var(--ease-d21)] hover:text-ink"
+          aria-haspopup="dialog"
+          aria-controls="hero-video-lightbox"
+        >
+          <!-- Relleno lime que barre desde la izquierda (clip vía scaleX origin-left),
+               sincronizado con la transición de color del botón. z-0 (nunca negativo):
+               un z-index negativo aquí escapaba a la stacking context de un ancestro
+               lejano (el botón no aislaba su propio contexto) y el barrido acababa
+               pintándose detrás de las capas de fondo del hero. -->
+          <span
+            class="absolute inset-0 z-0 origin-left scale-x-0 rounded-full bg-lime transition-transform duration-500 [transition-timing-function:var(--ease-d21)] group-hover:scale-x-100"
+            aria-hidden="true"
+          ></span>
+          <span
+            class="relative z-10 flex size-8 shrink-0 items-center justify-center transition-transform duration-500 [transition-timing-function:var(--ease-d21)] group-hover:translate-x-0.5 group-hover:scale-110"
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 32 32" fill="none" class="size-8">
+              <path
+                d="M22 16C22.0001 16.2426 21.9413 16.4815 21.8287 16.6964C21.7162 16.9113 21.5532 17.0957 21.3537 17.2337L14.8537 21.7337C14.6287 21.8896 14.3652 21.9808 14.092 21.9976C13.8187 22.0144 13.5461 21.9561 13.3036 21.829C13.0611 21.7019 12.8581 21.5108 12.7164 21.2766C12.5748 21.0423 12.4999 20.7738 12.5 20.5V11.5C12.4999 11.2262 12.5748 10.9577 12.7164 10.7234C12.8581 10.4892 13.0611 10.2981 13.3036 10.171C13.5461 10.0439 13.8187 9.98562 14.092 10.0024C14.3652 10.0192 14.6287 10.1104 14.8537 10.2662L21.3537 14.7662C21.5532 14.9043 21.7162 15.0887 21.8287 15.3036C21.9413 15.5185 22.0001 15.7574 22 16ZM29.5 16C29.5 18.67 28.7082 21.2801 27.2248 23.5002C25.7414 25.7203 23.633 27.4506 21.1662 28.4724C18.6994 29.4942 15.985 29.7615 13.3663 29.2406C10.7475 28.7197 8.34207 27.434 6.45406 25.5459C4.56605 23.6579 3.2803 21.2525 2.7594 18.6337C2.2385 16.015 2.50584 13.3006 3.52763 10.8338C4.54941 8.36697 6.27974 6.25856 8.4998 4.77516C10.7199 3.29176 13.33 2.5 16 2.5C19.5792 2.50397 23.0107 3.92756 25.5416 6.45844C28.0724 8.98932 29.496 12.4208 29.5 16ZM26.5 16C26.5 13.9233 25.8842 11.8932 24.7304 10.1665C23.5767 8.4398 21.9368 7.09399 20.0182 6.29926C18.0996 5.50454 15.9884 5.29661 13.9516 5.70175C11.9148 6.1069 10.0438 7.10693 8.57538 8.57538C7.10693 10.0438 6.1069 11.9148 5.70175 13.9516C5.29661 15.9884 5.50454 18.0996 6.29926 20.0182C7.09399 21.9368 8.4398 23.5767 10.1665 24.7304C11.8932 25.8842 13.9233 26.5 16 26.5C18.7839 26.497 21.4528 25.3898 23.4213 23.4213C25.3898 21.4528 26.497 18.7839 26.5 16Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </span>
+          <span class="relative z-10 text-base font-medium md:text-xl">Escúchala — 1 min</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Fix 2: SVG oculto con la máscara "agujero" del símbolo d²¹. #hero-overlay
+         referencia este <mask> vía CSS (mask-image: url(#hero-mask)): rect
+         blanco (luminancia → opaco, el lima se ve) + <g> negro con los mismos
+         paths del logo (luminancia → transparente, "agujero" hacia el claim).
+         El <g> se coloca/escala en JS para coincidir exactamente con la
+         posición real de #hero-symbol (ver script), y su transform se
+         reescribe cada frame del scrub para el efecto de zoom-through. -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <!-- Fix 3 (autopsia podium.global, ver Hero.astro header): "goo" filter —
+             blur + boost de contraste alfa (feColorMatrix) que ablanda el borde
+             recto del agujero vectorial en uno orgánico, más una feTurbulence +
+             feDisplacementMap sutil para que el contorno "tiemble" en vez de ser
+             un logo perfecto escalado. Inerte en reposo (stdDeviation y scale en 0
+             → coste cero, logo nítido para legibilidad de marca); se anima SOLO
+             durante el scrub del zoom (ver script: maskState.blur/wobble). Se
+             eligió esta aproximación SVG (barata, sin riesgo de repetir el bug de
+             compositing ya documentado abajo con capas gigantes) en vez de un
+             shader WebGL con ogl: mantiene el agujero como el símbolo d²¹ (marca),
+             no lo convierte en una colección de vídeos estilo metaball. -->
+        <filter id="hero-goo" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur id="hero-goo-blur" in="SourceGraphic" stdDeviation="0" result="blurred" />
+          <feColorMatrix
+            in="blurred"
+            type="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8"
+            result="goo"
+          />
+          <feTurbulence type="fractalNoise" baseFrequency="0.018 0.03" numOctaves="2" seed="7" result="noise" />
+          <feDisplacementMap
+            id="hero-goo-displace"
+            in="goo"
+            in2="noise"
+            scale="0"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+        <mask id="hero-mask" maskUnits="userSpaceOnUse" x="-4000" y="-4000" width="8000" height="8000">
+          <rect x="-4000" y="-4000" width="8000" height="8000" fill="white" />
+          <g id="hero-mask-hole" fill="black" filter="url(#hero-goo)">
+            <path d="M88.7535 222.031C117.637 222.031 136.561 203.107 136.561 171.125C136.561 139.143 117.637 120.219 88.7535 120.219C59.8699 120.219 41.2781 139.143 41.2781 171.125C41.2781 203.107 60.2019 222.031 88.7535 222.031ZM177.839 16.3042V171.42C177.839 226.789 138.295 259.805 87.7206 259.805C37.1466 259.805 0 224.429 0 171.457C0 118.485 35.7817 82.3713 85.6549 82.3713C110.407 82.3713 128.298 91.2983 136.561 101.996V16.3042H177.839Z" />
+            <path d="M273.862 42.4954C273.862 32.6831 269.03 23.0552 254.606 23.0552C242.581 23.0552 230.924 29.6583 219.894 38.6959L207.869 19.0344C218.493 10.4025 234.133 0 255.012 0C283.674 0 298.946 19.6615 298.946 42.9012C298.946 87.4255 243.392 93.6597 234.355 119.518H297.544V142.574H208.717V127.929C211.336 74.7728 273.899 77.5763 273.899 42.4954" />
+            <path d="M331.002 36.2619C326.39 39.0654 320.562 40.873 313.959 41.4632V20.8057C322.775 18.5924 332.219 13.9813 335.834 2.14014H356.086V142.537H331.002V36.2619Z" />
+          </g>
+        </mask>
+      </defs>
+    </svg>
+
+    <!-- Overlay lima: cubre el hero al cargar. Símbolo d²¹ centrado. -->
+    <div
+      id="hero-overlay"
+      class="absolute inset-0 flex flex-col items-center justify-center bg-lime px-5"
+    >
+      <div
+        id="hero-symbol"
+        class="aspect-[356.086/259.805] h-[16vh] transition-[filter,opacity] duration-300 ease-out md:h-[18vh]"
+        aria-label="democracia veintiuno"
+        role="img"
+        set:html={heroSymbol}
+      />
+
+      <!-- Hint de scroll DENTRO del overlay: al ser hijo de #hero-overlay,
+           se disuelve junto a él (mismo tramo del timeline) — sin lógica extra. -->
+      <p
+        class="pointer-events-none absolute inset-x-0 bottom-8 text-center text-sm font-semibold text-ink/70 md:bottom-12"
+      >
+        scrollea para empezar ↓
+      </p>
+    </div>
+
+    <!-- Fix 3: "flash" de paper — pulso breve y sutil cuando el agujero está casi
+         del todo abierto, para vender la sensación de "atravesar" el símbolo
+         (eco discreto de los cortes tipo obturador que usa la referencia
+         podium.global en el punto álgido de su transición). Vive por encima del
+         overlay (orden DOM) pero por debajo de hint/marquee (z-10 explícito). -->
+    <div id="hero-flash" class="pointer-events-none absolute inset-0 bg-paper opacity-0" aria-hidden="true"></div>
+
+    <!-- Fix 2: hint "baja, que esto mejora" + marquee inferior viven DENTRO de
+         #hero-pin (no de #top). #hero-pin es lo que GSAP fija a 100lvh durante
+         el pin; #top crece por el spacer del pin, así que anclar estos
+         elementos a su bottom (como estaba antes) los dejaba fuera del
+         viewport hasta soltar el pin. Aquí, al ser hijos de #hero-pin, viajan
+         con él y son visibles en TODO momento dentro del hero.
+         Fix 1: fuera el mix-blend-difference (sobre lima se leía azulado, el
+         cliente lo odiaba). Ahora color sólido tokenizado: ink mientras el
+         overlay lima está visible, lime cuando ya se ve el claim oscuro
+         debajo — tween coordinado en el script con el mismo tramo en que se
+         disuelve #hero-overlay. Estado de reposo (sin JS / antes del scrub):
+         ink, que es correcto porque siempre arranca sobre el overlay lima. -->
+    <div
+      id="hero-marquee"
+      class="pointer-events-none absolute inset-x-0 bottom-0 z-10 text-ink"
+      aria-hidden="true"
+    >
+      <div class="overflow-hidden border-t border-paper/20 py-4 md:py-5">
+        <div class="marquee-track" style="--marquee-duration: 46s">
+          {
+            Array.from({ length: 2 }).map(() => (
+              <span class="mx-6 flex shrink-0 items-center whitespace-nowrap text-lg font-semibold uppercase tracking-wide md:text-2xl">
+                {marqueePhrases.map((phrase) => (
+                  <>
+                    {phrase}
+                    <span class="mx-6 opacity-40">✦</span>
+                  </>
+                ))}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <p
+      id="hero-hint"
+      class="pointer-events-none absolute bottom-24 left-1/2 z-10 hidden -translate-x-1/2 text-xl font-bold text-ink md:bottom-28 md:block md:text-2xl"
+    >
+      baja, que esto mejora ↓
+    </p>
+  </div>
+
+  <!-- Lightbox: vídeo de Miriam CON sonido. Accesible: Escape cierra, foco
+       atrapado, pausa el vídeo de fondo mientras está abierto. -->
+  <div
+    id="hero-video-lightbox"
+    class="fixed inset-0 z-[200] hidden items-center justify-center bg-ink/90 px-5 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Escucha a Miriam González Durántez"
+    hidden
+  >
+    <div class="relative w-full max-w-4xl">
+      <button
+        type="button"
+        id="hero-lightbox-close"
+        class="absolute -top-14 right-0 flex size-11 items-center justify-center rounded-full border border-paper/30 text-paper transition-colors hover:bg-paper hover:text-ink md:-top-16"
+        aria-label="Cerrar vídeo"
+      >
+        <span aria-hidden="true" class="text-xl leading-none">✕</span>
+      </button>
+
+      <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-2xl">
+        <video
+          id="hero-lightbox-video"
+          class="h-full w-full object-cover"
+          controls
+          playsinline
+          preload="none"
+          poster="/img/hero-claim.webp"
+        >
+          <!-- PLACEHOLDER: sustituir por /video/miriam.mp4 cuando llegue -->
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4" />
+        </video>
+
+        <div
+          id="hero-lightbox-fallback"
+          class="absolute inset-0 hidden flex-col items-center justify-center gap-3 text-center"
+        >
+          <img
+            src="/img/hero-claim.webp"
+            alt="Miriam González Durántez"
+            class="absolute inset-0 h-full w-full object-cover opacity-40"
+          />
+          <p class="relative max-w-sm px-6 text-sm font-semibold uppercase tracking-wide text-paper/80">
+            Vídeo disponible muy pronto.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #hero-symbol {
+    will-change: transform, filter, opacity;
+  }
+  #hero-symbol :global(svg) {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Hover en el símbolo (desktop): blur + ligera pérdida de opacidad */
+  @media (hover: hover) and (pointer: fine) {
+    #hero-symbol:hover {
+      filter: blur(4px);
+      opacity: 0.85;
+    }
+  }
+
+  /* Fix 2: máscara "agujero" — el <g id="hero-mask-hole"> dentro del <mask>
+     se transforma por JS (ver script) manteniendo el resto del overlay
+     opaco vía mask-image referenciando el <mask> SVG oculto de arriba. Solo
+     el transform del <g> cambia por frame (no repaints de layout), tanto en
+     desktop como en móvil. */
+  #hero-overlay {
+    mask-image: url(#hero-mask);
+    -webkit-mask-image: url(#hero-mask);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  #hero-mask-hole {
+    will-change: transform;
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger, stopScroll, startScroll, prefersReducedMotion } from '@/lib/motion';
+
+  const section = document.getElementById('top');
+  const pin = document.getElementById('hero-pin');
+  const overlay = document.getElementById('hero-overlay');
+  const symbol = document.getElementById('hero-symbol');
+  const content = document.getElementById('hero-content');
+  const hint = document.getElementById('hero-hint');
+  const marquee = document.getElementById('hero-marquee');
+  const flash = document.getElementById('hero-flash');
+  const maskHole = document.getElementById('hero-mask-hole') as SVGGElement | null;
+  const maskGooBlur = document.getElementById('hero-goo-blur') as SVGFEGaussianBlurElement | null;
+  const maskGooDisplace = document.getElementById('hero-goo-displace') as SVGFEDisplacementMapElement | null;
+
+  // Tokens leídos en runtime (regla "tokens only, no hex sueltos") en vez de
+  // duplicar los valores hex del tema aquí.
+  const rootStyles = getComputedStyle(document.documentElement);
+  const inkColor = rootStyles.getPropertyValue('--color-ink').trim() || '#0a0b0d';
+  const limeColor = rootStyles.getPropertyValue('--color-lime').trim() || '#e8e675';
+
+  // ── Fix 2: geometría de la máscara "agujero" ──
+  // El viewBox real del símbolo (hero-symbol.svg) para convertir unidades de
+  // path a píxeles de pantalla según el tamaño renderizado de #hero-symbol.
+  const SYMBOL_VIEWBOX_WIDTH = 356.086;
+  let maskBase = { cx: 0, cy: 0, offsetX: 0, offsetY: 0, baseScale: 1 };
+  // Fix 3 (autopsia podium.global): el target de zoom del agujero (antes fijo
+  // en 40) se recalcula por breakpoint a partir de la diagonal real del
+  // símbolo en reposo vs. la diagonal del viewport. Con 40 fijo, el agujero
+  // superaba el tamaño del viewport casi de inmediato (con baseScale típico
+  // ~0.44px/unidad, z=40 da un símbolo de +1500px de ancho ya al 20% del
+  // scroll) — dejaba de leerse como "el símbolo d²¹" y se convertía en un
+  // campo de color sin forma reconocible mucho antes de tiempo. Con la
+  // diagonal real solo crece lo justo para cubrir la pantalla (+15% de
+  // margen) exactamente al final del tramo de zoom, en cualquier breakpoint.
+  let maskZoomTarget = 16;
+  // z: escala del agujero (igual que antes). blur/wobble: Fix 3 (autopsia
+  // podium.global) — intensidad del filtro "goo" (#hero-goo), en unidades de
+  // path del propio símbolo (viewBox ~356 de ancho). Se quedan en 0 en reposo
+  // (filtro inerte, coste cero) y solo crecen durante el scrub del zoom.
+  const maskState = { z: 1, blur: 0, wobble: 0 };
+
+  // Los valores de blur/wobble viven en el espacio de coordenadas DEL PROPIO
+  // <g>, que además lleva el transform de zoom (scale hasta 40x): el filtro se
+  // renderiza en ese espacio local y LUEGO el transform escala el resultado ya
+  // filtrado, así que un stdDeviation pequeño aquí se traduce en un blur mucho
+  // mayor en pantalla cuanto más avanzado está el zoom — exactamente el efecto
+  // "el borde se ablanda más cuanto más atraviesas el símbolo" que se observó
+  // en la referencia. Techo bajo a propósito para no disolver el logo en
+  // exceso ni pagar un coste de filtro desproporcionado en móvil.
+  const MASK_BLUR_MAX = 1.4;
+  const MASK_WOBBLE_MAX = 7;
+
+  function applyMaskTransform() {
+    if (!maskHole) return;
+    const { cx, cy, offsetX, offsetY, baseScale } = maskBase;
+    const z = maskState.z;
+    const m = new DOMMatrix()
+      .translate(cx, cy)
+      .scale(z)
+      .translate(-cx, -cy)
+      .translate(offsetX, offsetY)
+      .scale(baseScale);
+    maskHole.setAttribute('transform', m.toString());
+  }
+
+  function applyMaskFilter() {
+    maskGooBlur?.setAttribute('stdDeviation', maskState.blur.toFixed(3));
+    maskGooDisplace?.setAttribute('scale', maskState.wobble.toFixed(3));
+  }
+
+  function applyMaskFrame() {
+    applyMaskTransform();
+    applyMaskFilter();
+  }
+
+  // Recalcula la posición/escala base del agujero para que coincida EXACTO
+  // con el símbolo visible en reposo (#hero-symbol), en cualquier breakpoint.
+  function computeMaskBase() {
+    if (!overlay || !symbol) return;
+    const overlayRect = overlay.getBoundingClientRect();
+    const symbolRect = symbol.getBoundingClientRect();
+    if (!symbolRect.width || !symbolRect.height) return;
+    const offsetX = symbolRect.left - overlayRect.left;
+    const offsetY = symbolRect.top - overlayRect.top;
+    const baseScale = symbolRect.width / SYMBOL_VIEWBOX_WIDTH;
+    maskBase = {
+      offsetX,
+      offsetY,
+      baseScale,
+      cx: offsetX + symbolRect.width / 2,
+      cy: offsetY + symbolRect.height / 2,
+    };
+    const viewportDiag = Math.hypot(window.innerWidth, window.innerHeight);
+    const symbolDiag = Math.hypot(symbolRect.width, symbolRect.height);
+    maskZoomTarget = symbolDiag > 0 ? (viewportDiag * 1.15) / symbolDiag : 16;
+    applyMaskTransform();
+  }
+
+  computeMaskBase();
+
+  let resizeRaf = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => {
+      computeMaskBase();
+      ScrollTrigger.refresh();
+    });
+  });
+
+  function revealEntrance() {
+    if (!symbol) return;
+    gsap.from(symbol, {
+      scale: 0.7,
+      opacity: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+    });
+  }
+
+  // El reveal de entrada solo arranca cuando el preloader ha terminado
+  // (o inmediatamente si no hay preloader en la página).
+  if (document.getElementById('preloader')) {
+    window.addEventListener('d21:intro-done', revealEntrance, { once: true });
+  } else {
+    revealEntrance();
+  }
+
+  const mm = gsap.matchMedia();
+
+  // Fix 3: MISMA experiencia en móvil que en desktop — el pin + la máscara
+  // se activan en cualquier ancho, la única rama estática es reduced-motion.
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    if (!section || !pin || !overlay || !symbol || !content) return;
+
+    computeMaskBase();
+
+    // Claim invisible hasta que el overlay se haya disuelto.
+    gsap.set(content, { opacity: 0 });
+    gsap.set([hint, marquee].filter(Boolean) as HTMLElement[], { color: inkColor });
+    // Fix 1: el overlay parte con pointer-events auto (cubre el claim/botón a
+    // propósito mientras es opaco) pero DEBE dejar de capturar clics en cuanto
+    // se disuelve — si no, aunque su opacity llegue a 0 sigue interceptando
+    // todos los eventos de ratón del claim que hay debajo (incl. el botón
+    // "Escúchala"), porque opacity:0 no quita el hit-testing por sí solo.
+    gsap.set(overlay, { pointerEvents: 'auto' });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: '+=250%',
+        pin,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onLeave: () => {
+          document.body.dataset.pastHero = 'true';
+        },
+        onEnterBack: () => {
+          document.body.dataset.pastHero = 'false';
+        },
+      },
+    });
+
+    // Tramo 1 (0 → 0.5): el símbolo visible se difumina/desvanece MIENTRAS,
+    // en paralelo, el agujero de la máscara (misma posición/tamaño de
+    // partida) escala hacia arriba alrededor de su propio centro — "atraviesas"
+    // el logo: al principio el foreground opaco tapa el agujero (mismo
+    // tamaño), según ambos avanzan el foreground se desvanece y el agujero,
+    // ya mucho más grande, queda expuesto como ventana hacia el claim de
+    // detrás. El CRECIMIENTO real del "zoom" lo lleva el agujero de la
+    // máscara (maskState.z, abajo) — el símbolo visible solo necesita un
+    // scale/blur SUTIL para dar distorsión de transición, no la escala
+    // completa: escalarlo x35 + blur 40px generaba una capa compuesta
+    // gigantesca (miles de px, ver bounding box) que en algunos motores de
+    // render (GPU/software fallback) pintaba la pantalla entera en negro
+    // sólido de forma intermitente — bug de compositing reproducido en QA,
+    // no deseable ni en desktop ni, sobre todo, en los GPUs más limitados de
+    // móvil (fix 3 activa este mismo timeline ahí).
+    // Fix 3 (autopsia podium.global): la referencia no crece de forma lineal
+    // — se mantiene comedida al principio y acelera con fuerza hacia el
+    // clímax ("power2.in" en vez de "none"/lineal). Aplicar un ease NO lineal
+    // dentro de un tween scrubeado funciona igual: GSAP calcula la posición
+    // según SU propio progreso local, y ScrollTrigger solo controla a qué
+    // velocidad se recorre ese progreso — el resultado es una curva de
+    // aceleración real, no un mapeo 1:1 con el scroll.
+    tl.to(
+      symbol,
+      {
+        scale: 1.5,
+        filter: 'blur(10px)',
+        opacity: 0,
+        ease: 'power1.in',
+        transformOrigin: 'center center',
+        duration: 0.5,
+      },
+      0
+    )
+      .to(
+        maskState,
+        {
+          z: maskZoomTarget,
+          blur: MASK_BLUR_MAX,
+          wobble: MASK_WOBBLE_MAX,
+          ease: 'power2.in',
+          duration: 0.5,
+          onUpdate: applyMaskFrame,
+        },
+        0
+      )
+      // El overlay (y el color de hint/marquee) se disuelven en el mismo tramo.
+      .to(overlay, { opacity: 0, ease: 'power1.in', duration: 0.5 }, 0.05)
+      .to(
+        [hint, marquee].filter(Boolean) as HTMLElement[],
+        { color: limeColor, ease: 'power1.in', duration: 0.5 },
+        0.05
+      )
+      // Fix 3: flash breve de paper justo cuando el agujero está casi del
+      // todo abierto (t≈0.4-0.5 de este tramo) — eco discreto de los cortes
+      // tipo obturador de la referencia en el clímax de su transición. Sube
+      // y baja rápido (0.06 + 0.12 de duración) para no leerse como un
+      // parpadeo molesto ni tapar el claim que empieza a entrar justo detrás.
+      .fromTo(flash, { opacity: 0 }, { opacity: 0.32, ease: 'power1.out', duration: 0.06 }, 0.4)
+      .to(flash, { opacity: 0, ease: 'power1.in', duration: 0.12 }, 0.46)
+      // En cuanto el overlay termina de disolverse, deja de capturar clics.
+      // Al scrubear hacia atrás por debajo de este punto, GSAP revierte a
+      // 'auto' (el valor fijado justo arriba, al inicio del timeline).
+      .set(overlay, { pointerEvents: 'none' })
+      // Tramo 2 (0.35 → 0.7): el claim entra una vez el overlay casi ha desaparecido.
+      .to(content, { opacity: 1, ease: 'none', duration: 0.35 }, 0.35)
+      // Tramo 3: el claim se mantiene legible antes de soltar el pin.
+      .to({}, { duration: 0.3 });
+
+    return () => {
+      // matchMedia revert: deja overlay/símbolo/claim en estado neutro para
+      // la rama estática (reduced-motion), incluido el agujero de la máscara
+      // y el filtro "goo" (blur/wobble a 0 = inerte).
+      gsap.set([overlay, symbol, content], { clearProps: 'all' });
+      gsap.set([hint, marquee].filter(Boolean) as HTMLElement[], { clearProps: 'color' });
+      if (flash) gsap.set(flash, { opacity: 0 });
+      maskState.z = 1;
+      maskState.blur = 0;
+      maskState.wobble = 0;
+      applyMaskFrame();
+    };
+  });
+
+  mm.add('(prefers-reduced-motion: reduce)', () => {
+    // Reduced-motion (cualquier ancho): sin pin, sin scrub, sin máscara
+    // animada. Overlay y claim apilados como dos bloques 100svh completos
+    // (misma composición visual que desktop/móvil animado, solo que estático
+    // y digno) — orden visual invertido vía flex `order`, ya que en el DOM
+    // #hero-content precede a #hero-overlay.
+    if (!pin || !overlay || !content || !symbol) return;
+    gsap.set(pin, { display: 'flex', flexDirection: 'column', height: 'auto', overflow: 'visible' });
+    // `position: relative` (no `static`): #hero-content tiene hijos con
+    // `absolute inset-0` (fondo vídeo/foto) que necesitan un contenedor
+    // posicionado propio; con `static` se escapan y cubren todo #hero-pin.
+    gsap.set(overlay, { position: 'relative', height: '100svh', order: 0 });
+    gsap.set(content, {
+      opacity: 1,
+      position: 'relative',
+      height: '100svh',
+      order: 1,
+    });
+    // El hint/marquee terminan pegados al fondo del bloque oscuro del claim
+    // (son hijos absolutos de #hero-pin, que aquí mide overlay+content en
+    // flujo) → color lime, correcto sobre ese fondo.
+    gsap.set([hint, marquee].filter(Boolean) as HTMLElement[], { color: limeColor });
+    // El agujero de la máscara no se anima aquí: se queda en su escala base
+    // (z=1), coincidiendo exactamente con el símbolo visible, sin efecto.
+  });
+
+  // ── Vídeo de fondo: fallback digno si /video/miriam.mp4 no existe todavía ──
+  const bgVideo = document.getElementById('hero-claim-video') as HTMLVideoElement | null;
+  const bgPoster = document.getElementById('hero-claim-poster');
+
+  if (bgVideo && !prefersReducedMotion()) {
+    bgVideo.addEventListener('loadeddata', () => {
+      bgVideo.classList.remove('hidden');
+      bgPoster?.classList.add('hidden');
+      bgVideo.play().catch(() => {
+        // Autoplay bloqueado: nos quedamos con la foto, no pasa nada.
+        bgVideo.classList.add('hidden');
+        bgPoster?.classList.remove('hidden');
+      });
+    });
+    bgVideo.addEventListener('error', () => {
+      bgVideo.classList.add('hidden');
+      bgPoster?.classList.remove('hidden');
+    });
+    bgVideo.preload = 'auto';
+    bgVideo.load();
+  }
+
+  // ── Lightbox "Escúchala": vídeo con sonido, accesible ──
+  const trigger = document.getElementById('hero-play-trigger');
+  const lightbox = document.getElementById('hero-video-lightbox');
+  const closeBtn = document.getElementById('hero-lightbox-close');
+  const lightboxVideo = document.getElementById('hero-lightbox-video') as HTMLVideoElement | null;
+  const lightboxFallback = document.getElementById('hero-lightbox-fallback');
+
+  if (trigger && lightbox && closeBtn && lightboxVideo) {
+    function getFocusable(): HTMLElement[] {
+      if (!lightbox) return [];
+      return Array.from(
+        lightbox.querySelectorAll<HTMLElement>('button, video, [href], [tabindex]:not([tabindex="-1"])')
+      );
+    }
+
+    function openLightbox() {
+      if (!lightbox || !lightboxVideo) return;
+      lightbox.hidden = false;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      stopScroll();
+      bgVideo?.pause();
+
+      lightboxVideo.currentTime = 0;
+      lightboxVideo.muted = false;
+      lightboxVideo.preload = 'auto';
+      lightboxVideo.load();
+      lightboxVideo
+        .play()
+        .catch(() => {
+          /* el usuario tendrá que darle a play manualmente desde los controles */
+        });
+
+      closeBtn?.focus();
+      document.addEventListener('keydown', onKeydown);
+    }
+
+    function closeLightbox() {
+      if (!lightbox || !lightboxVideo) return;
+      lightboxVideo.pause();
+      lightbox.hidden = true;
+      lightbox.classList.remove('flex');
+      lightbox.classList.add('hidden');
+      startScroll();
+      document.removeEventListener('keydown', onKeydown);
+
+      if (bgVideo && !bgVideo.classList.contains('hidden') && !prefersReducedMotion()) {
+        bgVideo.play().catch(() => {});
+      }
+
+      // El disparador siempre es el foco de retorno natural del diálogo
+      // (más robusto que lastFocused, que puede ser <body> si el diálogo se
+      // abrió sin un foco de teclado/ratón previo real).
+      trigger?.focus();
+    }
+
+    function onKeydown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeLightbox();
+        return;
+      }
+      // Focus trap básico: Tab/Shift+Tab entre los elementos del diálogo.
+      if (e.key === 'Tab') {
+        const focusable = getFocusable();
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    lightboxVideo.addEventListener('error', () => {
+      lightboxVideo.classList.add('hidden');
+      lightboxFallback?.classList.remove('hidden');
+      lightboxFallback?.classList.add('flex');
+    });
+
+    trigger.addEventListener('click', openLightbox);
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
+</script>

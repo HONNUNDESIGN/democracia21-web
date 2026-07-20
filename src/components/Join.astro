@@ -1,0 +1,100 @@
+---
+// Únete D21 (DESIGN.md §7): última parada del funnel, conversión por email.
+// Fondo ink, claim gigante lima con reveal por palabras al entrar, isla React
+// con el form (card lima). Blob de marca sutil detrás, opacity baja.
+import JoinForm from '@/components/JoinForm.tsx';
+
+const claim = 'No te apuntes a un partido. Apúntate a lo que viene.';
+---
+
+<section
+  id="unete"
+  class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-ink px-5 py-24 text-center md:px-8"
+  data-unete
+  data-nav-theme="dark"
+>
+  {/* Blob de marca, sutil, detrás del contenido */}
+  <div
+    class="blob-brand pointer-events-none absolute left-1/2 top-1/2 -z-0 h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 opacity-20"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative z-[1] mx-auto flex w-full max-w-4xl flex-col items-center">
+    <h2
+      class="display text-balance text-[clamp(1.9rem,6.4vw,4.4rem)] text-lime"
+      data-unete-claim
+      aria-label={claim}
+    >
+      {
+        claim.split(' ').map((word, i) => (
+          <>
+            <span class="inline-block overflow-hidden align-top" style={`--i:${i}`}>
+              <span
+                class="inline-block will-change-transform"
+                style="transform: translateY(110%);"
+                data-unete-word
+              >
+                {word}
+              </span>
+            </span>
+            {' '}
+          </>
+        ))
+      }
+    </h2>
+
+    <p class="mt-5 max-w-md text-lg text-paper/70 md:text-xl" data-unete-fade>
+      Ideas, avances, eventos y formas de participar. Sin spam. Sin propaganda.
+    </p>
+
+    <div class="mt-10 w-full md:mt-12" data-unete-fade>
+      <JoinForm client:visible />
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const section = document.querySelector<HTMLElement>('[data-unete]');
+  if (section) {
+    const words = Array.from(section.querySelectorAll<HTMLElement>('[data-unete-word]'));
+    const fadeEls = Array.from(section.querySelectorAll<HTMLElement>('[data-unete-fade]'));
+
+    gsap.set(fadeEls, { y: 20, opacity: 0 });
+
+    const mm = gsap.matchMedia();
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const st = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 70%',
+        once: true,
+        onEnter: () => {
+          gsap.to(words, {
+            y: '0%',
+            duration: 0.7,
+            ease: 'expo.out',
+            stagger: 0.06,
+          });
+          gsap.to(fadeEls, {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: 'power2.out',
+            stagger: 0.12,
+            delay: 0.15,
+          });
+        },
+      });
+
+      return () => st.kill();
+    });
+
+    // Reduced motion / fallback: contenido visible sin animación.
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set(words, { y: '0%' });
+      gsap.set(fadeEls, { y: 0, opacity: 1 });
+    });
+  }
+</script>

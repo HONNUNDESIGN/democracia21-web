@@ -1,0 +1,234 @@
+---
+// Miriam — "La que da la cara" (WP-G). Portada de revista tras el clímax del
+// manifiesto: ¿y quién hay detrás? Foto real del cliente ya presente
+// (/img/miriam-01.webp); el onerror -> frame digno se conserva como red de
+// seguridad si el fichero llegara a faltar. Ver DESIGN-V2.md §WP-G.
+// PROHIBIDO: "candidata" / dar por hecha concurrencia electoral.
+//
+// Duotono: con la foto placeholder el mix-blend-multiply a lima full-opacity
+// funcionaba porque no había detalle real que proteger. Con la foto real
+// (retrato cálido, luz suave) esa combinación aplastaba el rostro en un
+// verde-lima casi ilegible. Se suaviza: overlay lima al 35% de opacidad y se
+// retira el grayscale/contrast previo (dejaba la piel plana). El resultado
+// es un tinte lima sutil que sigue leyendo "duotono de marca" sin sacrificar
+// que se reconozca la cara.
+---
+
+<section id="miriam" class="relative overflow-hidden bg-lime px-5 py-[12vh] md:px-8 md:py-[16vh]">
+  <div class="mx-auto flex max-w-6xl flex-col gap-12 md:flex-row md:items-center md:gap-16">
+    <!-- Columna texto -->
+    <div class="relative z-10 md:w-[56%]">
+      <p class="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-ink/60" data-miriam-fade>
+        La que da la cara
+      </p>
+
+      <h2
+        class="display overflow-hidden text-[13vw] leading-[0.9] text-ink sm:text-7xl md:text-[5.2rem] lg:text-[6.2rem]"
+        data-miriam-name
+      >
+        <span class="block overflow-hidden"><span class="inline-block will-change-transform">MIRIAM</span></span>
+        <span class="block overflow-hidden"
+          ><span class="text-stroke inline-block will-change-transform">GONZÁLEZ</span></span
+        >
+        <span class="block overflow-hidden"><span class="inline-block will-change-transform">DURÁNTEZ</span></span>
+      </h2>
+
+      <p
+        class="mt-6 max-w-md text-base leading-snug text-ink/70 md:text-lg"
+        data-miriam-fade
+      >
+        Abogada especializada en comercio internacional. Casi una década en la Comisión
+        Europea.
+      </p>
+
+      <!-- Cita real destacada -->
+      <blockquote class="relative mt-10 max-w-lg md:mt-14" data-miriam-fade>
+        <span
+          class="text-stroke absolute -left-2 -top-10 select-none text-[6rem] leading-none text-lime-quote md:-top-14 md:text-[8rem]"
+          aria-hidden="true"
+        >
+          &ldquo;
+        </span>
+        <p class="display relative text-2xl text-ink sm:text-3xl md:text-4xl">
+          La brecha entre la sociedad y la clase política es enorme.
+        </p>
+        <cite class="mt-3 block text-sm not-italic text-ink/60 md:text-base">
+          — Miriam González Durántez
+        </cite>
+      </blockquote>
+
+      <a
+        href="#unete"
+        class="group mt-10 inline-flex items-center gap-2 text-base font-semibold text-ink underline decoration-2 underline-offset-4 md:mt-14 md:text-lg"
+        data-miriam-fade
+      >
+        Ella ya ha dado el paso. ¿Y tú?
+        <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+      </a>
+    </div>
+
+    <!-- Columna foto -->
+    <div class="relative z-10 md:w-[44%]" data-miriam-photo-col>
+      <div
+        class="relative aspect-3/4 w-full max-w-sm overflow-hidden rounded-3xl bg-gris md:max-w-none"
+        data-miriam-photo-frame
+      >
+        <img
+          src="/img/miriam-01.webp"
+          alt="Miriam González Durántez"
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover"
+          data-miriam-photo
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        />
+        <!-- Tratamiento duotono ink/lima, suavizado para la foto real (ver nota
+             arriba): opacity-35 en vez de full, así el mix-blend-multiply tiñe
+             sin aplastar el retrato. -->
+        <div
+          class="pointer-events-none absolute inset-0 bg-lime opacity-35 mix-blend-multiply"
+          aria-hidden="true"
+          data-miriam-duotone
+        ></div>
+
+        <!-- Frame digno mientras no exista la foto -->
+        <div
+          class="absolute inset-0 hidden flex-col items-center justify-center gap-2 bg-gris text-ink/50"
+          data-miriam-fallback
+        >
+          <span class="text-[0.65rem] font-semibold uppercase tracking-widest">
+            FOTO · biblioteca Drive
+          </span>
+        </div>
+      </div>
+
+      <!-- Sticker girado -->
+      <div
+        class="absolute -bottom-5 -left-4 -rotate-4 rounded-xl bg-ink px-4 py-3 text-lime shadow-[0_10px_30px_rgba(10,11,13,0.25)] md:-bottom-7 md:-left-8 md:px-5 md:py-4"
+        data-miriam-sticker
+      >
+        <p class="max-w-[13rem] text-sm font-semibold leading-snug md:text-base">
+          Sí, una política que escucha. Qué locura.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Color de la comilla gigante: mismo lime pero con leve contraste sobre el
+     fondo lime, vía mix con ink para que no desaparezca por igualdad exacta. */
+  .text-lime-quote {
+    color: color-mix(in oklab, var(--color-lime), var(--color-ink) 18%);
+    -webkit-text-stroke: 1.5px var(--color-ink);
+    -webkit-text-fill-color: transparent;
+  }
+
+  [data-miriam-photo-frame] {
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Tratamiento duotono: capa lime multiply suave (ver nota de arriba) sin
+     grayscale/contrast — con la foto real, desaturar del todo aplanaba la
+     piel bajo el tinte. Se retira automáticamente si la imagen no carga
+     (ver fallback JS). */
+
+  @media (max-width: 767px) {
+    [data-miriam-photo-frame] {
+      max-width: 22rem;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const section = document.getElementById('miriam');
+  if (section) {
+    const nameWords = section.querySelectorAll<HTMLElement>('[data-miriam-name] > span > span');
+    const fadeEls = section.querySelectorAll<HTMLElement>('[data-miriam-fade]');
+    const photoFrame = section.querySelector<HTMLElement>('[data-miriam-photo-frame]');
+    const sticker = section.querySelector<HTMLElement>('[data-miriam-sticker]');
+    const photoImg = section.querySelector<HTMLImageElement>('[data-miriam-photo]');
+
+    // Si la imagen falla, retirar el duotono (el frame gris ya lo indica).
+    photoImg?.addEventListener('error', () => {
+      const duotone = section.querySelector<HTMLElement>('[data-miriam-duotone]');
+      if (duotone) duotone.style.display = 'none';
+    });
+
+    const mm = gsap.matchMedia();
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.set(nameWords, { yPercent: 110 });
+      gsap.set(fadeEls, { y: 20, opacity: 0 });
+      if (photoFrame) {
+        gsap.set(photoFrame, { clipPath: 'inset(0 0 100% 0)' });
+      }
+      if (sticker) {
+        gsap.set(sticker, { opacity: 0, scale: 0.85, rotate: -4 });
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true,
+        },
+      });
+
+      tl.to(nameWords, {
+        yPercent: 0,
+        duration: 0.9,
+        ease: 'expo.out',
+        stagger: 0.07,
+      })
+        .to(
+          photoFrame,
+          {
+            clipPath: 'inset(0 0 0% 0)',
+            duration: 1,
+            ease: 'expo.out',
+          },
+          '<0.1',
+        )
+        .to(
+          fadeEls,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: 'power2.out',
+            stagger: 0.08,
+          },
+          '<0.2',
+        )
+        .to(
+          sticker,
+          {
+            opacity: 1,
+            scale: 1,
+            rotate: -4,
+            duration: 0.6,
+            ease: 'back.out(1.6)',
+          },
+          '<0.1',
+        );
+
+      return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      };
+    });
+
+    // Salida digna reduced-motion: todo visible sin transform pendiente.
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set(nameWords, { clearProps: 'all' });
+      gsap.set(fadeEls, { clearProps: 'all' });
+      if (photoFrame) gsap.set(photoFrame, { clearProps: 'all' });
+      if (sticker) gsap.set(sticker, { opacity: 1, scale: 1, rotate: -4 });
+    });
+
+    ScrollTrigger.refresh();
+  }
+</script>

@@ -1,0 +1,92 @@
+---
+// Nav mínima: aparece cuando el logo del hero se disuelve (lo controla Hero
+// via body[data-past-hero]). Logo pequeño + CTA. Sin menú burocrático.
+//
+// Fix 4: además de subir el padding superior (pt-6, antes pt-4 pegaba el
+// contenido al borde), la nav ahora cambia de tema según el fondo de la
+// sección que ocupa la franja superior del viewport. Las secciones oscuras
+// (bg-ink) se marcan con data-nav-theme="dark" en su propio componente; un
+// IntersectionObserver aquí alterna la clase `.nav-theme-dark` en el header,
+// que a su vez cruza el logo negro↔blanco y invierte los colores del CTA.
+import logoBlack from '@/assets/brand/logo-black.svg?raw';
+import logoWhite from '@/assets/brand/logo-white.svg?raw';
+---
+
+<header
+  id="site-nav"
+  class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-8 pb-4 pt-6 opacity-0 -translate-y-4 transition-all duration-500 pointer-events-none"
+  style="transition-timing-function: var(--ease-out-expo)"
+>
+  <a href="#top" class="relative block w-36 md:w-44" aria-label="democracia 21 — inicio">
+    <span class="nav-logo nav-logo--black block" set:html={logoBlack} />
+    <span class="nav-logo nav-logo--white absolute inset-0 block opacity-0" set:html={logoWhite} />
+  </a>
+  <a
+    href="#unete"
+    class="nav-cta rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-lime transition-colors duration-300 hover:scale-105 active:scale-95 [transition-property:background-color,color,transform]"
+    data-cursor
+  >
+    Únete
+  </a>
+</header>
+
+<style>
+  body[data-past-hero='true'] #site-nav {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #site-nav :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .nav-logo {
+    transition: opacity 400ms var(--ease-out-expo);
+  }
+  #site-nav.nav-theme-dark .nav-logo--black {
+    opacity: 0;
+  }
+  #site-nav.nav-theme-dark .nav-logo--white {
+    opacity: 1;
+  }
+  #site-nav.nav-theme-dark .nav-cta {
+    background-color: var(--color-lime);
+    color: var(--color-ink);
+  }
+</style>
+
+<script>
+  import { scrollTo } from '@/lib/motion';
+
+  document.querySelectorAll<HTMLAnchorElement>('#site-nav a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollTo(a.getAttribute('href')!);
+    });
+  });
+
+  // Tema de la nav según el fondo bajo la franja superior del viewport.
+  const nav = document.getElementById('site-nav');
+  const darkSections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-theme="dark"]'));
+
+  if (nav && darkSections.length) {
+    const activeDark = new Set<Element>();
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) activeDark.add(entry.target);
+          else activeDark.delete(entry.target);
+        }
+        nav.classList.toggle('nav-theme-dark', activeDark.size > 0);
+      },
+      // Franja fina cerca del borde superior del viewport (donde vive la
+      // nav): solo cuenta como "activa" una sección oscura si su cuerpo
+      // ocupa esa franja, no todo el viewport.
+      { rootMargin: '-72px 0px -85% 0px', threshold: 0 }
+    );
+
+    darkSections.forEach((el) => io.observe(el));
+  }
+</script>

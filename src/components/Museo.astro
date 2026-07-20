@@ -1,0 +1,434 @@
+---
+// "03 Museo": declaración de marca a pantalla completa, fondo lima.
+// Fuente: Figma node 47:3048 (03 Museo).
+// Nota de fidelidad: el statement iba en blanco puro sobre lima en Figma
+// (contraste ~1.3:1, no pasa AA). Se pinta en ink para cumplir la regla dura
+// del proyecto ("texto legible siempre, contraste AA sobre cada fondo").
+//
+// Recomposición (petición cliente, ver brief): el centro pasa a ser
+// (a) el logotipo (SVG, pequeño) seguido de (b) el byline "no mira a la
+// derecha ni a la izquierda, mira hacia delante" hecho INMENSO con el
+// componente REAL de React Bits Pro "3D Text Reveal"
+// (@reactbits-starter/3d-text-reveal — instalado en
+// src/components/react-bits/3d-text-reveal.tsx, licencia del cliente).
+//
+// Reconstrucción de esta ronda (spec exacta del cliente): se monta la isla
+// React de verdad (antes esta sección "porteaba" la técnica a mano en
+// vanilla GSAP para evitar el doble pin — eso queda descartado, el cliente
+// pide EL COMPONENTE). El conflicto de doble ScrollTrigger+pin se resuelve
+// con la prop `externalControl` del componente (ver 3d-text-reveal.tsx):
+// en ese modo el componente NO crea su propio pin — solo coloca los items
+// en el círculo (seno/coseno, sus props radiusOffset/gap) y dispara un
+// evento `tdr:ready` con sus nodos internos. Este script escucha ese
+// evento y anima esos MISMOS nodos (rotateX start→end) como un tramo más
+// del ÚNICO timeline scrubbed que ya pinea la sección entera y secuencia
+// las cards. Arquitectura (a) del brief: un único pin maestro, componente
+// con progreso externo — más robusta que prolongar el pin interno del
+// componente, porque solo hay un ScrollTrigger con pin en toda la sección.
+//
+// Cards-sello: cada card entra con scale 1.4→1 + rotación leve fija por
+// card (aprox. aleatoria, ±3°) + sombra, apilándose ligeramente descolocada
+// (mismo grid-cell vía col/row-start). Arrancan DESPUÉS de que el reveal 3D
+// del byline termine y se desvanezca (ver timeline en el script).
+//
+// Efectos también en móvil: el cliente pidió los efectos visibles también
+// en móvil — solo prefers-reduced-motion se queda sin animación. Se
+// comparte el MISMO marcado en todos los anchos; en móvil no se pinea
+// (evita pin largo en viewport pequeño) pero sí se reproduce la MISMA
+// secuencia (logo+foto → reveal 3D → cards-sello) automáticamente al
+// entrar en viewport, vía un timeline no-scrubbed (ver matchMedia
+// "(max-width:767px)" en el script). El bloque `data-museo-static` de más
+// abajo es el único fallback sin animación, y solo se muestra con
+// prefers-reduced-motion.
+import logoBlack from '@/assets/brand/logo-black.svg?raw';
+import ThreeDTextReveal from '@/components/react-bits/3d-text-reveal';
+
+// Saltos de línea A MANO del cliente para el byline — PROHIBIDO tocarlos,
+// son literalmente los `items` del 3D Text Reveal (cada fragmento es un
+// item del carrusel circular). Ni una coma distinta a las suyas.
+const bylineItems = ['no mira a la', 'derecha ni a', 'la izquierda,', 'mira hacia', 'delante'];
+const bylineFull = bylineItems.join(' ');
+
+// Calibración — QA con getBoundingClientRect() REAL sobre la isla React
+// montada (client:load), forzando el pin/timeline maestro con scroll real
+// (no transform manual) y midiendo el rect PROYECTADO (post-perspective)
+// de cada línea en su instante legible exacto (rotateX del contenedor ==
+// ángulo propio del item, momento en que queda de frente al centro).
+//
+// Por qué el techo anterior (6rem) cortaba por los LADOS: el wrapper de
+// ThreeDTextReveal es "overflow-hidden" y su caja NO crece con el
+// viewport — está fijada a max-w-6xl (1152px), mx-auto, para TODOS los
+// anchos ≥1280 (el propio componente, no tocado aquí). El recorte lateral
+// no es un problema de vw sino de que la línea proyectada supera esos
+// 1152px de caja. La proyección depende de la ALTURA del viewport, no del
+// ancho: en el instante legible cada item queda exactamente a
+// z = innerHeight·radiusOffset del centro (radiusOffset=0.4 y
+// perspective=1000 son fijos del cliente, no se tocan), lo que da un
+// factor de magnificación perspective/(perspective−z). A 1280×800 ese
+// factor es ~1.47×; a 2560×1440 (el peor caso de los 4 anchos pedidos)
+// sube a ~2.36×. Medido con getBoundingClientRect en el rect PROYECTADO
+// real de "la izquierda," (la línea más larga) en su instante legible:
+// a 6rem (96px) esa línea proyecta 1628px de ancho en 2560×1440 —
+// desborda la caja de 1152px por 476px, literalmente cortada por ambos
+// lados contra el overflow-hidden del wrapper. 3.75rem (60px) es el
+// mayor techo que cabe con margen en los 4 anchos pedidos: proyecta
+// 814px en 1280×800, 951px en 1440×900 (con line-height 1.5 default),
+// 1017px en 2560×1440 (margen 135px, 11.7%) — ninguno supera 1152px.
+// Por debajo de 800px de ancho el techo no llega a aplicar (7.5vw ya
+// vale menos), así que el suelo mobile (1.5rem, calibrado en su día a
+// 390/320 contra el mismo overflow-hidden) queda intacto.
+//
+// Por qué la línea LEGIBLE salía tapada por ARRIBA por la máscara: no es
+// un descentrado del contenedor (el centrado vertical es matemáticamente
+// exacto — cada item pasa por el centro EXACTO del wrapper en su propio
+// instante legible, verificado con el rect proyectado). El problema es
+// que la ALTURA proyectada de la línea (con el mismo factor de
+// magnificación de arriba) podía superar la banda opaca de la máscara
+// (20%–80% del wrapper). A 6rem con el line-height por defecto del
+// navegador (1.5× el fontSize, sin leading explícito) la caja de texto
+// entraba en la zona de fade superior. Fix de raíz: `leading-none` en la
+// línea (line-height 1× en vez de 1.5×, más correcto tipográficamente
+// para un display tan grande) reduce la altura proyectada lo suficiente
+// para caber en la banda 20–80% en los 4 anchos; se ensancha además la
+// banda de la máscara (ver 3d-text-reveal.tsx) como margen de seguridad
+// adicional, no como parche principal.
+//
+// gap: ORDEN DIRECTA DEL CLIENTE — bajarlo desde 15 para que las líneas se
+// vean juntitas durante la rotación, aunque se rocen. Fijado en 12. NO
+// SUBIR este valor por ninguna razón técnica: si las líneas se solapan
+// durante la rotación es el look que el cliente pide para su playground y
+// lo aprueba él. (Una ronda anterior lo subió a 26 desobedeciendo esta
+// orden directa — no se repite ese error.)
+const REVEAL_FONT_SIZE = 'clamp(1.5rem, 7.5vw, 3.75rem)';
+const REVEAL_GAP = 12;
+
+// Cada frase lleva una palabra/tramo clave que se destaca en lime cursiva
+// para romper el bloque plano de texto (composición editorial).
+const frases = [
+  { text: 'Esto no va de ideologías. Va de integridad.', highlight: 'integridad' },
+  {
+    text: 'Hay quienes dicen que no se puede. Nosotros decimos: no se puede seguir así.',
+    highlight: 'no se puede seguir así',
+  },
+  { text: 'Venimos a cambiar la forma de hacer política.', highlight: 'cambiar' },
+];
+
+// Divide una frase en [antes, destacado, después] para pintar el tramo
+// `highlight` en lime cursiva sin tocar el resto del texto.
+function splitHighlight(text: string, highlight: string): [string, string, string] {
+  const i = text.indexOf(highlight);
+  if (i === -1) return [text, '', ''];
+  return [text.slice(0, i), highlight, text.slice(i + highlight.length)];
+}
+
+// Rotación + offset de apilado por card: valores fijos (deterministas en
+// build) que imitan un desorden natural de sello de goma.
+const cardMeta = [
+  { rotate: -3, x: -16, y: -8 },
+  { rotate: 2, x: 14, y: 6 },
+  { rotate: -2, x: -4, y: 18 },
+];
+---
+
+<section id="museo" class="relative overflow-hidden bg-lime" data-museo>
+  {/* ── Motion (todos los anchos salvo reduced-motion): pin en desktop,
+       sin pin (pero sí animado) en móvil ── */}
+  <div class="relative h-[100vh] md:h-[360vh]" data-museo-track>
+    <div
+      class="sticky top-0 flex h-[100lvh] w-full flex-col items-center overflow-hidden px-5 md:px-8"
+      data-museo-pin
+    >
+      <div class="relative z-30 flex flex-col items-center pt-12 opacity-0 md:pt-" data-museo-logo>
+        <div class="text-ink" style="width: clamp(3.25rem, 11vw, 6.5rem);" set:html={logoBlack} />
+      </div>
+
+      <div class="relative z-20 grid w-full flex-1 place-items-center py-4" data-museo-stage>
+        {/* (b) byline INMENSO — componente REAL 3D Text Reveal, en modo de
+            control externo (su rotateX lo anima el timeline maestro de
+            abajo, no su propio ScrollTrigger). */}
+        <div class="col-start-1 row-start-1 flex h-full w-full items-center justify-center" aria-hidden="false">
+          <ThreeDTextReveal
+            client:load
+            items={bylineItems}
+            className="mx-auto h-[16rem] max-w-12xl md:h-[30rem]"
+            textClassName="text-ink leading-none"
+            perspective={700}
+            radiusOffset={0.3}
+            startRotation={-80}
+            endRotation={220}
+            scrubSmoothing={1}
+            fontWeight={900}
+            fontSize={100}
+            gap={16}
+            scrollDistance="100vh"
+            externalControl
+          />
+        </div>
+       <span class="sr-only">{bylineFull}</span>
+
+        {/* (c) las 3 cards se estampan tras el reveal */}
+        <div class="col-start-1 row-start-1 grid w-full place-items-center" data-museo-cards-wrap>
+          {
+            frases.map((frase, i) => {
+              const [before, marked, after] = splitHighlight(frase.text, frase.highlight);
+              return (
+                <div
+                  class="col-start-1 row-start-1 w-full max-w-3xl rounded-2xl border-2 border-ink bg-paper px-8 py-10 text-center opacity-0 shadow-[0_20px_45px_rgba(10,11,13,0.35)] md:px-14 md:py-14"
+                  data-museo-card={i}
+                  data-rotate={cardMeta[i].rotate}
+                  data-x={cardMeta[i].x}
+                  data-y={cardMeta[i].y}
+                >
+                  <p class="display text-ink" style="font-size: clamp(1.8rem, 4.2vw, 3.2rem); font-weight: 800;">
+                    {before}
+                    {marked && <em class="italic text-lime">{marked}</em>}
+                    {after}
+                  </p>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      {/* Foto de la pareja — spec cliente: entera (sin recortes, aspect
+          ratio natural del PNG, object-contain), abajo-izquierda, tamaño
+          moderado (~20-25% del ancho en desktop), FIJA todo el pin (vive
+          dentro de [data-museo-pin], que es sticky durante todo el track).
+          PENDIENTE DE ASSET: el fichero de la foto real de la pareja no
+          está en el repo todavía (pedir al cliente) — el onerror la oculta
+          entera con gracia mientras tanto, sin romper layout. */}
+      <div
+        class="pointer-events-none absolute bottom-0 left-3 z-0 w-[26vw] max-w-[19rem] min-w-[9.5rem] opacity-0 sm:block md:left-6 md:w-[22vw]"
+        aria-hidden="true"
+        data-museo-photo
+      >
+        <img
+          src="/img/museo-pareja.webp"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          class="block h-auto w-full object-contain"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* ── Reduced-motion: única versión sin animación, todo estático ── */}
+  <div class="relative hidden px-5 pb-16 pt-16" data-museo-static>
+    <div class="mx-auto flex max-w-md flex-col items-center gap-4 text-center">
+      <div class="w-48 text-ink" set:html={logoBlack} />
+      <p class="uppercase leading-[1.12] text-ink" style="font-size: clamp(1.05rem, 2.6vw, 1.6rem); font-weight: 900; letter-spacing: -0.02em;">
+        no mira a la derecha ni a la izquierda,<br />mira hacia delante
+      </p>
+    </div>
+
+    <div class="relative mx-auto mt-10 flex max-w-md flex-col items-center">
+      {
+        frases.map((frase, i) => {
+          const [before, marked, after] = splitHighlight(frase.text, frase.highlight);
+          return (
+            <div
+              class="w-full rounded-2xl border-2 border-ink bg-paper px-5 py-7 text-center shadow-[0_14px_30px_rgba(10,11,13,0.3)]"
+              style={`transform: rotate(${cardMeta[i].rotate}deg) translateX(${cardMeta[i].x / 2}px); margin-top: ${i === 0 ? 0 : '-0.75rem'}; position: relative; z-index: ${i + 1};`}
+            >
+              <p class="display text-ink" style="font-size: clamp(1.3rem, 6vw, 1.8rem);">
+                {before}
+                {marked && <em class="italic text-lime">{marked}</em>}
+                {after}
+              </p>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div class="pointer-events-none absolute bottom-0 left-0 z-0 h-64 w-56" aria-hidden="true">
+      <img
+        src="/img/museo-pareja.webp"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        class="h-full w-full object-contain object-bottom"
+        onerror="this.parentElement.style.display='none'"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    [data-museo-track] {
+      display: none !important;
+    }
+    [data-museo-static] {
+      display: block !important;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const section = document.querySelector<HTMLElement>('[data-museo]');
+  if (section) {
+    const track = section.querySelector<HTMLElement>('[data-museo-track]');
+    const pinEl = section.querySelector<HTMLElement>('[data-museo-pin]');
+    const logo = section.querySelector<HTMLElement>('[data-museo-logo]');
+    const photo = section.querySelector<HTMLElement>('[data-museo-photo]');
+    const cards = Array.from(section.querySelectorAll<HTMLElement>('[data-museo-card]'));
+
+    // Props del componente 3D Text Reveal — deben coincidir EXACTAMENTE
+    // con las que se le pasan más arriba (startRotation/endRotation), son
+    // las que anima este timeline externo en vez de su ScrollTrigger propio.
+    const START_ROTATION = -80;
+    const END_ROTATION = 220;
+    const SCRUB = 1;
+
+    // Reparto del track (360vh total, ~200vh son del reveal per spec del
+    // cliente): reveal 3D → pausa de lectura → fade-out → cards-sello.
+    const TRACK_VH = 360;
+    const REVEAL_FRAC = 200 / TRACK_VH; // ~0.556
+    const PAUSE_FRAC = 16 / TRACK_VH; // ~0.044 — lectura de "delante"
+    const FADE_FRAC = 24 / TRACK_VH; // ~0.067 — fade-out del byline
+    const CARDS_FRAC = 1 - REVEAL_FRAC - PAUSE_FRAC - FADE_FRAC; // ~0.333
+
+    if (track && pinEl && logo && photo && cards.length) {
+      const unit = 1 / cards.length;
+      const stampCards = (tl: gsap.core.Timeline, offset: number, span: number) => {
+        cards.forEach((card, i) => {
+          const rotate = Number(card.dataset.rotate) || 0;
+          const x = Number(card.dataset.x) || 0;
+          const y = Number(card.dataset.y) || 0;
+          tl.to(
+            card,
+            { opacity: 1, scale: 1, rotate, x, y, duration: unit * span * 0.6, ease: 'back.out(1.4)' },
+            offset + i * unit * span + unit * span * 0.1
+          ).to({}, { duration: unit * span * 0.3 });
+        });
+      };
+
+      // El componente 3D Text Reveal (isla React, client:load) avisa vía
+      // `tdr:ready` cuando sus nodos internos están colocados y listos
+      // para ser animados desde fuera (modo externalControl). Se escucha
+      // aquí en vez de asumir un orden de montaje entre el script de esta
+      // sección y la hidratación de la isla React.
+      section.addEventListener(
+        'tdr:ready',
+        (evt) => {
+          const detail = (evt as CustomEvent<{ container: HTMLElement; wrapper: HTMLElement }>).detail;
+          const revealContainer = detail.container; // rota en X (start→end)
+          const revealRoot = detail.wrapper; // fade-out tras la lectura
+
+          // ── Desktop: pin 360vh + timeline scrubbed: reveal 3D → cards ──
+          gsap.matchMedia().add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+            gsap.set(cards, { opacity: 0, scale: 1.4, rotate: 0, x: 0, y: 0 });
+            gsap.set(logo, { opacity: 0, y: 16 });
+            gsap.set(photo, { opacity: 0, y: 16 });
+            gsap.set(revealContainer, { rotateX: START_ROTATION });
+            gsap.set(revealRoot, { opacity: 1, scale: 1, y: 0 });
+
+            // Logo y foto aparecen una vez y se quedan fijos todo el pin.
+            ScrollTrigger.create({
+              trigger: track,
+              start: 'top 70%',
+              once: true,
+              onEnter: () => {
+                gsap.to([logo, photo], { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.06 });
+              },
+            });
+
+            // Timeline scrubbed del pin maestro (único ScrollTrigger con
+            // pin de toda la sección): reveal 3D del byline → fade-out →
+            // cards. La foto vive dentro de pinEl (sticky), así que queda
+            // fija sin necesidad de tocarla en este timeline.
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: track,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: SCRUB,
+                pin: pinEl,
+                invalidateOnRefresh: true,
+              },
+            });
+
+            tl.to(revealContainer, { rotateX: END_ROTATION, ease: 'none', duration: REVEAL_FRAC }, 0)
+              .to({}, { duration: PAUSE_FRAC })
+              .to(
+                revealRoot,
+                { opacity: 0, scale: 0.88, y: -14, duration: FADE_FRAC, ease: 'power1.in' },
+                REVEAL_FRAC + PAUSE_FRAC
+              );
+
+            stampCards(tl, REVEAL_FRAC + PAUSE_FRAC + FADE_FRAC, CARDS_FRAC);
+
+            return () => {
+              gsap.set(cards, { clearProps: 'all' });
+              gsap.set([logo, photo], { clearProps: 'all' });
+              // OJO: revealRoot/revealContainer son nodos de la isla React
+              // (ThreeDTextReveal) y llevan estilos inline propios de React
+              // que GSAP nunca puso ahí (perspective, mask-image,
+              // transform-style: preserve-3d). `clearProps: 'all'` borra
+              // TODO el atributo style del elemento, no solo lo que GSAP
+              // tocó — se llevaría por delante esos estilos de React cada
+              // vez que el matchMedia cruza el breakpoint (p.ej. al
+              // redimensionar la ventana), dejando el reveal plano y sin
+              // máscara. Se limpian solo las props que GSAP puso de verdad.
+              gsap.set(revealRoot, { clearProps: 'opacity,scale,x,y' });
+              gsap.set(revealContainer, { clearProps: 'rotateX' });
+            };
+          });
+
+          // ── Móvil: misma secuencia, sin pin — se reproduce
+          // automáticamente (no scrubbed) al entrar la sección en el
+          // viewport. Efectos visibles en móvil, solo reduced-motion
+          // queda sin animar.
+          gsap.matchMedia().add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
+            gsap.set(cards, { opacity: 0, scale: 1.4, rotate: 0, x: 0, y: 0 });
+            gsap.set(logo, { opacity: 0, y: 16 });
+            gsap.set(photo, { opacity: 0, y: 16 });
+            gsap.set(revealContainer, { rotateX: START_ROTATION });
+            gsap.set(revealRoot, { opacity: 1, scale: 1, y: 0 });
+
+            const st = ScrollTrigger.create({
+              trigger: track,
+              start: 'top 65%',
+              once: true,
+              onEnter: () => {
+                const tl = gsap.timeline();
+                tl.to([logo, photo], { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.06 })
+                  .to(revealContainer, { rotateX: END_ROTATION, ease: 'power1.inOut', duration: 1.5 }, '<+=0.1')
+                  .to(revealRoot, { opacity: 0, scale: 0.88, y: -14, duration: 0.35, ease: 'power1.in' }, '+=0.3');
+
+                cards.forEach((card, i) => {
+                  const rotate = Number(card.dataset.rotate) || 0;
+                  const x = Number(card.dataset.x) || 0;
+                  const y = Number(card.dataset.y) || 0;
+                  tl.to(card, { opacity: 1, scale: 1, rotate, x, y, duration: 0.5, ease: 'back.out(1.4)' }, i === 0 ? '-=0.1' : '-=0.25');
+                });
+              },
+            });
+
+            return () => {
+              st.kill();
+              gsap.set(cards, { clearProps: 'all' });
+              gsap.set([logo, photo], { clearProps: 'all' });
+              // Mismo cuidado que en el bloque desktop: no usar 'all' aquí,
+              // se llevaría por delante perspective/mask-image/transform-style
+              // que React puso en estos dos nodos.
+              gsap.set(revealRoot, { clearProps: 'opacity,scale,x,y' });
+              gsap.set(revealContainer, { clearProps: 'rotateX' });
+            };
+          });
+
+          ScrollTrigger.refresh();
+        },
+        { once: true }
+      );
+    }
+
+    ScrollTrigger.refresh();
+  }
+</script>

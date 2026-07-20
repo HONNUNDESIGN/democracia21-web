@@ -1,0 +1,46 @@
+---
+// Quiz "¿Cómo de siglo 21 eres?": sustituye a la papeleta-minijuego (DESIGN-V2 WP-D).
+// Mantiene id="papeleta" y el nombre de fichero: index.astro y Footer.astro enlazan aquí.
+import Papeleta from '@/components/Papeleta.tsx';
+---
+
+<section id="papeleta" class="relative bg-gris px-5 py-24 text-ink md:px-8 md:py-32" data-papeleta>
+  <div class="mx-auto max-w-3xl text-center">
+    <p class="text-sm font-bold uppercase tracking-[0.2em] text-ink/40" data-papeleta-fade>
+      Test oficial (no oficial)
+    </p>
+    <h2 class="display mt-4 text-5xl md:text-7xl" data-papeleta-title>
+      ¿Cómo de siglo 21 eres?
+    </h2>
+  </div>
+
+  <div class="mt-14 md:mt-16" data-papeleta-fade>
+    <Papeleta client:visible />
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const section = document.querySelector<HTMLElement>('[data-papeleta]');
+  if (section) {
+    const fadeEls = section.querySelectorAll<HTMLElement>('[data-papeleta-fade]');
+    const titleEl = section.querySelector<HTMLElement>('[data-papeleta-title]');
+
+    gsap.set([titleEl, ...Array.from(fadeEls)], { y: 24, opacity: 0 });
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top 75%',
+      once: true,
+      onEnter: () => {
+        gsap.to([titleEl, ...Array.from(fadeEls)], {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out',
+          stagger: 0.12,
+        });
+      },
+    });
+  }
+</script>

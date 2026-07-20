@@ -1,0 +1,94 @@
+---
+// Bento informativo D21 (WP-E, DESIGN-V2.md): 4 piezas en formato bento, isla
+// MagicBento (React Bits local, adaptada para aceptar cards por props). Fondo
+// ink, glow lima.
+// Change-order v4: de 6 cards a 4 (LIMPIEZA / MODERNIZACIÓN / TU VIDA / EL
+// MÉTODO), sin hrefs — el grid asimétrico de MagicBento.tsx se reequilibró
+// para 4 piezas (ver los media queries de .card-responsive ahí).
+import MagicBento from '@/components/MagicBento.tsx';
+
+const bentoCards = [
+  {
+    label: 'Eje 01',
+    title: 'LIMPIEZA',
+    description:
+      'Instituciones al servicio del ciudadano. Menos privilegios, menos opacidad y más rendición de cuentas. La política debe volver a ganarse la confianza.',
+  },
+  {
+    label: 'Eje 02',
+    title: 'MODERNIZACIÓN',
+    description:
+      'Un Estado preparado para el siglo XXI. Administraciones ágiles, servicios públicos eficientes y decisiones basadas en resultados, no en burocracia.',
+  },
+  {
+    label: 'Eje 03',
+    title: 'TU VIDA',
+    description:
+      'Que la política vuelva a ser útil. Educación, vivienda, empleo y oportunidades. La política importa cuando mejora la vida cotidiana.',
+  },
+  {
+    label: 'Eje 04',
+    title: 'EL MÉTODO',
+    description: 'Ni trincheras. Ni dogmas. Escuchar, medir, corregir y avanzar. Resolver problemas antes que ganar titulares.',
+  },
+];
+---
+
+<section id="datos" class="relative bg-ink px-5 py-24 text-paper md:px-8 md:py-32" data-bento data-nav-theme="dark">
+  <div class="mx-auto mb-14 max-w-4xl md:mb-20">
+    <h2 class="display text-5xl text-paper md:text-7xl" data-bento-title>
+      En el centro de la democracia estás tú, no ellos.
+    </h2>
+    <p class="mt-4 max-w-lg text-lg text-paper/60 md:text-xl" data-bento-fade>
+      Lo que cabe en una pantalla. Sin letra pequeña.
+    </p>
+  </div>
+
+  <div class="flex justify-center" data-bento-fade>
+    <MagicBento
+      client:visible
+      cards={bentoCards}
+      glowColor="232, 230, 117"
+      enableBorderGlow
+      enableSpotlight
+      enableStars={false}
+      enableTilt
+      enableMagnetism={false}
+      clickEffect
+      textAutoHide={false}
+    />
+  </div>
+</section>
+
+<style>
+  /* MagicBento trae su propio <a> sin subrayado ni color heredado raro */
+  #datos :global(a.card) {
+    text-decoration: none;
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const section = document.querySelector<HTMLElement>('[data-bento]');
+  if (section) {
+    const fadeEls = section.querySelectorAll<HTMLElement>('[data-bento-fade]');
+    const titleEl = section.querySelector<HTMLElement>('[data-bento-title]');
+
+    gsap.set([titleEl, ...Array.from(fadeEls)], { y: 24, opacity: 0 });
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top 75%',
+      once: true,
+      onEnter: () => {
+        gsap.to([titleEl, ...Array.from(fadeEls)], {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out',
+          stagger: 0.12,
+        });
+      },
+    });
+  }
+</script>

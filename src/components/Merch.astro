@@ -1,0 +1,307 @@
+---
+// Colección D21: grid asimétrico estilo Outfit (hellohello.is) — collage con
+// hover clip-path wipe + brightness blow-out + badge "PRONTO".
+// Fondo yellow-merch: única sección del proyecto que usa ese token.
+//
+// Fotos reales del cliente (ya no placeholders Unsplash): 7 productos exactos
+// subidos, cada uno con su slogan/gráfica YA impresa y legible en la propia
+// foto de producto. Por eso `overlay` está a false en los 7 — el layer CSS
+// `.merch-slogan` (texto superpuesto) se reserva para si algún día entra una
+// prenda lisa sin estampado visible; duplicar el texto encima de una foto que
+// ya lo lleva impreso se veía redundante y peor. `slogan` se conserva como
+// dato (refleja el texto real, literal, de la prenda) para alt/nombre.
+//
+// Recomposición 8→7 productos + 1 tile tipográfico: se retira el tile
+// "rack" (crop de detalle del mismo producto dēmos+kratos, redundante ahora
+// que ese producto ya tiene su propio tile con foto completa). El resto de
+// slots se reequilibra para que el grid quede compuesto en 3 filas limpias
+// (7+4+5 / 6+3+3 / 9+5 en desktop de 16 cols) en vez de dejar un hueco suelto
+// donde vivía "rack".
+//
+// Hover → Chroma Card (React Bits): se retira el hover clip-path wipe +
+// brightness + badge "PRONTO" descrito arriba. Cada tile monta ahora la
+// isla `MerchTile` (WebGL, chromatic aberration + parallax de puntero),
+// ver src/components/MerchTile.tsx. Grid/col-spans/ratios/labels se quedan
+// en este fichero sin tocar — la isla solo sustituye el frame interior.
+import MerchTile from '@/components/MerchTile.tsx';
+
+type Tile = {
+  id: string;
+  img: string;
+  alt: string;
+  slogan: string;
+  overlay: boolean;
+  sloganClass: string;
+  nombre: string;
+  ratio: string;
+  /** Ratio del box en formato "w/h" — debe coincidir con `ratio` (clase aspect-[…]). */
+  boxRatio: string;
+  /** Ratio real (ancho/alto) del fichero de foto, medido en disco — para que
+      el crop "cover" del shader Chroma Card no deforme la imagen. */
+  imageAspectRatio: number;
+  col: string;
+  mt: string;
+};
+const tiles: Tile[] = [
+  {
+    id: 'tee-demoskratos',
+    img: '/img/tee-demoskratos.webp',
+    alt: 'Modelo con camiseta amarilla democracia21 con el mensaje dēmos + kratos, etiquetada "pueblo" y "poder", en una azotea con la Sagrada Família al fondo',
+    slogan: 'dēmos + kratos (pueblo · poder)',
+    overlay: false,
+    sloganClass: 'text-2xl sm:text-3xl md:text-4xl',
+    nombre: 'Camiseta — dēmos + kratos',
+    ratio: 'aspect-[3/4]',
+    boxRatio: '3/4',
+    imageAspectRatio: 0.8,
+    col: 'col-span-4 col-start-1 md:col-span-7 md:col-start-1',
+    mt: '',
+  },
+  {
+    id: 'sudadera-siglo21',
+    img: '/img/sudadera-siglo21.webp',
+    alt: 'Modelo con sudadera amarilla democracia21 con el mensaje "siglo 21" en el pecho, sentado con su perro en una terraza',
+    slogan: 'siglo 21',
+    overlay: false,
+    sloganClass: 'text-xl sm:text-2xl md:text-3xl',
+    nombre: 'Sudadera — Siglo 21',
+    ratio: 'aspect-[3/4]',
+    boxRatio: '3/4',
+    imageAspectRatio: 0.8,
+    col: 'col-span-4 col-start-5 md:col-span-4 md:col-start-9',
+    mt: 'mt-8 md:mt-16',
+  },
+  {
+    id: 'gorra-21',
+    img: '/img/gorra-21.webp',
+    alt: 'Díptico de dos gorras amarillas democracia21 bordadas: "MUY 21" y "Versión 21"',
+    slogan: 'MUY 21 / Versión 21',
+    overlay: false,
+    sloganClass: 'text-base sm:text-lg',
+    nombre: 'Gorra — Muy 21 / Versión 21',
+    ratio: 'aspect-[4/3]',
+    boxRatio: '4/3',
+    imageAspectRatio: 1.25,
+    col: 'col-span-4 col-start-1 md:col-span-4 md:col-start-13',
+    mt: 'mt-4 md:mt-6',
+  },
+  {
+    id: 'hoodie-noestarde',
+    img: '/img/hoodie-noestarde.webp',
+    alt: 'Modelo corriendo con sudadera con capucha amarilla democracia21 con el mensaje "No es tarde."',
+    slogan: 'No es tarde.',
+    overlay: false,
+    sloganClass: 'text-xl sm:text-2xl md:text-4xl',
+    nombre: 'Sudadera capucha — No es tarde',
+    ratio: 'aspect-[3/4]',
+    boxRatio: '3/4',
+    imageAspectRatio: 0.8,
+    col: 'col-span-4 col-start-5 md:col-span-6 md:col-start-2',
+    mt: 'mt-6 md:mt-24',
+  },
+  {
+    id: 'chapa-escuchar',
+    img: '/img/chapa-escuchar.webp',
+    alt: 'Chapa amarilla democracia21 con el mensaje "Escuchar antes de hablar"',
+    slogan: 'Escuchar antes de hablar',
+    overlay: false,
+    sloganClass: 'text-sm sm:text-base md:text-lg',
+    nombre: 'Chapa — Escuchar antes de hablar',
+    ratio: 'aspect-[3/4]',
+    boxRatio: '3/4',
+    imageAspectRatio: 0.57,
+    col: 'col-span-4 col-start-1 md:col-span-3 md:col-start-8',
+    mt: 'mt-10 md:mt-4',
+  },
+  {
+    id: 'tote-transparencia',
+    img: '/img/tote-transparencia.webp',
+    alt: 'Tote bag transparente amarillo democracia21 con el mensaje "Transparencia y sin letra pequeña"',
+    slogan: 'Transparencia y sin letra pequeña',
+    overlay: false,
+    sloganClass: 'text-base sm:text-lg md:text-xl',
+    nombre: 'Tote bag — Transparencia',
+    ratio: 'aspect-[3/4]',
+    boxRatio: '3/4',
+    imageAspectRatio: 0.75,
+    col: 'col-span-4 col-start-5 md:col-span-3 md:col-start-11',
+    mt: 'mt-2 md:mt-20',
+  },
+  {
+    id: 'tee-siglo21',
+    img: '/img/tee-siglo21.webp',
+    alt: 'Modelo con camiseta amarilla democracia21 con serigrafía de checkboxes: "Derecha", "Izquierda" y "Siglo 21" marcado',
+    slogan: '☐ Derecha ☐ Izquierda ☒ Siglo 21',
+    overlay: false,
+    sloganClass: 'text-base sm:text-lg md:text-xl tracking-tight',
+    nombre: 'Camiseta — Siglo 21',
+    ratio: 'aspect-[3/4]',
+    boxRatio: '3/4',
+    imageAspectRatio: 0.8,
+    col: 'col-span-4 col-start-1 md:col-span-9 md:col-start-1',
+    mt: 'mt-8 md:mt-10',
+  },
+];
+---
+
+<section id="coleccion" class="relative overflow-hidden bg-yellow-merch px-5 pb-[14vh] pt-[12vh] text-ink md:px-8">
+  <header class="mx-auto mb-[8vh] max-w-5xl md:mb-[10vh]">
+    <p class="mb-4 text-sm font-bold uppercase tracking-[0.2em] opacity-70">Colección XXI</p>
+    <h2 class="display text-[15vw] leading-[0.85] sm:text-8xl md:text-9xl">Lleva lo que piensas.</h2>
+    <p class="mt-6 max-w-xl text-lg opacity-80 md:text-xl">
+      Ropa con voz propia, tazas que toman partido o gorras que tienen algo que decir. Más que
+      moda, es una forma de participar en el cambio.
+    </p>
+  </header>
+
+  <div class="mb-[7vh] overflow-hidden border-y border-ink/15 py-4 md:mb-[9vh]">
+    <div class="marquee-track" style="--marquee-duration: 22s;">
+      {
+        Array.from({ length: 2 }).map(() => (
+          <span class="flex shrink-0 items-center gap-6 pr-6 text-xl font-bold uppercase tracking-tight sm:text-2xl md:text-3xl">
+            <span>MUY 21</span>
+            <span aria-hidden="true">✦</span>
+            <span>VERSIÓN 21</span>
+            <span aria-hidden="true">✦</span>
+            <span>MODO FUTURO</span>
+            <span aria-hidden="true">✦</span>
+            <span>OPTIMISMO RADICAL</span>
+            <span aria-hidden="true">✦</span>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="grid grid-cols-8 gap-4 md:grid-cols-16 md:gap-6">
+    {
+      tiles.map((t) => (
+        <article class:list={[t.col, t.mt, 'merch-tile group']} data-merch-tile>
+          {/* QA ronda 4 fix 3b: bg-gris quitado — era el segundo culpable
+              (junto al de MerchTile.tsx) del fondo blanco/gris que se veía
+              tras la imagen al hacer hover. Transparente deja ver el
+              amarillo de la sección (bg-yellow-merch) tanto en reposo como
+              en hover. */}
+          <div class:list={[t.ratio, 'merch-frame relative overflow-hidden rounded-2xl']}>
+            <MerchTile
+              client:visible
+              img={t.img}
+              alt={t.alt}
+              nombre={t.nombre}
+              boxRatio={t.boxRatio}
+              imageAspectRatio={t.imageAspectRatio}
+            />
+
+            {/* Overlay de slogan en CSS: solo si la prenda sale lisa en foto
+                (t.overlay = true). Los 7 productos actuales ya llevan el
+                slogan impreso y visible en la foto real — duplicarlo aquí
+                encima se veía redundante, así que se omite (ver nota en
+                frontmatter). Se queda por encima de la isla (z-index), no
+                participa en el efecto Chroma. */}
+            {t.overlay && (
+              <div class="merch-slogan absolute inset-0 z-10 flex items-end p-4 md:p-6" aria-hidden="true">
+                <p class:list={['font-extrabold leading-none text-ink', t.sloganClass]}>{t.slogan}</p>
+              </div>
+            )}
+          </div>
+
+          <p class="mt-3 text-xs font-bold uppercase tracking-[0.15em] opacity-70">
+            {t.nombre} <span class="opacity-50">— Drop 001</span>
+          </p>
+        </article>
+      ))
+    }
+
+    {/* Tile tipográfico: se conserva (el criterio del cliente lo prefiere
+        como acento gráfico del grid), pero se cambia el copy de "No es
+        tarde." a "Decide quién decide." — la sudadera con capucha real
+        (hoodie-noestarde.webp, arriba) ya lleva "No es tarde." impreso y
+        visible en su propia foto; repetir la misma frase en dos tiles del
+        mismo grid se leía como un error de contenido, no como diseño.
+        Posición reequilibrada (antes col-start-13, ahora col-start-11 y más
+        ancho) para ocupar el hueco que dejó el tile "rack" retirado. */}
+    <article
+      class="col-span-4 col-start-5 mt-4 flex aspect-[1/1] flex-col justify-between rounded-2xl bg-ink p-6 text-lime md:col-span-5 md:col-start-11 md:mt-32 md:p-8"
+      data-merch-tile
+    >
+      <span class="text-stroke text-5xl font-extrabold text-lime md:text-6xl" aria-hidden="true">21</span>
+      <p class="display text-3xl sm:text-4xl md:text-5xl">Decide quién decide.</p>
+    </article>
+  </div>
+
+  <footer class="mx-auto mt-[10vh] max-w-2xl text-center md:mt-[12vh]">
+    <p class="text-lg font-semibold md:text-xl">
+      Drop 001 — próximamente. Los primeros en la lista lo estrenan.
+    </p>
+    <a
+      href="#unete"
+      class="mt-6 inline-flex items-center justify-center rounded-full bg-ink px-8 py-4 text-sm font-bold uppercase tracking-wide text-paper transition-transform duration-300 hover:scale-105"
+    >
+      Ponme en la lista
+    </a>
+  </footer>
+</section>
+
+<style>
+  .merch-frame {
+    isolation: isolate;
+  }
+
+  .merch-slogan {
+    pointer-events: none;
+  }
+  .merch-slogan p {
+    text-shadow: 0 1px 12px rgba(255, 255, 255, 0.35);
+  }
+
+  /* Reveal state (JS añade .is-visible tras animar con GSAP) */
+  [data-merch-tile] {
+    opacity: 1;
+  }
+  [data-merch-tile].reveal-init {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-merch-tile].reveal-init {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const tiles = gsap.utils.toArray<HTMLElement>('[data-merch-tile]');
+
+  if (tiles.length) {
+    const mm = gsap.matchMedia();
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      tiles.forEach((tile) => tile.classList.add('reveal-init'));
+
+      ScrollTrigger.batch(tiles, {
+        start: 'top 88%',
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'expo.out',
+            stagger: 0.08,
+            onComplete: () => batch.forEach((el) => el.classList.remove('reveal-init')),
+          });
+        },
+        once: true,
+      });
+
+      return () => {
+        tiles.forEach((tile) => tile.classList.remove('reveal-init'));
+      };
+    });
+  }
+
+  ScrollTrigger.refresh();
+</script>

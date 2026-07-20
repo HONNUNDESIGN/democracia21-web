@@ -1,0 +1,197 @@
+---
+// Transición pinneada entre secciones: un pictograma de una línea se
+// autodibuja con scrub (stroke-dasharray/dashoffset) y hace un micro-
+// movimiento final antes de soltar el pin. Ver DESIGN-V3.md §WP-T2.
+// Móvil / reduced-motion: SVG ya dibujado, estático, sin pin (altura menor).
+type Token = 'ink' | 'lime' | 'paper' | 'turquesa' | 'naranja' | 'gris' | 'yellow-merch';
+
+interface Props {
+  motif: 'check' | 'oreja' | 'papeleta' | 'percha';
+  bg: Token;
+  stroke: Token;
+  label?: string;
+}
+
+const { motif, bg, stroke, label } = Astro.props;
+
+// Mapas literales completos (no template strings) para que el JIT de
+// Tailwind detecte las clases al escanear el fichero.
+const bgClass: Record<Token, string> = {
+  ink: 'bg-ink',
+  lime: 'bg-lime',
+  paper: 'bg-paper',
+  turquesa: 'bg-turquesa',
+  naranja: 'bg-naranja',
+  gris: 'bg-gris',
+  'yellow-merch': 'bg-yellow-merch',
+};
+
+const textClass: Record<Token, string> = {
+  ink: 'text-ink',
+  lime: 'text-lime',
+  paper: 'text-paper',
+  turquesa: 'text-turquesa',
+  naranja: 'text-naranja',
+  gris: 'text-gris',
+  'yellow-merch': 'text-yellow-merch',
+};
+---
+
+<section
+  class:list={['relative flex h-[55vh] items-center justify-center overflow-hidden md:h-[70vh]', bgClass[bg]]}
+  data-sketch
+  data-sketch-motif={motif}
+>
+  <div class="flex flex-col items-center gap-6 md:gap-10" data-sketch-inner>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 200 200"
+      class:list={['h-40 w-40 md:h-56 md:w-56', textClass[stroke]]}
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      data-sketch-svg
+    >
+      {
+        motif === 'check' && (
+          <>
+            <rect x="24" y="24" width="152" height="152" rx="20" data-sketch-path />
+            <path d="M62 104 L92 134 L142 68" data-sketch-path />
+          </>
+        )
+      }
+      {
+        motif === 'oreja' && (
+          <>
+            <path d="M118 30c-38 0-64 32-64 72 0 34 20 58 46 66 10 3 14-3 14-11v-14c-28 6-34-12-34-12-5-12-11-15-11-15-9-6 1-6 1-6 10 1 15 10 15 10 9 15 23 11 29 8 1-7 4-11 7-14-25-3-51-13-51-56 0-13 5-23 12-31-1-3-5-16 1-32 0 0 10-3 32 12 9-3 19-4 29-4" data-sketch-path />
+            <path d="M104 66c10 4 16 13 16 26 0 14-9 24-22 26" data-sketch-path />
+          </>
+        )
+      }
+      {
+        motif === 'papeleta' && (
+          <>
+            <path d="M76 20h48v66l-24 20-24-20z" data-sketch-path />
+            <path d="M76 48h48" data-sketch-path />
+            <path d="M100 106v24" data-sketch-path />
+            <path d="M40 130h120v50H40z" data-sketch-path />
+            <path d="M84 130l16 24 16-24" data-sketch-path />
+          </>
+        )
+      }
+      {
+        motif === 'percha' && (
+          <>
+            <path d="M100 26a12 12 0 1 1 12 12" data-sketch-path />
+            <path d="M100 38v14" data-sketch-path />
+            <path d="M100 52 L28 96 a10 10 0 0 0 6 18 h132 a10 10 0 0 0 6-18z" data-sketch-path />
+            <path d="M60 96v70a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8V96" data-sketch-path />
+          </>
+        )
+      }
+    </svg>
+
+    {
+      label && (
+        <p class:list={['label text-center', textClass[stroke]]} data-sketch-label>
+          {label}
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const sections = document.querySelectorAll<HTMLElement>('[data-sketch]');
+
+  sections.forEach((section) => {
+    const svg = section.querySelector<SVGSVGElement>('[data-sketch-svg]');
+    const paths = section.querySelectorAll<SVGGeometryElement>('[data-sketch-path]');
+    const inner = section.querySelector<HTMLElement>('[data-sketch-inner]');
+    if (!svg || !paths.length) return;
+
+    // Longitudes reales por path para un dasharray/offset preciso.
+    const lengths = Array.from(paths).map((p) => p.getTotalLength());
+    paths.forEach((p, i) => {
+      p.style.strokeDasharray = `${lengths[i]}`;
+      p.style.strokeDashoffset = `${lengths[i]}`;
+    });
+
+    gsap.matchMedia().add(
+      {
+        motion: '(min-width: 768px) and (prefers-reduced-motion: no-preference)',
+        static: '(max-width: 767px), (prefers-reduced-motion: reduce)',
+      },
+      (context) => {
+        const { motion } = context.conditions as { motion: boolean };
+
+        if (!motion) {
+          // Móvil / reduced-motion: dibujado completo, estático, sin pin.
+          paths.forEach((p) => {
+            p.style.strokeDashoffset = '0';
+          });
+          gsap.set(inner, { clearProps: 'all' });
+          return;
+        }
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=100%',
+            scrub: 0.6,
+            pin: true,
+            anticipatePin: 1,
+            // Otras secciones (Hero, Pilares, Miriam…) pinnean y añaden sus
+            // propios pin-spacers en scripts que corren antes o después de
+            // este; eso desplaza el documento tras medir este trigger.
+            // invalidateOnRefresh fuerza a recalcular el tween desde su
+            // estado inicial en cada refresh, en vez de arrastrar un
+            // progreso ya renderizado con medidas obsoletas (causa de que
+            // el dibujado apareciera saltado a 0/100% sin scrub real).
+            invalidateOnRefresh: true,
+          },
+        });
+
+        tl.to(paths, {
+          strokeDashoffset: 0,
+          ease: 'none',
+          stagger: 0.15,
+        }).to(
+          inner,
+          {
+            scale: 1.04,
+            rotate: 1.5,
+            duration: 0.4,
+            ease: 'power1.inOut',
+            yoyo: true,
+            repeat: 1,
+          },
+          '-=0.1',
+        );
+
+        return () => {
+          tl.scrollTrigger?.kill();
+          tl.kill();
+        };
+      },
+    );
+  });
+
+  // Otros componentes de la página (Hero, Pilares, Miriam, Merch, Maneras…)
+  // también pinnean secciones y refrescan ScrollTrigger desde sus propios
+  // <script>, en un orden de ejecución que no garantiza que el documento ya
+  // tenga su altura final cuando este bloque mide/crea sus triggers. Sin un
+  // refresh propio, el primer motivo podía quedar con el tween ya renderizado
+  // a un progreso incorrecto (0 o 1) tomado con medidas provisionales, y el
+  // scrub posterior ya no volvía a tocar ese dashoffset. Forzamos un refresh
+  // aquí y, por si el Preloader o la carga de fuentes/imágenes desplazan el
+  // layout después, otro tras el intro y tras el load completo de la página.
+  ScrollTrigger.refresh();
+  window.addEventListener('d21:intro-done', () => ScrollTrigger.refresh(), { once: true });
+  window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+</script>

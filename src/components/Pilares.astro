@@ -1,0 +1,179 @@
+---
+// Pilares D21: intro + 4 cards apiladas con position sticky (CSS puro, sin
+// dependencia de JS para el efecto de apilado). GSAP solo añade un scale-down
+// sutil y saturación decreciente de cada card al ser tapada por la siguiente,
+// ligado a scroll (scrub) y detrás de matchMedia (no-reduced-motion).
+// Change-order v4: de 5 a 4 pilares/ejes; se retira "apoyo" inventado — solo
+// número + título + un folio pequeño "Eje 0X/04".
+const pilares = [
+  {
+    num: '01',
+    bg: 'bg-ink',
+    text: 'text-lime',
+    titulo: 'Revolución educativa',
+  },
+  {
+    num: '02',
+    bg: 'bg-paper',
+    text: 'text-ink',
+    titulo: 'Eficiencia de los servicios públicos',
+  },
+  {
+    num: '03',
+    bg: 'bg-turquesa',
+    text: 'text-ink',
+    titulo: 'Dinamización económica',
+  },
+  {
+    num: '04',
+    bg: 'bg-naranja',
+    text: 'text-paper',
+    titulo: 'Vivienda y futuro',
+  },
+] as const;
+
+const totalPilares = String(pilares.length).padStart(2, '0');
+---
+
+<section id="pilares" class="relative bg-lime px-5 pb-[12vh] pt-[14vh] md:px-8">
+  <div class="mx-auto mb-[8vh] max-w-4xl md:mb-[12vh]">
+    <p class="text-sm font-bold uppercase tracking-[0.2em] text-ink/50">Sin letra pequeña.</p>
+    <p class="display mt-3 text-ink" style="font-size: clamp(2.2rem, 7.5vw, 5.4rem);">
+      La democracia tiene que funcionar para ti.
+    </p>
+    <p class="mt-4 max-w-lg text-lg text-ink/70 md:text-xl">
+      Cuatro carpetas abiertas. Ejes de trabajo.
+    </p>
+  </div>
+
+  <div class="relative">
+    {
+      pilares.map((p, i) => (
+        <article
+          class:list={['pilar-card', p.bg, p.text]}
+          style={`top: calc(6vh + ${i} * 3.4vh); z-index: ${i + 1};`}
+          data-pilar-card
+          data-index={i}
+        >
+          <div class="flex h-full flex-col justify-between">
+            <span class:list={['text-stroke pilar-num', p.text]} aria-hidden="true">
+              {p.num}
+            </span>
+            <div class="w-full">
+              <span class="mb-3 block text-sm font-semibold uppercase tracking-[0.2em] opacity-60">
+                Eje {p.num}/{totalPilares}
+              </span>
+              {/* QA ronda 4 fix 2: spec tipográfica cliente (Figma) —
+                  equivalente a 120px Black (900) en desktop 1440, clamp con
+                  ~8.3vw de preferido (120/1440), izquierda, MÁXIMO 70% del
+                  ancho de la card (el resto queda libre para la firma "21"
+                  y un SVG futuro del cliente). overflow-wrap: break-word
+                  como red de seguridad para que nada se corte en 320px
+                  contra el overflow:hidden de .pilar-card. */}
+              <h3
+                class="display max-w-[70%]"
+                style="font-size: clamp(2.4rem, 8.3vw, 7.5rem); font-weight: 900; letter-spacing: -0.03em; overflow-wrap: break-word;"
+              >
+                {p.titulo}
+              </h3>
+            </div>
+          </div>
+          <span class="pilar-firma" aria-hidden="true">21</span>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .pilar-card {
+    position: sticky;
+    height: 85vh;
+    min-height: 480px;
+    border-radius: 2rem;
+    /* Fix 7: mínimo de padding reducido (1.75rem → 1.25rem) para dejar más
+       ancho disponible al título, ahora mucho más grande, en 320px. */
+    padding: clamp(1.25rem, 5vw, 4rem);
+    margin-bottom: 3.4vh;
+    box-shadow: 0 -1px 0 rgba(10, 11, 13, 0.06);
+    will-change: transform, filter;
+    overflow: hidden;
+  }
+
+  .pilar-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .pilar-num {
+    /* Fix 7: numeral algo más contenido en el extremo inferior para no
+       competir tanto con el título, ahora protagonista. */
+    font-size: clamp(3.5rem, 9vw, 11rem);
+    line-height: 0.85;
+    font-weight: 400;
+  }
+
+  .pilar-firma {
+    position: absolute;
+    right: clamp(1.5rem, 4vw, 3rem);
+    bottom: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+    opacity: 0.55;
+  }
+
+  @media (max-width: 767px) {
+    .pilar-card {
+      height: 78vh;
+      min-height: 420px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pilar-card {
+      will-change: auto;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/motion';
+
+  const section = document.getElementById('pilares');
+  const cards = gsap.utils.toArray<HTMLElement>('[data-pilar-card]');
+
+  if (section && cards.length) {
+    const mm = gsap.matchMedia();
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      // Cada card (salvo la última) se escala y desatura sutilmente mientras
+      // la siguiente la va tapando en el recorrido del scroll.
+      cards.forEach((card, i) => {
+        const next = cards[i + 1];
+        if (!next) return;
+
+        gsap.fromTo(
+          card,
+          { scale: 1, filter: 'saturate(1)' },
+          {
+            scale: 0.94,
+            filter: 'saturate(0.55)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: next,
+              start: 'top bottom',
+              end: 'top top',
+              scrub: 0.6,
+            },
+          }
+        );
+      });
+
+      return () => {
+        cards.forEach((card) => gsap.set(card, { clearProps: 'scale,filter' }));
+      };
+    });
+  }
+
+  ScrollTrigger.refresh();
+</script>

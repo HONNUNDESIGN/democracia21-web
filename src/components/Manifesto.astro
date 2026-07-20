@@ -1,0 +1,538 @@
+---
+// Manifiesto D21: scrollytelling pinneado (desktop) que remonta la oscuridad
+// (ink) hacia la luz (lima). Estrofas literales de brain/.../copy-bank.md,
+// palabras clave destacadas en lima. Clímax: wipe lima + logotipo negro.
+//
+// WP-C (DESIGN-V2.md): tipografía editorial de revista mucho más grande
+// (clamp 2.4rem→6.5rem), alineaciones alternadas por estrofa, palabras clave
+// subrayadas en lime / text-stroke / itálica, folios "01/07", efecto
+// ScrollFloat (chars flotando desde abajo con stagger + scrub) portado a
+// vanilla GSAP dentro del bloque de script de este componente — se evalúa
+// más eficiente que 7 islas React (ScrollFloat.tsx) para el mismo timeline
+// pinneado que ya gestiona esta sección. La técnica (yPercent 120→0,
+// scaleY 2.3→1, scaleX 0.7→1, stagger, scrub) es la misma que ScrollFloat.tsx.
+//
+// QA ronda 4 fix 4a: el efecto Blur Highlight (blur-in de entrada de cada
+// estrofa, portado de @reactbits-starter/blur-highlight) se ELIMINA por
+// completo — al cliente no le convenció. Vuelve el reveal anterior sin
+// blur (solo opacity + el ScrollFloat de los chars, ver splitIntoChars más
+// abajo). El subrayado lime progresivo de las palabras clave (`.d21-mark`,
+// background-size 0%→100%) SÍ se queda — es la parte que gustó del blur
+// highlight y no depende del blur en absoluto, sigue intacto.
+import logoBlack from '@/assets/brand/logo-black.svg?raw';
+
+// Estrofas literales del manifiesto (copy-bank.md). `mark` envuelve las
+// palabras clave que deben pintarse en lima incluso sobre fondo ink.
+// `stroke` envuelve una palabra en text-stroke (capa editorial de revista).
+// `i` envuelve una palabra en itálica. `align` alterna la composición.
+const estrofas = [
+  {
+    align: 'center',
+    lines: [
+      'No venimos a prometerte que todo cambiará.',
+      'Venimos a decirte que ya es hora de <mark>dejar de esperar</mark> a que cambie solo.',
+    ],
+  },
+  {
+    align: 'left',
+    lines: [
+      'No somos los que <mark>gritan más fuerte</mark>.',
+      'Ni los que quieren volver a <i>no se sabe cuándo</i>.',
+      'Ni los que llevan 30 años haciendo política… <mark>sin que se note</mark>.',
+    ],
+  },
+  {
+    align: 'right',
+    lines: [
+      'Somos los que creen que el futuro se construye como se construyen las cosas <stroke>importantes</stroke>:',
+      'con visión, con cabeza, y con gente que <mark>no se escaquea</mark>.',
+    ],
+  },
+  {
+    align: 'left',
+    lines: [
+      'Queremos arreglar lo que nadie se atreve.',
+      'Lo que todos saben que está mal.',
+      'Y lo que tú ya no estás dispuesto a <mark>tolerar</mark>.',
+    ],
+  },
+  {
+    align: 'center',
+    lines: ['Sabemos que suena <stroke>ambicioso</stroke>.', 'Y que la política huele a veces a <mark>lo contrario</mark>.'],
+  },
+  {
+    align: 'right',
+    lines: [
+      'Pero también sabemos que <mark>no has perdido las ganas</mark>.',
+      'Solo necesitas un sitio donde <i>valga la pena</i> ponerlas.',
+    ],
+  },
+];
+
+const climaxLine = 'Ese sitio, esa herramienta, ese cambio, <mark>tiene nombre</mark>:';
+const totalFolios = estrofas.length + 1; // + clímax
+
+// Convierte el markup literal (mark/stroke/i) en spans con las clases D21.
+// `<mark>` ya no colorea el texto en lime — se subraya en lime (.d21-mark,
+// ver <style> + reveal progresivo en el script, técnica Blur Highlight).
+function renderLine(line: string): string {
+  return line
+    .replace(/<mark>(.+?)<\/mark>/g, '<span class="d21-mark">$1</span>')
+    .replace(/<stroke>(.+?)<\/stroke>/g, '<span class="text-stroke">$1</span>')
+    .replace(/<i>(.+?)<\/i>/g, '<span class="italic">$1</span>');
+}
+
+const alignClass = (align: string) =>
+  align === 'left' ? 'text-left items-start' : align === 'right' ? 'text-right items-end' : 'text-center items-center';
+---
+
+<section id="manifiesto" class="relative bg-ink text-paper" data-manifiesto-root data-nav-theme="dark">
+  {/* ── Desktop: track pinneado, altura ~450vh ── */}
+  <div class="hidden md:block" data-manifiesto-desktop>
+    <div class="relative h-[560vh]" data-manifiesto-track>
+      <div
+        class="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden"
+        data-manifiesto-pin
+      >
+        {/* Estrofas */}
+        <div class="mx-auto flex w-full max-w-6xl items-center justify-center px-8 lg:px-16" data-manifiesto-stage>
+          {
+            estrofas.map((estrofa, i) => (
+              <div
+                class={`absolute inset-x-0 mx-auto flex max-w-6xl flex-col px-8 opacity-0 lg:px-16 ${alignClass(estrofa.align)}`}
+                data-manifiesto-estrofa={i}
+              >
+                <span
+                  class="mb-4 font-mono text-sm tracking-[0.2em] text-lime/70"
+                  aria-hidden="true"
+                  data-manifiesto-folio
+                >
+                  {String(i + 1).padStart(2, '0')}/{String(totalFolios).padStart(2, '0')}
+                </span>
+                {estrofa.lines.map((line) => (
+                  <p
+                    class="overflow-hidden py-1 font-medium leading-[1.15] tracking-tight"
+                    style="font-size: clamp(2.4rem, 5.2vw, 5.2rem);"
+                  >
+                    <span
+                      class="inline-block will-change-transform"
+                      data-manifiesto-line
+                      set:html={renderLine(line)}
+                    />
+                  </p>
+                ))}
+              </div>
+            ))
+          }
+        </div>
+
+        {/* Clímax: línea previa + wipe lima + logo */}
+        <div
+          class="absolute inset-x-0 mx-auto flex max-w-6xl flex-col items-center px-8 text-center opacity-0 lg:px-16"
+          data-manifiesto-climax-line
+        >
+          <span
+            class="mb-4 font-mono text-sm tracking-[0.2em] text-lime/70"
+            aria-hidden="true"
+            data-manifiesto-folio
+          >
+            {String(totalFolios).padStart(2, '0')}/{String(totalFolios).padStart(2, '0')}
+          </span>
+          <p class="display overflow-hidden py-1" style="font-size: clamp(2.4rem, 6vw, 6rem); font-weight: 800;">
+            <span
+              class="inline-block will-change-transform"
+              data-manifiesto-line
+              set:html={renderLine(climaxLine)}
+            />
+          </p>
+        </div>
+
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-center bg-lime"
+          style="clip-path: circle(0% at 50% 50%);"
+          data-manifiesto-wipe
+        >
+          <div class="w-[60vw] max-w-3xl text-ink" set:html={logoBlack} data-manifiesto-logo />
+          <p
+            class="display mt-6 px-6 text-center text-ink opacity-0"
+            style="font-size: clamp(1.1rem, 2.4vw, 1.6rem);"
+            data-manifiesto-subclaim
+          >
+            La política, por fin, en el siglo que toca.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* ── Móvil / reduced-motion: estrofas apiladas, reveal simple ── */}
+  <div class="block space-y-16 px-6 py-24 md:hidden" data-manifiesto-mobile>
+    {
+      estrofas.map((estrofa, i) => (
+        <div
+          class={`mx-auto flex max-w-xl flex-col opacity-0 ${alignClass(estrofa.align)}`}
+          data-manifiesto-m-estrofa
+        >
+          <span class="mb-3 font-mono text-xs tracking-[0.2em] text-lime/70" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}/{String(totalFolios).padStart(2, '0')}
+          </span>
+          {estrofa.lines.map((line) => (
+            <p
+              class="text-balance font-medium leading-snug tracking-tight"
+              style="font-size: clamp(1.8rem, 7vw, 2.4rem);"
+              set:html={renderLine(line)}
+            />
+          ))}
+        </div>
+      ))
+    }
+    <div
+      class="mx-auto flex max-w-xl flex-col items-center text-center opacity-0"
+      data-manifiesto-m-estrofa
+    >
+      <span class="mb-3 font-mono text-xs tracking-[0.2em] text-lime/70" aria-hidden="true">
+        {String(totalFolios).padStart(2, '0')}/{String(totalFolios).padStart(2, '0')}
+      </span>
+      <p
+        class="display"
+        style="font-size: clamp(1.8rem, 7vw, 2.4rem); font-weight: 800;"
+        set:html={renderLine(climaxLine)}
+      />
+    </div>
+
+    <!-- QA fix 6b: antes esto era estático (aparecía en flujo sin animación
+         ninguna). Ahora lleva su propia versión móvil del wipe circular:
+         clip-path arranca en 0% y un ScrollTrigger scrub (sin pin) lo abre
+         al llegar, coherente con el desktop. Reduced-motion fuerza el
+         estado final estático y digno vía CSS (ver <style> más abajo). -->
+    <div
+      class="-mx-6 flex flex-col items-center justify-center bg-lime px-6 py-20"
+      data-manifiesto-m-climax
+      style="clip-path: circle(0% at 50% 50%);"
+    >
+      <div class="w-[70vw] max-w-xs text-ink opacity-0" set:html={logoBlack} data-manifiesto-m-logo />
+      <p
+        class="display mt-6 text-center text-ink opacity-0"
+        style="font-size: clamp(1.1rem, 5vw, 1.5rem);"
+        data-manifiesto-m-subclaim
+      >
+        La política, por fin, en el siglo que toca.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  [data-manifiesto-wipe] {
+    will-change: clip-path;
+  }
+  [data-manifiesto-logo] :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Chars generados por el split (ver script) para el efecto ScrollFloat */
+  [data-manifiesto-line] :global(.d21-char) {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  /* QA ronda 4 fix 4b: cada palabra completa se envuelve en un
+     inline-block + nowrap (ver splitIntoChars en el script) para que el
+     salto de línea solo pueda ocurrir ENTRE palabras (en los espacios de
+     texto plano que quedan fuera de este wrapper) y nunca a mitad de una
+     palabra — antes cada carácter era un inline-block suelto directamente
+     bajo la línea, así que el navegador podía romper en cualquier punto. */
+  [data-manifiesto-line] :global(.d21-word) {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  /* Palabras clave subrayadas en lime — técnica portada de Blur Highlight
+     (@reactbits-starter/blur-highlight): reveal progresivo del "highlight"
+     vía background-size 0%→100%, pero como subrayado (línea inferior) en
+     vez de caja completa, tal como pide el brief. Se anima desde el script
+     (scrub en desktop, onEnter en móvil); el estado inicial 0% vive aquí. */
+  [data-manifiesto-line] :global(.d21-mark) {
+    background-image: linear-gradient(var(--color-lime), var(--color-lime));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 0.13em;
+    padding-bottom: 0.06em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    will-change: background-size;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-manifiesto-desktop] {
+      display: none !important;
+    }
+    [data-manifiesto-line] :global(.d21-mark) {
+      background-size: 100% 0.13em !important;
+    }
+    [data-manifiesto-mobile] {
+      display: block !important;
+    }
+    /* Fix 6b: reduced-motion = estático digno, sin wipe animado: el círculo
+       ya abierto del todo y logo/subclaim visibles desde el principio. */
+    [data-manifiesto-m-climax] {
+      clip-path: none !important;
+    }
+    [data-manifiesto-m-logo],
+    [data-manifiesto-m-subclaim] {
+      opacity: 1 !important;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger, prefersReducedMotion } from '@/lib/motion';
+
+  const root = document.querySelector('[data-manifiesto-root]');
+  if (root) {
+    const estrofas = Array.from(
+      root.querySelectorAll<HTMLElement>('[data-manifiesto-estrofa]')
+    );
+    const climaxLineEl = root.querySelector<HTMLElement>('[data-manifiesto-climax-line]');
+    const wipe = root.querySelector<HTMLElement>('[data-manifiesto-wipe]');
+    const logo = root.querySelector<HTMLElement>('[data-manifiesto-logo]');
+    const subclaim = root.querySelector<HTMLElement>('[data-manifiesto-subclaim]');
+    const mobileEstrofas = Array.from(
+      root.querySelectorAll<HTMLElement>('[data-manifiesto-m-estrofa]')
+    );
+
+    // ── Split de cada [data-manifiesto-line] en spans de carácter ──
+    // Técnica porteada de ScrollFloat.tsx (isla React Bits local): cada
+    // carácter es un span independiente para poder animarlo con stagger.
+    // Se hace una vez, antes de crear el timeline, respetando el HTML
+    // interno ya inyectado (mark/stroke/i) recorriendo nodos de texto.
+    function splitIntoChars(container: HTMLElement) {
+      const walk = (node: Node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent ?? '';
+          if (!text.length) return;
+          const frag = document.createDocumentFragment();
+          // QA ronda 4 fix 4b: agrupa cada palabra en un span propio
+          // (.d21-word, inline-block + white-space:nowrap -- ver <style>
+          // arriba) para que el navegador solo pueda saltar de linea en
+          // los espacios (texto plano, sin envolver), nunca a mitad de
+          // palabra. Antes cada caracter (incl. espacios, sustituidos por
+          // NBSP) era un `.d21-char` inline-block suelto sin ningun texto
+          // plano entre medias, asi que el navegador podia romper la
+          // linea entre dos cajas atomicas adyacentes en cualquier punto,
+          // incluida mitad de palabra.
+          const tokens = text.split(/(\s+)/);
+          tokens.forEach((token) => {
+            if (token === '') return;
+            if (/^\s+$/.test(token)) {
+              frag.appendChild(document.createTextNode(token));
+              return;
+            }
+            const word = document.createElement('span');
+            word.className = 'd21-word';
+            for (const ch of token) {
+              const span = document.createElement('span');
+              span.className = 'd21-char';
+              span.textContent = ch;
+              word.appendChild(span);
+            }
+            frag.appendChild(word);
+          });
+          node.parentNode?.replaceChild(frag, node);
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          Array.from(node.childNodes).forEach(walk);
+        }
+      };
+      Array.from(container.childNodes).forEach(walk);
+    }
+
+    const allLineEls = root.querySelectorAll<HTMLElement>('[data-manifiesto-line]');
+    allLineEls.forEach((line) => splitIntoChars(line));
+
+    const mm = gsap.matchMedia();
+
+    // ── Desktop + no-reduced-motion: scrollytelling pinneado con scrub ──
+    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      const track = root.querySelector('[data-manifiesto-track]');
+      if (!track) return;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: track,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1,
+          pin: '[data-manifiesto-pin]',
+        },
+      });
+
+      // Peso relativo de cada estrofa (nº de líneas + un margen fijo) para que
+      // el ritmo de pausas sea proporcional a lo que hay que leer.
+      const weightOf = (el: HTMLElement) => el.querySelectorAll('p').length + 1;
+      const allBeats = [...estrofas, climaxLineEl].filter(Boolean) as HTMLElement[];
+      const totalWeight = allBeats.reduce((sum, el) => sum + weightOf(el), 0);
+      const unit = 1 / totalWeight;
+
+      allBeats.forEach((estrofa, i) => {
+        const lines = estrofa.querySelectorAll<HTMLElement>('[data-manifiesto-line]');
+        const beatDuration = weightOf(estrofa) * unit;
+        const isLast = i === allBeats.length - 1;
+
+        // Entrada: aparece el bloque (fade, sin blur — QA fix 4a) + efecto
+        // ScrollFloat por línea (chars flotando desde abajo con stagger,
+        // ver splitIntoChars arriba).
+        tl.to(estrofa, {
+          opacity: 1,
+          duration: unit * 0.5,
+          ease: 'power2.out',
+        });
+
+        lines.forEach((line, li) => {
+          const chars = line.querySelectorAll<HTMLElement>('.d21-char');
+          tl.fromTo(
+            chars,
+            {
+              opacity: 0,
+              yPercent: 120,
+              scaleY: 2.3,
+              scaleX: 0.7,
+              transformOrigin: '50% 0%',
+            },
+            {
+              opacity: 1,
+              yPercent: 0,
+              scaleY: 1,
+              scaleX: 1,
+              duration: unit * 0.6,
+              stagger: 0.015,
+              ease: 'power3.out',
+            },
+            li === 0 ? '<' : '<+=0.05'
+          );
+        });
+
+        // Subrayado lime de las palabras clave (.d21-mark): reveal
+        // progresivo de background-size, igual técnica que el "highlight"
+        // de Blur Highlight, ligado a este mismo tramo del scrub — entra
+        // justo después de que los chars terminen de asentarse.
+        const marks = estrofa.querySelectorAll<HTMLElement>('.d21-mark');
+        if (marks.length) {
+          tl.fromTo(
+            marks,
+            { backgroundSize: '0% 0.13em' },
+            { backgroundSize: '100% 0.13em', duration: unit * 0.5, ease: 'power2.out' },
+            '<+=0.1'
+          );
+        }
+
+        // Mantiene: pausa de lectura proporcional al peso de la estrofa.
+        tl.to({}, { duration: beatDuration * 0.45 });
+
+        if (!isLast) {
+          // Salida sutil: fade, deja paso a la siguiente (sin blur — QA fix 4a).
+          tl.to(estrofa, {
+            opacity: 0,
+            duration: unit * 0.35,
+            ease: 'power1.in',
+          });
+        }
+      });
+
+      // ── Clímax: wipe lima + logotipo. QA fix 6a: pasaba demasiado rápido
+      // → mucho más tramo del timeline (0.14 → 0.4, prácticamente el triple),
+      // ceremonioso de verdad con el scroll. El track (h-[560vh] arriba) se
+      // agrandó en la misma proporción para que las estrofas no pierdan su
+      // propio ritmo de lectura al crecer el timeline total.
+      const wipeDuration = unit * totalWeight * 0.4;
+      if (wipe) {
+        tl.to(wipe, {
+          clipPath: 'circle(150% at 50% 50%)',
+          duration: wipeDuration,
+          ease: 'power2.inOut',
+        });
+      }
+      if (logo) {
+        // El logo entra ya avanzado el wipe (~70% del círculo), no a los 0.05s
+        // de antes — si no, aparecía cuando el círculo aún era diminuto.
+        tl.from(
+          logo,
+          {
+            scale: 0.85,
+            opacity: 0,
+            duration: unit * totalWeight * 0.08,
+            ease: 'power2.out',
+          },
+          `<+=${wipeDuration * 0.7}`
+        );
+      }
+      if (subclaim) {
+        tl.to(subclaim, { opacity: 1, duration: unit * totalWeight * 0.06, ease: 'power1.out' });
+      }
+
+      return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      };
+    });
+
+    // ── Móvil / reduced-motion: reveal simple al entrar en viewport ──
+    const mClimax = root.querySelector<HTMLElement>('[data-manifiesto-m-climax]');
+    const mLogo = root.querySelector<HTMLElement>('[data-manifiesto-m-logo]');
+    const mSubclaim = root.querySelector<HTMLElement>('[data-manifiesto-m-subclaim]');
+
+    mm.add('(max-width: 767px), (prefers-reduced-motion: reduce)', () => {
+      const triggers: ScrollTrigger[] = [];
+
+      mobileEstrofas.forEach((el) => {
+        const marks = el.querySelectorAll<HTMLElement>('.d21-mark');
+        const st = ScrollTrigger.create({
+          trigger: el,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            if (prefersReducedMotion()) {
+              gsap.set(el, { opacity: 1 });
+              gsap.set(marks, { backgroundSize: '100% 0.13em' });
+            } else {
+              // Fade de entrada (sin blur — QA fix 4a) + subrayado lime
+              // progresivo de las palabras clave, también en móvil.
+              gsap.to(el, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' });
+              if (marks.length) {
+                gsap.fromTo(
+                  marks,
+                  { backgroundSize: '0% 0.13em' },
+                  { backgroundSize: '100% 0.13em', duration: 0.6, ease: 'power2.out', delay: 0.25 }
+                );
+              }
+            }
+          },
+        });
+        triggers.push(st);
+      });
+
+      // Fix 6b: versión móvil del wipe circular del clímax — sin pin, scrub
+      // ligado a la propia posición del bloque al entrar en viewport, mismo
+      // lenguaje que el desktop (clip-path circle creciente + logo/subclaim
+      // entrando poco después). Reduced-motion: estático (ver <style> con
+      // !important), sin ScrollTrigger.
+      if (mClimax && !prefersReducedMotion()) {
+        const climaxTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: mClimax,
+            start: 'top 85%',
+            end: 'top 20%',
+            scrub: 1,
+          },
+        });
+        climaxTl.to(mClimax, { clipPath: 'circle(150% at 50% 50%)', ease: 'power2.inOut', duration: 1 });
+        if (mLogo) climaxTl.to(mLogo, { opacity: 1, duration: 0.3, ease: 'power1.out' }, '<+=0.55');
+        if (mSubclaim) climaxTl.to(mSubclaim, { opacity: 1, duration: 0.3, ease: 'power1.out' }, '<+=0.15');
+        if (climaxTl.scrollTrigger) triggers.push(climaxTl.scrollTrigger);
+      }
+
+      return () => triggers.forEach((st) => st.kill());
+    });
+  }
+</script>

@@ -1,0 +1,142 @@
+---
+import '@/styles/global.css';
+import GradualBlur from '@/components/GradualBlur';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'democracia²¹ — La otra política',
+  description = 'La política, por fin, en el siglo que toca. Democracia 21 es la otra política: útil, adulta y del siglo en el que vivimos.',
+} = Astro.props;
+
+const SITE_URL = Astro.site?.href ?? 'https://democracia21.es';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={SITE_URL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={SITE_URL} />
+    <meta property="og:image" content={new URL('/og.png', SITE_URL).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#e8e675" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'PoliticalParty',
+      name: 'Democracia 21',
+      alternateName: 'd21',
+      url: SITE_URL,
+      slogan: 'La otra política',
+    })} />
+  </head>
+  <body>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <slot />
+    <!-- Difuminado inferior global (bajo la Nav, z-50). Exento en prefers-reduced-motion.
+         Wrapper plano (no React) solo para que `.gradual-blur` sea
+         localizable por querySelector desde el script de abajo sin
+         depender del orden de montaje del island; el wrapper en sí no
+         tiene tamaño propio (GradualBlur es position:fixed, escapa de su
+         caja) así que no afecta al layout. El fade en sí ya no se aplica
+         aquí (ver QA fix 5 en el script): se aplica directamente sobre el
+         nodo `.gradual-blur`, vía ScrollTrigger, mucho después de que la
+         hidratación inicial haya terminado. -->
+    <div class="js-footer-blur">
+      <GradualBlur
+        target="page"
+        position="bottom"
+        style={{ maxWidth: '100vw' }}
+        strength={2.5}
+        curve="bezier"
+        zIndex={-60}
+        responsive
+        mobileHeight="4rem"
+        desktopHeight="7rem"
+        height="7rem"
+        client:media="(prefers-reduced-motion: no-preference)"
+      />
+    </div>
+    <script>
+      import { initMotion, gsap, ScrollTrigger } from '@/lib/motion';
+
+      // Smooth scroll global
+      initMotion();
+
+      // Cursor dot (solo puntero fino)
+      const dot = document.querySelector<HTMLElement>('.cursor-dot');
+      if (dot && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const xTo = gsap.quickTo(dot, 'x', { duration: 0.35, ease: 'power3' });
+        const yTo = gsap.quickTo(dot, 'y', { duration: 0.35, ease: 'power3' });
+        window.addEventListener('mousemove', (e) => {
+          xTo(e.clientX);
+          yTo(e.clientY);
+        });
+        document.querySelectorAll('a, button, [data-cursor]').forEach((el) => {
+          el.addEventListener('mouseenter', () => dot.classList.add('is-hovering'));
+          el.addEventListener('mouseleave', () => dot.classList.remove('is-hovering'));
+        });
+      } else {
+        dot?.remove();
+      }
+
+      // Fix 9 / QA fix 5: el GradualBlur inferior (fixed, page-level) debe
+      // desaparecer cuando el footer entra en pantalla —para que el
+      // TextPressure del wordmark se vea nítido— y volver a aparecer al
+      // salir.
+      //
+      // Causa raíz confirmada: `document.querySelector('footer')` cogía el
+      // PRIMER <footer> del documento — y Merch.astro tiene su propio
+      // <footer> semántico (la waitlist "Drop 001 — próximamente") que
+      // aparece antes en el DOM que el <footer> real de página, porque
+      // Merch se renderiza antes que Join y Footer en index.astro. El
+      // observer llevaba toda la navegación vigilando ESE footer (a mitad
+      // de página, dentro de la sección de merch), no el de verdad: por
+      // eso el blur se "resolvía" demasiado pronto y ya no reaccionaba
+      // nada al llegar al pie real — nunca se ejecuta acción ninguna sobre
+      // el footer verdadero porque nadie lo observa. Fix: Footer.astro
+      // ahora lleva `data-site-footer` y se selecciona por ahí, sin
+      // ambigüedad con otros <footer> de la página.
+      //
+      // Además, en vez de fiar la desaparición a la opacity de un wrapper
+      // ajeno (que en teoría compone bien sobre un hijo position:fixed,
+      // pero es fácil que un navegador o un stacking context intermedio lo
+      // rompa) se usa ScrollTrigger —ya enganchado al mismo tick de
+      // Lenis que anima el resto de la home— para tocar opacity +
+      // visibility directamente sobre el nodo `.gradual-blur` que renderiza
+      // el componente React. Ese nodo existe en el HTML desde el SSR (el
+      // client:media solo retrasa la hidratación, no el marcado), así que
+      // no hace falta esperar a que la isla hidrate.
+      if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        const blurEl = document.querySelector<HTMLElement>('.js-footer-blur');
+        const footerEl = document.querySelector<HTMLElement>('[data-site-footer]');
+        const innerBlur = blurEl?.querySelector<HTMLElement>('.gradual-blur');
+
+        if (innerBlur && footerEl) {
+          ScrollTrigger.create({
+            trigger: footerEl,
+            start: 'top bottom',
+            end: 'top 60%',
+            scrub: true,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const value = 1 - self.progress;
+              innerBlur.style.opacity = String(value);
+              innerBlur.style.visibility = value <= 0.02 ? 'hidden' : 'visible';
+            },
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

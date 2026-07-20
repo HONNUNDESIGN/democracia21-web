@@ -1,0 +1,162 @@
+---
+// Preloader D21: contador 1978→2026 (guiño: la democracia se quedó en el 78),
+// remate final "siglo 21". Figura central = símbolo d²¹ real (ya no un punto
+// placeholder): late suave durante el conteo y protagoniza el remate.
+// Decisión de criterio: el wipe final NO lo hace la silueta del símbolo (sus
+// paths no son un fill sólido — escalarla dejaría huecos del fondo ink a la
+// vista, wipe sucio). En su lugar hay un círculo lima oculto detrás del
+// símbolo que crece y cubre la pantalla; el símbolo hace un último latido y
+// se desvanece encima. Una vez por sesión (sessionStorage).
+import heroSymbol from '@/assets/brand/hero-symbol.svg?raw';
+---
+
+<div
+  id="preloader"
+  class="fixed inset-0 z-[10000] flex items-center justify-center bg-ink"
+  aria-hidden="true"
+>
+  <div
+    id="preloader-wipe"
+    class="pointer-events-none absolute left-1/2 top-1/2 h-[2.4vh] w-[2.4vh] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-lime opacity-0"
+  >
+  </div>
+
+  <div
+    id="preloader-symbol"
+    class="pointer-events-none relative aspect-[356.086/259.805] h-[7vh] md:h-[8vh]"
+    style="--fill-0: var(--color-lime);"
+    aria-label="democracia veintiuno"
+    role="img"
+    set:html={heroSymbol}
+  >
+  </div>
+
+  <p
+    id="preloader-counter"
+    class="display absolute right-5 top-5 whitespace-nowrap text-4xl text-lime md:right-8 md:top-8 md:text-6xl"
+  >
+    1978
+  </p>
+</div>
+
+<style>
+  #preloader {
+    will-change: clip-path;
+  }
+  #preloader-symbol {
+    will-change: transform, opacity;
+  }
+  #preloader-symbol :global(svg) {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  #preloader-wipe {
+    will-change: transform;
+  }
+
+  /* Remate "siglo 21": más ancho que "1978", se encoge un poco para caber
+     con gracia en la esquina en vez de desbordar en 320px. */
+  #preloader-counter.preloader-final {
+    font-size: clamp(1.4rem, 6vw, 3rem);
+    letter-spacing: -0.03em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #preloader {
+      transition: opacity 0.3s ease;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, stopScroll, startScroll, prefersReducedMotion } from '@/lib/motion';
+
+  const SESSION_KEY = 'd21-intro';
+  const preloader = document.getElementById('preloader');
+  const symbol = document.getElementById('preloader-symbol');
+  const wipe = document.getElementById('preloader-wipe');
+  const counter = document.getElementById('preloader-counter');
+
+  function finish() {
+    startScroll();
+    preloader?.remove();
+    window.dispatchEvent(new CustomEvent('d21:intro-done'));
+  }
+
+  if (!preloader || !symbol || !wipe || !counter) {
+    finish();
+  } else if (sessionStorage.getItem(SESSION_KEY) || prefersReducedMotion()) {
+    // Ya visto en esta sesión, o el usuario prefiere sin movimiento: fade simple.
+    sessionStorage.setItem(SESSION_KEY, '1');
+    gsap.to(preloader, {
+      opacity: 0,
+      duration: 0.3,
+      onComplete: finish,
+    });
+  } else {
+    sessionStorage.setItem(SESSION_KEY, '1');
+    stopScroll();
+
+    const counterState = { year: 1978 };
+    const tl = gsap.timeline({ onComplete: finish });
+
+    // Latido sutil del símbolo durante todo el conteo.
+    const heartbeat = gsap.to(symbol, {
+      scale: 1.12,
+      duration: 0.45,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+    });
+
+    // Contador editorial: recorre 48 años con easing, snap a enteros.
+    tl.to(counterState, {
+      year: 2026,
+      duration: 1.5,
+      ease: 'power2.inOut',
+      snap: { year: 1 },
+      onUpdate: () => {
+        counter.textContent = String(Math.round(counterState.year));
+      },
+    })
+      .call(() => {
+        heartbeat.kill();
+        counter.classList.add('preloader-final');
+        counter.textContent = 'siglo 21';
+      })
+      .to({}, { duration: 0.4 }) // pausa breve sobre "siglo 21"
+      .call(() => {
+        gsap.set(wipe, { transformOrigin: 'center center' });
+      })
+      .to(
+        symbol,
+        {
+          scale: 1.4,
+          opacity: 0,
+          duration: 0.35,
+          ease: 'power2.in',
+        },
+        '<'
+      )
+      .to(
+        wipe,
+        {
+          // Círculo oculto (scale 0 + opacity 0 durante todo el conteo) se
+          // hace visible justo en el instante del wipe y crece hasta cubrir
+          // cualquier viewport.
+          scale: 140,
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.in',
+        },
+        '<'
+      )
+      .to(counter, { opacity: 0, duration: 0.2 }, '<')
+      .to(preloader, {
+        clipPath: 'inset(0 0 100% 0)',
+        duration: 0.4,
+        ease: 'power2.in',
+      });
+  }
+</script>

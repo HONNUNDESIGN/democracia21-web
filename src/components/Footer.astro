@@ -1,0 +1,88 @@
+---
+import logoWhite from '@/assets/brand/logo-white.svg?raw';
+import TextPressure from '@/components/TextPressure';
+const year = new Date().getFullYear();
+---
+
+<footer class="relative overflow-clip bg-ink text-paper" data-nav-theme="dark" data-site-footer>
+  <!-- Marquee "21 es lo que sigue" -->
+  <div class="border-y border-white/15 py-4" aria-hidden="true">
+    <div class="marquee-track" style="--marquee-duration: 32s">
+      {
+        Array.from({ length: 6 }).map(() => (
+          <span class="mx-6 whitespace-nowrap text-lg font-semibold uppercase tracking-wide text-lime">
+            21 es lo que sigue <span class="mx-6 text-white/40">✦</span> No es un número. Es una
+            fecha límite. <span class="mx-6 text-white/40">✦</span>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="px-5 pt-16 md:px-8">
+    <div class="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div class="max-w-sm">
+        <p class="text-2xl font-bold leading-tight">
+          La política, por fin,<br />en el siglo que toca.
+        </p>
+        <a
+          href="#unete"
+          class="mt-6 inline-block rounded-full bg-lime px-6 py-3 font-semibold text-ink transition-transform duration-300 hover:scale-105"
+          data-cursor
+        >
+          Únete a democracia²¹
+        </a>
+      </div>
+      <nav class="grid grid-cols-2 gap-x-16 gap-y-3 text-white/70">
+        <a class="transition-colors hover:text-lime" href="#museo">Hacia delante</a>
+        <a class="transition-colors hover:text-lime" href="#manifiesto">Manifiesto</a>
+        <a class="transition-colors hover:text-lime" href="#pilares">Pilares</a>
+        <a class="transition-colors hover:text-lime" href="#coleccion">Colección</a>
+        <a class="transition-colors hover:text-lime" href="#papeleta">Tu papeleta</a>
+        <a class="transition-colors hover:text-lime" href="#unete">Únete</a>
+      </nav>
+    </div>
+
+    <!-- Tratamiento tipográfico aprobado por Nacho; validar con Alberto (regla logo-solo-SVG) -->
+    <div class="footer-logo footer-logo--type mx-auto mt-16 hidden w-full max-w-7xl translate-y-[12%] motion-safe:md:block">
+      <TextPressure
+        text="democracia21"
+        width={false}
+        weight={true}
+        italic={false}
+        stroke={false}
+        textColor="#FFFFFF"
+        minFontSize={64}
+        client:visible
+      />
+    </div>
+    <!-- Fallback: SVG estático en móvil, reduced-motion o sin JS -->
+    <div class="footer-logo footer-logo--svg mx-auto mt-16 w-full max-w-7xl translate-y-[12%] motion-safe:md:hidden" set:html={logoWhite} />
+    <noscript>
+      <style>
+        /* Sin JS no hay hidratación de la isla: forzamos el SVG y ocultamos el contenedor de TextPressure */
+        .footer-logo--type { display: none !important; }
+        .footer-logo--svg { display: block !important; }
+      </style>
+    </noscript>
+  </div>
+
+  <div
+    class="flex flex-col items-start justify-between gap-2 border-t border-white/15 px-5 py-4 text-xs text-white/50 md:flex-row md:items-center md:px-8"
+  >
+    <span>© {year} Democracia 21</span>
+    <span>Aviso legal · Privacidad · <span class="text-lime">Sin letra pequeña</span></span>
+  </div>
+</footer>
+
+<style>
+  .footer-logo--svg :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .footer-logo--type {
+    height: clamp(4rem, 12vw, 11rem);
+  }
+</style>

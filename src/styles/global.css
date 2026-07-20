@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter-tight';
+
+/*
+  Tokens D21 — únicos hex permitidos en el proyecto.
+  Fuente: brain/clientes/12-democracia21/brand-kit/tokens.md
+*/
+@theme {
+  --color-lime: #e8e675; /* Verde brandbook — base del sistema */
+  --color-ink: #0a0b0d; /* Negro */
+  --color-paper: #ffffff;
+  --color-turquesa: #72e8d6;
+  --color-naranja: #ff5a34;
+  --color-gris: #ebebeb;
+  --color-yellow-merch: #f7d416; /* Solo contexto merch/guerrilla */
+
+  --font-sans: 'Inter Tight Variable', 'Inter Tight', system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-d21: cubic-bezier(0.65, 0.05, 0, 1);
+}
+
+html {
+  scroll-behavior: initial; /* Lenis manda */
+  background: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-lime);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-lime);
+}
+
+/* Cursor dot custom (desactivado en táctil) */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    pointer-events: none;
+    mix-blend-mode: difference;
+    background: #fff;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s var(--ease-out-expo), height 0.25s var(--ease-out-expo);
+  }
+  .cursor-dot.is-hovering {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* Titulares gigantes: tracking apretado estilo editorial */
+.display {
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+/* Outline text (relleno hueco para capas tipográficas) */
+.text-stroke {
+  -webkit-text-stroke: 1.5px currentColor;
+  -webkit-text-fill-color: transparent;
+  color: var(--color-ink);
+}
+
+/* Marquee infinito (dos copias del track) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 28s) linear infinite;
+}
+
+/* Halftone (trama de puntos merch) para overlays */
+.halftone {
+  background-image: radial-gradient(currentColor 1.2px, transparent 1.3px);
+  background-size: 8px 8px;
+}
+
+/* Blob degradado verde→turquesa del brandbook */
+.blob-brand {
+  background: radial-gradient(
+    closest-side,
+    var(--color-turquesa) 0%,
+    color-mix(in oklab, var(--color-turquesa), var(--color-lime) 55%) 45%,
+    transparent 100%
+  );
+  filter: blur(40px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
