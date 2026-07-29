@@ -15,92 +15,4084 @@
         {
           "type": "frame",
           "id": "W8TIcg",
-          "name": "Section Hero",
+          "name": "01 — Hero",
+          "clip": true,
           "width": "fill_container",
-          "height": "fit_content(0)",
+          "height": 900,
           "fill": "$lime",
-          "layout": "vertical"
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "UEfO6",
+              "name": "Nav",
+              "width": "fill_container",
+              "padding": [
+                24,
+                48
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "path",
+                  "id": "LgAYt",
+                  "name": "Logo Nav",
+                  "geometry": "M24.06 60.2c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m24.15-55.77v42.05c0 15.01-10.72 23.96-24.43 23.96s-23.78-9.59-23.78-23.95 9.7-24.15 23.22-24.15c6.71 0 11.56 2.42 13.8 5.32v-23.23h11.19z m39.63 35.44c-1.96-4.57-6.15-7.18-11.75-7.18s-9.7 2.61-11.66 7.18h23.4z m-1.21 15.38h12.22c-3.08 9.42-11.38 15.29-22.66 15.29-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97 24.06 9.6 24.06 23.97c0 1.3-0.09 2.52-0.19 3.73h-36.46c1.21 6.43 5.88 10.16 12.49 10.16 4.66 0 8.3-1.77 10.54-5.03m55.2-25.55c2.89-4.2 7.74-7.46 15.85-7.46 15.39 0 21.45 11.56 21.45 19.68v27.79h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.79c0-8.11 6.06-19.68 21.45-19.68 8.11 0 12.96 3.26 15.85 7.46m65.66 30.59c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m0.09-37.86c14.45 0 24.06 9.6 24.06 23.97s-9.6 24.15-24.06 24.15-24.15-9.7-24.15-24.15 9.7-23.97 24.15-23.97m51.94 37.86c5.69 0 9.88-2.7 11.84-7.46h11.65c-2.52 10.82-11.19 17.72-23.4 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m50.37-38.05v10.26c-7.46 0-11.94 3.64-11.94 11.1v26.11h-11.19v-26.11c0-14.17 8.95-21.35 23.12-21.35m24.72 10.44c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m28.26 13.72c5.69 0 9.88-2.7 11.84-7.46h11.66c-2.52 10.82-11.19 17.72-23.41 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m27.7-37.21h11.19v46.62h-11.19v-46.62z m5.6-19.67c3.45 0 6.15 2.8 6.15 6.15 0 3.54-2.7 6.25-6.15 6.25s-6.15-2.7-6.15-6.25c0-3.36 2.7-6.15 6.15-6.15m33.47 29.28c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m21.5-35.04c0-2.66-1.31-5.27-5.22-5.27-3.26 0-6.42 1.79-9.41 4.24l-3.26-5.33c2.88-2.34 7.12-5.16 12.78-5.16 7.77 0 11.91 5.33 11.91 11.63 0 12.07-15.06 13.76-17.51 20.77h17.13v6.25h-24.08v-3.97c0.71-14.41 17.67-13.65 17.67-23.16m13.04-1.69c-1.25 0.76-2.83 1.25-4.62 1.41v-5.6c2.39-0.6 4.95-1.85 5.93-5.06h5.49v38.06h-6.8v-28.81z",
+                  "viewBox": [
+                    0,
+                    0,
+                    519.07,
+                    70.55
+                  ],
+                  "fill": "$ink",
+                  "width": 176,
+                  "height": 24
+                },
+                {
+                  "type": "frame",
+                  "id": "lisC5",
+                  "name": "Nav Links",
+                  "gap": 32,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Aisey",
+                      "name": "CTA Unete",
+                      "fill": "$ink",
+                      "cornerRadius": 999,
+                      "padding": [
+                        12,
+                        24
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "N9Z1ls",
+                          "name": "CTA Label",
+                          "fill": "$lime",
+                          "content": "Únete",
+                          "fontFamily": "$font",
+                          "fontSize": 15,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "P5SeG",
+              "name": "Hero Center",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 56,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "path",
+                  "id": "G504J",
+                  "name": "Logo Hero",
+                  "geometry": "M24.06 60.2c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m24.15-55.77v42.05c0 15.01-10.72 23.96-24.43 23.96s-23.78-9.59-23.78-23.95 9.7-24.15 23.22-24.15c6.71 0 11.56 2.42 13.8 5.32v-23.23h11.19z m39.63 35.44c-1.96-4.57-6.15-7.18-11.75-7.18s-9.7 2.61-11.66 7.18h23.4z m-1.21 15.38h12.22c-3.08 9.42-11.38 15.29-22.66 15.29-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97 24.06 9.6 24.06 23.97c0 1.3-0.09 2.52-0.19 3.73h-36.46c1.21 6.43 5.88 10.16 12.49 10.16 4.66 0 8.3-1.77 10.54-5.03m55.2-25.55c2.89-4.2 7.74-7.46 15.85-7.46 15.39 0 21.45 11.56 21.45 19.68v27.79h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.79c0-8.11 6.06-19.68 21.45-19.68 8.11 0 12.96 3.26 15.85 7.46m65.66 30.59c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m0.09-37.86c14.45 0 24.06 9.6 24.06 23.97s-9.6 24.15-24.06 24.15-24.15-9.7-24.15-24.15 9.7-23.97 24.15-23.97m51.94 37.86c5.69 0 9.88-2.7 11.84-7.46h11.65c-2.52 10.82-11.19 17.72-23.4 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m50.37-38.05v10.26c-7.46 0-11.94 3.64-11.94 11.1v26.11h-11.19v-26.11c0-14.17 8.95-21.35 23.12-21.35m24.72 10.44c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m28.26 13.72c5.69 0 9.88-2.7 11.84-7.46h11.66c-2.52 10.82-11.19 17.72-23.41 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m27.7-37.21h11.19v46.62h-11.19v-46.62z m5.6-19.67c3.45 0 6.15 2.8 6.15 6.15 0 3.54-2.7 6.25-6.15 6.25s-6.15-2.7-6.15-6.25c0-3.36 2.7-6.15 6.15-6.15m33.47 29.28c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m21.5-35.04c0-2.66-1.31-5.27-5.22-5.27-3.26 0-6.42 1.79-9.41 4.24l-3.26-5.33c2.88-2.34 7.12-5.16 12.78-5.16 7.77 0 11.91 5.33 11.91 11.63 0 12.07-15.06 13.76-17.51 20.77h17.13v6.25h-24.08v-3.97c0.71-14.41 17.67-13.65 17.67-23.16m13.04-1.69c-1.25 0.76-2.83 1.25-4.62 1.41v-5.6c2.39-0.6 4.95-1.85 5.93-5.06h5.49v38.06h-6.8v-28.81z",
+                  "viewBox": [
+                    0,
+                    0,
+                    519.07,
+                    70.55
+                  ],
+                  "fill": "$ink",
+                  "width": 1180,
+                  "height": 160
+                },
+                {
+                  "type": "frame",
+                  "id": "a5ySw",
+                  "name": "Claim",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "gFRCS",
+                      "name": "Pills el pueblo / el poder",
+                      "gap": 16,
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "dl67M",
+                          "name": "Pill el pueblo",
+                          "rotation": -6.000000000000001,
+                          "fill": "$ink",
+                          "cornerRadius": 999,
+                          "padding": [
+                            6,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "X1V03P",
+                              "name": "Label el pueblo",
+                              "fill": "$lime",
+                              "content": "el pueblo",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "jlYbM",
+                          "name": "Pill el poder",
+                          "rotation": 6.000000000000001,
+                          "fill": "$ink",
+                          "cornerRadius": 999,
+                          "padding": [
+                            6,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "FZJ3D",
+                              "name": "Label el poder",
+                              "fill": "$lime",
+                              "content": "el poder",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "odVc3",
+                      "name": "Claim Title",
+                      "fill": "$ink",
+                      "content": "Dēmos × Krátos",
+                      "lineHeight": 0.92,
+                      "fontFamily": "$font",
+                      "fontSize": 88,
+                      "fontWeight": "800",
+                      "letterSpacing": -2.9
+                    },
+                    {
+                      "type": "text",
+                      "id": "VHxNM",
+                      "name": "Subclaim",
+                      "fill": "#0A0B0DB3",
+                      "content": "Democracia significa exactamente eso. Ya era hora de que alguien se lo tomara en serio.",
+                      "fontFamily": "$font",
+                      "fontSize": 22,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RiCfO",
+                      "name": "Boton Escuchala",
+                      "cornerRadius": 999,
+                      "stroke": "$ink",
+                      "strokeWidth": 2,
+                      "gap": 10,
+                      "padding": [
+                        10,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "oWC7U",
+                          "name": "Icono Play",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "play",
+                          "library": "lucide",
+                          "fill": "$ink"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ZIbWW",
+                          "name": "Boton Escuchala Label",
+                          "fill": "$ink",
+                          "content": "Escúchala — 1 min",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "UJD0g",
+              "name": "Scroll Hint",
+              "width": "fill_container",
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "UrOZh",
+                  "name": "Hint Text",
+                  "fill": "#0A0B0D99",
+                  "content": "baja, que esto mejora ↓",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "IfJGZ",
+              "name": "Marquee",
+              "clip": true,
+              "width": "fill_container",
+              "stroke": "$ink",
+              "strokeWidth": {
+                "top": 2
+              },
+              "padding": [
+                18,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Eu3ae",
+                  "name": "Marquee Track",
+                  "fill": "$ink",
+                  "content": "21 ES EL SIGLO QUE TOCA  ✦  ¿Y SI AHORA SÍ?  ✦  21 ES UN PLAN A DIEZ AÑOS  ✦  LA OTRA POLÍTICA  ✦  21 ES LA DEMOCRACIA QUE TOCA  ✦  NO ES TARDE  ✦  21 ES OPTIMISMO RADICAL  ✦  SIN LETRA PEQUEÑA  ✦  21 ES POSIBILIDAD  ✦  DECIDE QUIÉN DECIDE  ✦  21 ES PRESENTE  ✦  21 ES ESCUCHAR ANTES DE HABLAR  ✦  21 ES EL SIGLO QUE TOCA  ✦  ¿Y SI AHORA SÍ?  ✦  21 ES UN PLAN A DIEZ AÑOS  ✦  LA OTRA POLÍTICA  ✦  21 ES LA DEMOCRACIA QUE TOCA  ✦  NO ES TARDE  ✦  21 ES OPTIMISMO RADICAL  ✦  SIN LETRA PEQUEÑA  ✦  21 ES POSIBILIDAD  ✦  DECIDE QUIÉN DECIDE  ✦  21 ES PRESENTE  ✦  21 ES ESCUCHAR ANTES DE HABLAR  ✦  ",
+                  "fontFamily": "$font",
+                  "fontSize": 18,
+                  "fontWeight": "800",
+                  "letterSpacing": 1.5
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "id": "yqGXr",
+              "layoutPosition": "absolute",
+              "x": 1120,
+              "y": 780,
+              "name": "Nota animación Hero",
+              "width": 280,
+              "height": 90,
+              "content": "Anim: overlay lima con símbolo d²¹ (SVG) se disuelve durante un scroll pin de 250%, revelando este claim sobre vídeo/foto de Miriam de fondo (máscara SVG + goo filter)."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "R1twh",
-          "name": "Section Museo",
+          "name": "02 — Statement (Hacia delante)",
+          "clip": true,
           "width": "fill_container",
-          "height": "fit_content(0)",
-          "fill": "$ink",
-          "layout": "vertical"
+          "fill": "$lime",
+          "layout": "vertical",
+          "gap": 56,
+          "padding": [
+            140,
+            48,
+            340,
+            48
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "V0hJG",
+              "name": "Logo Museo Wrap",
+              "width": "fill_container",
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "path",
+                  "id": "IzKvy",
+                  "name": "Logo Museo",
+                  "geometry": "M24.06 60.2c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m24.15-55.77v42.05c0 15.01-10.72 23.96-24.43 23.96s-23.78-9.59-23.78-23.95 9.7-24.15 23.22-24.15c6.71 0 11.56 2.42 13.8 5.32v-23.23h11.19z m39.63 35.44c-1.96-4.57-6.15-7.18-11.75-7.18s-9.7 2.61-11.66 7.18h23.4z m-1.21 15.38h12.22c-3.08 9.42-11.38 15.29-22.66 15.29-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97 24.06 9.6 24.06 23.97c0 1.3-0.09 2.52-0.19 3.73h-36.46c1.21 6.43 5.88 10.16 12.49 10.16 4.66 0 8.3-1.77 10.54-5.03m55.2-25.55c2.89-4.2 7.74-7.46 15.85-7.46 15.39 0 21.45 11.56 21.45 19.68v27.79h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.79c0-8.11 6.06-19.68 21.45-19.68 8.11 0 12.96 3.26 15.85 7.46m65.66 30.59c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m0.09-37.86c14.45 0 24.06 9.6 24.06 23.97s-9.6 24.15-24.06 24.15-24.15-9.7-24.15-24.15 9.7-23.97 24.15-23.97m51.94 37.86c5.69 0 9.88-2.7 11.84-7.46h11.65c-2.52 10.82-11.19 17.72-23.4 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m50.37-38.05v10.26c-7.46 0-11.94 3.64-11.94 11.1v26.11h-11.19v-26.11c0-14.17 8.95-21.35 23.12-21.35m24.72 10.44c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m28.26 13.72c5.69 0 9.88-2.7 11.84-7.46h11.66c-2.52 10.82-11.19 17.72-23.41 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m27.7-37.21h11.19v46.62h-11.19v-46.62z m5.6-19.67c3.45 0 6.15 2.8 6.15 6.15 0 3.54-2.7 6.25-6.15 6.25s-6.15-2.7-6.15-6.25c0-3.36 2.7-6.15 6.15-6.15m33.47 29.28c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m21.5-35.04c0-2.66-1.31-5.27-5.22-5.27-3.26 0-6.42 1.79-9.41 4.24l-3.26-5.33c2.88-2.34 7.12-5.16 12.78-5.16 7.77 0 11.91 5.33 11.91 11.63 0 12.07-15.06 13.76-17.51 20.77h17.13v6.25h-24.08v-3.97c0.71-14.41 17.67-13.65 17.67-23.16m13.04-1.69c-1.25 0.76-2.83 1.25-4.62 1.41v-5.6c2.39-0.6 4.95-1.85 5.93-5.06h5.49v38.06h-6.8v-28.81z",
+                  "viewBox": [
+                    0,
+                    0,
+                    519.07,
+                    70.55
+                  ],
+                  "fill": "$ink",
+                  "width": 110,
+                  "height": 15
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "n1khAc",
+              "name": "Byline hacia delante",
+              "layout": "vertical",
+              "gap": 2,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "wiUgf",
+                  "name": "Byline: no mira a la",
+                  "fill": "$ink",
+                  "content": "no mira a la",
+                  "lineHeight": 0.98,
+                  "textAlign": "center",
+                  "fontFamily": "$font",
+                  "fontSize": 76,
+                  "fontWeight": "900",
+                  "letterSpacing": -2
+                },
+                {
+                  "type": "text",
+                  "id": "L49pxb",
+                  "name": "Byline: derecha ni a",
+                  "fill": "$ink",
+                  "content": "derecha ni a",
+                  "lineHeight": 0.98,
+                  "textAlign": "center",
+                  "fontFamily": "$font",
+                  "fontSize": 76,
+                  "fontWeight": "900",
+                  "letterSpacing": -2
+                },
+                {
+                  "type": "text",
+                  "id": "OtkP8",
+                  "name": "Byline: la izquierda,",
+                  "fill": "$ink",
+                  "content": "la izquierda,",
+                  "lineHeight": 0.98,
+                  "textAlign": "center",
+                  "fontFamily": "$font",
+                  "fontSize": 76,
+                  "fontWeight": "900",
+                  "letterSpacing": -2
+                },
+                {
+                  "type": "text",
+                  "id": "mfPwl",
+                  "name": "Byline: mira hacia",
+                  "fill": "$ink",
+                  "content": "mira hacia",
+                  "lineHeight": 0.98,
+                  "textAlign": "center",
+                  "fontFamily": "$font",
+                  "fontSize": 76,
+                  "fontWeight": "900",
+                  "letterSpacing": -2
+                },
+                {
+                  "type": "text",
+                  "id": "c7TIs",
+                  "name": "Byline: delante",
+                  "fill": "$ink",
+                  "content": "delante",
+                  "lineHeight": 0.98,
+                  "textAlign": "center",
+                  "fontFamily": "$font",
+                  "fontSize": 76,
+                  "fontWeight": "900",
+                  "letterSpacing": -2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ttgMZ",
+              "name": "Frases Row",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "vWp88",
+                  "name": "Frase Card 1",
+                  "width": "fill_container",
+                  "fill": "$paper",
+                  "cornerRadius": 20,
+                  "stroke": "$ink",
+                  "strokeWidth": 2,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    32,
+                    28
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uJoOt",
+                      "name": "Frase Antes 1",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Esto no va de ideologías. Va de",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 22,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "yjWp8",
+                      "name": "Frase Highlight 1",
+                      "fill": "$lime",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "integridad.",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "800",
+                      "fontStyle": "italic"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "g4xLt",
+                  "name": "Frase Card 2",
+                  "width": "fill_container",
+                  "fill": "$paper",
+                  "cornerRadius": 20,
+                  "stroke": "$ink",
+                  "strokeWidth": 2,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    32,
+                    28
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PwBf0",
+                      "name": "Frase Antes 2",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Hay quienes dicen que no se puede. Nosotros decimos:",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 22,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "yIKWq",
+                      "name": "Frase Highlight 2",
+                      "fill": "$lime",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "no se puede seguir así.",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "800",
+                      "fontStyle": "italic"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "S8EYnJ",
+                  "name": "Frase Card 3",
+                  "width": "fill_container",
+                  "fill": "$paper",
+                  "cornerRadius": 20,
+                  "stroke": "$ink",
+                  "strokeWidth": 2,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    32,
+                    28
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Z74dq",
+                      "name": "Frase Antes 3",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Venimos a",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 22,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "h2bYXS",
+                      "name": "Frase Highlight 3",
+                      "fill": "$lime",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "cambiar",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "800",
+                      "fontStyle": "italic"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Lt3xH",
+                      "name": "Frase Despues 3",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "la forma de hacer política.",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 22,
+                      "fontWeight": "800"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "SmPRN",
+              "layoutPosition": "absolute",
+              "x": 32,
+              "y": 820,
+              "name": "Foto Pareja",
+              "clip": true,
+              "width": 260,
+              "height": 300,
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "public/img/museo-pareja.webp",
+                "mode": "fit"
+              }
+            },
+            {
+              "type": "note",
+              "id": "JUxKy",
+              "layoutPosition": "absolute",
+              "x": 1080,
+              "y": 20,
+              "name": "Nota animación Museo",
+              "width": 300,
+              "height": 110,
+              "content": "Anim: logo+foto fijos (sticky pin ~360vh). Byline en 3D Text Reveal (React Bits, rotación circular sobre eje X). Las 3 frases se estampan tras el reveal, apiladas en el mismo grid-cell (aquí se muestran en fila para composición estática)."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "GanJI",
-          "name": "Section Manifesto",
+          "name": "03 — Manifiesto",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$ink",
-          "layout": "vertical"
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "hwHDk",
+              "name": "Manifesto Lines",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 56,
+              "padding": [
+                180,
+                120,
+                160,
+                120
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "F7K5Z",
+                  "name": "Line 1",
+                  "gap": 11,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "mM515",
+                      "name": "Seg No somos los que",
+                      "fill": "$paper",
+                      "content": "No somos los que",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    },
+                    {
+                      "type": "text",
+                      "id": "iVuZD",
+                      "name": "Seg gritan más fuerte.",
+                      "fill": "$lime",
+                      "content": "gritan más fuerte.",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "iToA2",
+                  "name": "Line 2",
+                  "gap": 11,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "QNh1o",
+                      "name": "Seg Somos los que llev",
+                      "fill": "$paper",
+                      "content": "con visión, con cabeza, y con gente que",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    },
+                    {
+                      "type": "text",
+                      "id": "fn1jn",
+                      "name": "Seg arreglándolo todo",
+                      "fill": "$lime",
+                      "content": "no se escaquea.",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "U3ikI",
+                  "name": "Line 3",
+                  "gap": 11,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NxmwJ",
+                      "name": "Seg Un país moderno se",
+                      "fill": "$paper",
+                      "content": "Y lo que tú ya no estás dispuesto a",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    },
+                    {
+                      "type": "text",
+                      "id": "hnhEp",
+                      "name": "Seg no se escaquea.",
+                      "fill": "$lime",
+                      "content": "tolerar.",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "A5Sz6",
+                  "name": "Line 4",
+                  "gap": 11,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "HaJZP",
+                      "name": "Seg Tú no has perdido ",
+                      "fill": "$paper",
+                      "content": "Pero también sabemos que",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    },
+                    {
+                      "type": "text",
+                      "id": "U51ydh",
+                      "name": "Seg Te han perdido a t",
+                      "fill": "$lime",
+                      "content": "no has perdido las ganas.",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 42,
+                      "fontWeight": "700",
+                      "letterSpacing": -1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Zl5Ow",
+              "name": "Climax",
+              "width": "fill_container",
+              "fill": "$lime",
+              "layout": "vertical",
+              "gap": 36,
+              "padding": [
+                110,
+                120
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "g7UrxL",
+                  "name": "Climax Intro",
+                  "fill": "$ink",
+                  "content": "Ese sitio, esa herramienta, ese cambio, tiene nombre:",
+                  "fontFamily": "$font",
+                  "fontSize": 28,
+                  "fontWeight": "600",
+                  "letterSpacing": -0.5
+                },
+                {
+                  "type": "frame",
+                  "id": "NjD10",
+                  "name": "Wordmark",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iHyXM",
+                      "name": "Wordmark Base",
+                      "fill": "$ink",
+                      "content": "democracia",
+                      "lineHeight": 0.95,
+                      "fontFamily": "$font",
+                      "fontSize": 148,
+                      "fontWeight": "800",
+                      "letterSpacing": -7
+                    },
+                    {
+                      "type": "text",
+                      "id": "mgvAD",
+                      "name": "Wordmark Sup",
+                      "fill": "$ink",
+                      "content": "21",
+                      "lineHeight": 1,
+                      "fontFamily": "$font",
+                      "fontSize": 64,
+                      "fontWeight": "800",
+                      "letterSpacing": -2
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "ujl0b",
+                  "name": "Climax Tagline",
+                  "fill": "$ink",
+                  "content": "La política, por fin, en el siglo que toca.",
+                  "fontFamily": "$font",
+                  "fontSize": 24,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.3
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "id": "G9eHXu",
+              "layoutPosition": "absolute",
+              "x": 1100,
+              "y": 40,
+              "name": "Nota animación Manifiesto",
+              "width": 300,
+              "height": 100,
+              "content": "Anim: scrollytelling pinneado (~560vh). Las 6 estrofas del copy-bank aparecen una a una (fade + ScrollFloat de caracteres); aquí se muestran 4 fragmentos representativos. Termina en wipe circular lima + logotipo."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "O2qup2",
-          "name": "Section Miriam",
+          "name": "04 — Miriam (La que da la cara)",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$lime",
-          "layout": "vertical"
+          "padding": [
+            180,
+            32
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "n8Xmgb",
+              "name": "Miriam Container",
+              "width": 1152,
+              "gap": 64,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "sXYYh",
+                  "name": "Col Copy",
+                  "width": 608,
+                  "layout": "vertical",
+                  "gap": 36,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "L6R4A9",
+                      "name": "Kicker",
+                      "fill": "#0A0B0D99",
+                      "content": "LA QUE DA LA CARA",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "700",
+                      "letterSpacing": 3.5
+                    },
+                    {
+                      "type": "frame",
+                      "id": "A7ycnv",
+                      "name": "Name Block",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "xjtGe",
+                          "name": "Name Miriam",
+                          "fill": "$ink",
+                          "content": "MIRIAM",
+                          "lineHeight": 1,
+                          "fontFamily": "$font",
+                          "fontSize": 100,
+                          "fontWeight": "800",
+                          "letterSpacing": -3
+                        },
+                        {
+                          "type": "text",
+                          "id": "e32K3",
+                          "name": "Name Gonzalez",
+                          "fill": "$ink",
+                          "stroke": "$ink",
+                          "content": "GONZÁLEZ",
+                          "lineHeight": 1,
+                          "fontFamily": "$font",
+                          "fontSize": 100,
+                          "fontWeight": "800",
+                          "letterSpacing": -3
+                        },
+                        {
+                          "type": "text",
+                          "id": "YVBJU",
+                          "name": "Name Durantez",
+                          "fill": "$ink",
+                          "content": "DURÁNTEZ",
+                          "lineHeight": 1,
+                          "fontFamily": "$font",
+                          "fontSize": 100,
+                          "fontWeight": "800",
+                          "letterSpacing": -3
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "DN2vj",
+                      "name": "Bio",
+                      "fill": "#0A0B0DB3",
+                      "textGrowth": "fixed-width",
+                      "width": 448,
+                      "content": "Abogada especializada en comercio internacional. Casi una década en la Comisión Europea.",
+                      "lineHeight": 1.55,
+                      "fontFamily": "$font",
+                      "fontSize": 18,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SBcnP",
+                      "name": "Quote Block",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bsZTU",
+                          "name": "Deco Quotes",
+                          "fill": "$lime",
+                          "content": "«",
+                          "lineHeight": 0.7,
+                          "fontFamily": "$font",
+                          "fontSize": 96,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "c1Kl6k",
+                          "name": "Quote",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "«La brecha entre la sociedad y la clase política es enorme.»",
+                          "lineHeight": 1.2,
+                          "fontFamily": "$font",
+                          "fontSize": 36,
+                          "fontWeight": "700",
+                          "letterSpacing": -1
+                        },
+                        {
+                          "type": "text",
+                          "id": "P6V73c",
+                          "name": "Quote Credit",
+                          "fill": "#0A0B0D99",
+                          "content": "— Miriam González Durántez",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "itLmP",
+                      "name": "CTA Link",
+                      "fill": "$ink",
+                      "content": "Ella ya ha dado el paso. ¿Y tú? →",
+                      "fontFamily": "$font",
+                      "fontSize": 18,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "YaEug",
+                  "name": "Portrait",
+                  "clip": true,
+                  "width": 480,
+                  "height": 640,
+                  "cornerRadius": 24,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "id": "RsZnV",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Portrait Photo",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "public/img/miriam-01.webp",
+                        "mode": "fill"
+                      },
+                      "width": 480,
+                      "height": 640
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "K8XOtB",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Lime Overlay",
+                      "fill": "#E8E67559",
+                      "width": 480,
+                      "height": 640
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "hOTAs",
-          "name": "Section Pilares",
+          "name": "05 — Pilares (4 ejes)",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$lime",
-          "layout": "vertical"
+          "layout": "vertical",
+          "gap": 88,
+          "padding": [
+            140,
+            80,
+            160,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "W4LNwD",
+              "name": "Intro Pilares",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 28,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "NXiTs",
+                  "name": "Kicker Pilares",
+                  "fill": "#0A0B0D80",
+                  "content": "Sin letra pequeña.",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "r4xOYt",
+                  "name": "Titular Intro",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "La democracia tiene que funcionar para ti.",
+                  "lineHeight": 0.95,
+                  "fontFamily": "Inter Tight",
+                  "fontSize": 86,
+                  "fontWeight": "800",
+                  "letterSpacing": -6
+                },
+                {
+                  "type": "text",
+                  "id": "iEIsL",
+                  "name": "Sub Intro",
+                  "fill": "#0A0B0DCC",
+                  "textGrowth": "fixed-width",
+                  "width": 640,
+                  "content": "Cuatro carpetas abiertas. Ejes de trabajo.",
+                  "fontFamily": "Inter Tight",
+                  "fontSize": 26,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "oFPXr",
+              "name": "Stack Pilares",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": -40,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "cThcj",
+                  "name": "Pilar 01",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "cornerRadius": 40,
+                  "gap": 64,
+                  "padding": [
+                    64,
+                    72,
+                    88,
+                    72
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "q2anTh",
+                      "name": "Numero 01",
+                      "fill": "#E8E67580",
+                      "stroke": "$lime",
+                      "strokeAlignment": "outer",
+                      "content": "01",
+                      "lineHeight": 0.9,
+                      "fontFamily": "Inter Tight",
+                      "fontSize": 150,
+                      "fontWeight": "800",
+                      "letterSpacing": -4
+                    },
+                    {
+                      "type": "frame",
+                      "id": "BE9kz",
+                      "name": "Texto 01",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jKVoa",
+                          "name": "Folio 01",
+                          "opacity": 0.7,
+                          "fill": "$lime",
+                          "content": "Eje 01/04",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "SaMoc",
+                          "name": "Titular 01",
+                          "fill": "$lime",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Revolución educativa",
+                          "lineHeight": 1,
+                          "fontFamily": "Inter Tight",
+                          "fontSize": 52,
+                          "fontWeight": "800",
+                          "letterSpacing": -2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZmweB",
+                  "name": "Pilar 02",
+                  "width": "fill_container",
+                  "fill": "$paper",
+                  "cornerRadius": 40,
+                  "gap": 64,
+                  "padding": [
+                    64,
+                    72,
+                    88,
+                    72
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Ya1em",
+                      "name": "Numero 02",
+                      "fill": "#0A0B0D4D",
+                      "content": "02",
+                      "lineHeight": 0.9,
+                      "fontFamily": "Inter Tight",
+                      "fontSize": 150,
+                      "fontWeight": "800",
+                      "letterSpacing": -4
+                    },
+                    {
+                      "type": "frame",
+                      "id": "bwpKd",
+                      "name": "Texto 02",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZROXC",
+                          "name": "Folio 02",
+                          "opacity": 0.5,
+                          "fill": "$ink",
+                          "content": "Eje 02/04",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "uCCsa",
+                          "name": "Titular 02",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Eficiencia de los servicios públicos",
+                          "lineHeight": 1,
+                          "fontFamily": "Inter Tight",
+                          "fontSize": 52,
+                          "fontWeight": "800",
+                          "letterSpacing": -2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "uoXBG",
+                  "name": "Pilar 03",
+                  "width": "fill_container",
+                  "fill": "$turquesa",
+                  "cornerRadius": 40,
+                  "gap": 64,
+                  "padding": [
+                    64,
+                    72,
+                    88,
+                    72
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "r3FOVO",
+                      "name": "Numero 03",
+                      "fill": "#0A0B0D59",
+                      "content": "03",
+                      "lineHeight": 0.9,
+                      "fontFamily": "Inter Tight",
+                      "fontSize": 150,
+                      "fontWeight": "800",
+                      "letterSpacing": -4
+                    },
+                    {
+                      "type": "frame",
+                      "id": "PCt2N",
+                      "name": "Texto 03",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "K6wohf",
+                          "name": "Folio 03",
+                          "opacity": 0.5,
+                          "fill": "$ink",
+                          "content": "Eje 03/04",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "ajJJU",
+                          "name": "Titular 03",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Dinamización económica",
+                          "lineHeight": 1,
+                          "fontFamily": "Inter Tight",
+                          "fontSize": 52,
+                          "fontWeight": "800",
+                          "letterSpacing": -2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "X3Mz75",
+                  "name": "Pilar 04",
+                  "width": "fill_container",
+                  "fill": "$naranja",
+                  "cornerRadius": 40,
+                  "gap": 64,
+                  "padding": [
+                    64,
+                    72,
+                    88,
+                    72
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "tIsDo",
+                      "name": "Numero 04",
+                      "fill": "#FFFFFF99",
+                      "content": "04",
+                      "lineHeight": 0.9,
+                      "fontFamily": "Inter Tight",
+                      "fontSize": 150,
+                      "fontWeight": "800",
+                      "letterSpacing": -4
+                    },
+                    {
+                      "type": "frame",
+                      "id": "l4XD2e",
+                      "name": "Texto 04",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Hsip2",
+                          "name": "Folio 04",
+                          "opacity": 0.7,
+                          "fill": "$paper",
+                          "content": "Eje 04/04",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "XvJf8",
+                          "name": "Titular 04",
+                          "fill": "$paper",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Vivienda y futuro",
+                          "lineHeight": 1,
+                          "fontFamily": "Inter Tight",
+                          "fontSize": 52,
+                          "fontWeight": "800",
+                          "letterSpacing": -2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "id": "G1a3F",
+              "layoutPosition": "absolute",
+              "x": 1100,
+              "y": 20,
+              "name": "Nota animación Pilares",
+              "width": 280,
+              "height": 70,
+              "content": "Anim: 4 cards con position sticky (CSS), cada una se apila y se escala/desatura (GSAP scrub) al ser tapada por la siguiente."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "NZtTC",
-          "name": "Section Bento",
+          "name": "06 — Bento (En el centro de la democracia)",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$ink",
-          "layout": "vertical"
+          "layout": "vertical",
+          "gap": 64,
+          "padding": [
+            128,
+            32
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "u0S0ht",
+              "name": "Intro Bento",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "OdpkJ",
+                  "name": "Titular Bento",
+                  "fill": "$paper",
+                  "textGrowth": "fixed-width",
+                  "width": 896,
+                  "content": "En el centro de la democracia estás tú, no ellos.",
+                  "lineHeight": 1,
+                  "fontFamily": "$font",
+                  "fontSize": 72,
+                  "fontWeight": "800",
+                  "letterSpacing": -3
+                },
+                {
+                  "type": "text",
+                  "id": "lwEQ9",
+                  "name": "Sub Bento",
+                  "fill": "#FFFFFF99",
+                  "textGrowth": "fixed-width",
+                  "width": 512,
+                  "content": "Lo que cabe en una pantalla. Sin letra pequeña.",
+                  "fontFamily": "$font",
+                  "fontSize": 20,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "rJDJl",
+              "name": "Bento Grid",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ei97D",
+                  "name": "Bento Fila 1",
+                  "width": "fill_container",
+                  "height": 320,
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "lrOeh",
+                      "name": "Card Eje 01",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": "$ink",
+                      "cornerRadius": 20,
+                      "stroke": "#FFFFFF1A",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#E8E67530",
+                        "blur": 64
+                      },
+                      "layout": "vertical",
+                      "padding": 32,
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "vqCFj",
+                          "name": "Label Eje 01",
+                          "fill": "#FFFFFF80",
+                          "content": "Eje 01",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gNrfr",
+                          "name": "Texto Eje 01",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 10,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "qL6ou",
+                              "name": "Titulo Eje 01",
+                              "fill": "$paper",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "LIMPIEZA",
+                              "fontFamily": "$font",
+                              "fontSize": 28,
+                              "fontWeight": "800",
+                              "letterSpacing": 0.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "Kpubr",
+                              "name": "Desc Eje 01",
+                              "fill": "#FFFFFFB3",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Instituciones al servicio del ciudadano. Menos privilegios, menos opacidad y más rendición de cuentas. La política debe volver a ganarse la confianza.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xBWuL",
+                      "name": "Card Eje 02",
+                      "width": 440,
+                      "height": "fill_container",
+                      "fill": "$ink",
+                      "cornerRadius": 20,
+                      "stroke": "#FFFFFF1A",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "layout": "vertical",
+                      "padding": 32,
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "U8V4ac",
+                          "name": "Label Eje 02",
+                          "fill": "#FFFFFF80",
+                          "content": "Eje 02",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "NMmlF",
+                          "name": "Texto Eje 02",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 10,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Qn7lh",
+                              "name": "Titulo Eje 02",
+                              "fill": "$paper",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "MODERNIZACIÓN",
+                              "fontFamily": "$font",
+                              "fontSize": 28,
+                              "fontWeight": "800",
+                              "letterSpacing": 0.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "G16nib",
+                              "name": "Desc Eje 02",
+                              "fill": "#FFFFFFB3",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Un Estado preparado para el siglo XXI. Administraciones ágiles, servicios públicos eficientes y decisiones basadas en resultados, no en burocracia.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "OkAHY",
+                  "name": "Bento Fila 2",
+                  "width": "fill_container",
+                  "height": 320,
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ferHQ",
+                      "name": "Card Eje 03",
+                      "width": 440,
+                      "height": "fill_container",
+                      "fill": "$ink",
+                      "cornerRadius": 20,
+                      "stroke": "#FFFFFF1A",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "layout": "vertical",
+                      "padding": 32,
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "X498fy",
+                          "name": "Label Eje 03",
+                          "fill": "#FFFFFF80",
+                          "content": "Eje 03",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "MuuAk",
+                          "name": "Texto Eje 03",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 10,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "hu6XN",
+                              "name": "Titulo Eje 03",
+                              "fill": "$paper",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "TU VIDA",
+                              "fontFamily": "$font",
+                              "fontSize": 28,
+                              "fontWeight": "800",
+                              "letterSpacing": 0.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "qzWVa",
+                              "name": "Desc Eje 03",
+                              "fill": "#FFFFFFB3",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Que la política vuelva a ser útil. Educación, vivienda, empleo y oportunidades. La política importa cuando mejora la vida cotidiana.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pvqex",
+                      "name": "Card Eje 04",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": "$ink",
+                      "cornerRadius": 20,
+                      "stroke": "#FFFFFF1A",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#E8E67530",
+                        "blur": 64
+                      },
+                      "layout": "vertical",
+                      "padding": 32,
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QO1Kf",
+                          "name": "Label Eje 04",
+                          "fill": "#FFFFFF80",
+                          "content": "Eje 04",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "frame",
+                          "id": "bd40K",
+                          "name": "Texto Eje 04",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 10,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RgDVU",
+                              "name": "Titulo Eje 04",
+                              "fill": "$paper",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "EL MÉTODO",
+                              "fontFamily": "$font",
+                              "fontSize": 28,
+                              "fontWeight": "800",
+                              "letterSpacing": 0.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "V5agV5",
+                              "name": "Desc Eje 04",
+                              "fill": "#FFFFFFB3",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Ni trincheras. Ni dogmas. Escuchar, medir, corregir y avanzar. Resolver problemas antes que ganar titulares.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "id": "y8W3x",
+              "layoutPosition": "absolute",
+              "x": 1100,
+              "y": 20,
+              "name": "Nota animación Bento",
+              "width": 280,
+              "height": 90,
+              "content": "Isla MagicBento (React Bits): glow de borde + spotlight que sigue el puntero + tilt 3D sutil por card. Sin estrellas, sin magnetismo (config del proyecto)."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "BAR9O",
-          "name": "Section Papeleta",
+          "name": "07 — Quiz (Test oficial no oficial)",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$gris",
-          "layout": "vertical"
+          "layout": "vertical",
+          "padding": [
+            128,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "M3WFx",
+              "name": "Quiz",
+              "width": 768,
+              "layout": "vertical",
+              "gap": 40,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "joVjA",
+                  "name": "Quiz Head",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Hgs91",
+                      "name": "Kicker Quiz",
+                      "fill": "#0A0B0D66",
+                      "content": "TEST OFICIAL (NO OFICIAL)",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "700",
+                      "letterSpacing": 3
+                    },
+                    {
+                      "type": "text",
+                      "id": "w95NeO",
+                      "name": "Titulo Quiz",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "¿Cómo de siglo 21 eres?",
+                      "lineHeight": 1,
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 72,
+                      "fontWeight": "800",
+                      "letterSpacing": -3
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VFqOB",
+                  "name": "Quiz Card",
+                  "width": "fill_container",
+                  "fill": "$paper",
+                  "cornerRadius": 24,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#0A0B0D14",
+                    "offset": {
+                      "x": 0,
+                      "y": 24
+                    },
+                    "blur": 60
+                  },
+                  "layout": "vertical",
+                  "gap": 32,
+                  "padding": 48,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "QPGez",
+                      "name": "Progreso",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "unfkz",
+                          "name": "Progreso Label",
+                          "fill": "#0A0B0D66",
+                          "content": "PREGUNTA 3 DE 5",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1.5
+                        },
+                        {
+                          "type": "frame",
+                          "id": "YRaUC",
+                          "name": "Progreso Track",
+                          "width": "fill_container",
+                          "height": 8,
+                          "fill": "$gris",
+                          "cornerRadius": 999,
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "cornerRadius": 999,
+                              "id": "z0peQP",
+                              "name": "Progreso Fill",
+                              "fill": "$lime",
+                              "width": 403,
+                              "height": "fill_container"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "uXkYC",
+                      "name": "Pregunta",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Cuando escuchas \"consenso político\", piensas en...",
+                      "lineHeight": 1.15,
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 30,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.5
+                    },
+                    {
+                      "type": "frame",
+                      "id": "w5BOw2",
+                      "name": "Opciones",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "T3oo04",
+                          "name": "Opcion 1",
+                          "width": "fill_container",
+                          "cornerRadius": 16,
+                          "stroke": "#0A0B0D26",
+                          "strokeWidth": 1,
+                          "gap": 16,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "uyt1e",
+                              "name": "Radio 1",
+                              "fill": "$lime",
+                              "width": 22,
+                              "height": 22,
+                              "stroke": "$ink",
+                              "strokeWidth": 1.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "nxH8M",
+                              "name": "Opcion Texto 1",
+                              "fill": "$ink",
+                              "content": "Gente resolviendo problemas.",
+                              "fontFamily": "$font",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "mnM1I",
+                          "name": "Opcion 2",
+                          "width": "fill_container",
+                          "cornerRadius": 16,
+                          "stroke": "#0A0B0D26",
+                          "strokeWidth": 1,
+                          "gap": 16,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "X3uj6",
+                              "name": "Radio 2",
+                              "width": 22,
+                              "height": 22,
+                              "stroke": "#0A0B0D40",
+                              "strokeWidth": 1.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "O8LiL",
+                              "name": "Opcion Texto 2",
+                              "fill": "$ink",
+                              "content": "Depende de para qué.",
+                              "fontFamily": "$font",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XSSEI",
+                          "name": "Opcion 3",
+                          "width": "fill_container",
+                          "cornerRadius": 16,
+                          "stroke": "#0A0B0D26",
+                          "strokeWidth": 1,
+                          "gap": 16,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "i7NZGD",
+                              "name": "Radio 3",
+                              "width": 22,
+                              "height": 22,
+                              "stroke": "#0A0B0D40",
+                              "strokeWidth": 1.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "rLMf4",
+                              "name": "Opcion Texto 3",
+                              "fill": "$ink",
+                              "content": "Ojalá se hablara más de acuerdos.",
+                              "fontFamily": "$font",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "IFLw5",
+                      "name": "Nota Teclas",
+                      "fill": "#0A0B0D66",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Pulsa 1, 2 o 3 para responder más rápido.",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "WrJFg",
+                  "name": "Resultado Card",
+                  "width": 560,
+                  "fill": "$paper",
+                  "cornerRadius": 24,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#0A0B0D14",
+                    "offset": {
+                      "x": 0,
+                      "y": 24
+                    },
+                    "blur": 60
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 40,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wlwtv",
+                      "name": "Resultado Label",
+                      "fill": "#0A0B0D66",
+                      "content": "TU RESULTADO",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "JgKJb",
+                      "name": "Resultado Pct",
+                      "fill": "$ink",
+                      "content": "80%",
+                      "lineHeight": 1,
+                      "fontFamily": "$font",
+                      "fontSize": 90,
+                      "fontWeight": "800",
+                      "letterSpacing": -4
+                    },
+                    {
+                      "type": "text",
+                      "id": "V9rNgP",
+                      "name": "Resultado Msg",
+                      "fill": "#0A0B0DB3",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Optimismo radical certificado. Eres oficialmente muy 21.",
+                      "textAlign": "center",
+                      "fontFamily": "$font",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "XvyVu",
+                      "name": "Resultado Botones",
+                      "gap": 12,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "bHpQt",
+                          "name": "Btn Unete",
+                          "fill": "$ink",
+                          "cornerRadius": 999,
+                          "padding": [
+                            14,
+                            28
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rQGv5",
+                              "name": "Btn Unete Texto",
+                              "fill": "$lime",
+                              "content": "Únete →",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "R7QB9W",
+                          "name": "Btn Repetir",
+                          "cornerRadius": 999,
+                          "stroke": "#0A0B0D33",
+                          "strokeWidth": 1,
+                          "padding": [
+                            14,
+                            28
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "gEAgq",
+                              "name": "Btn Repetir Texto",
+                              "fill": "#0A0B0D99",
+                              "content": "Repetir test",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "id": "S9H8IP",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 20,
+              "name": "Nota interactividad Quiz",
+              "width": 300,
+              "height": 110,
+              "content": "Isla React (Papeleta.tsx): 5 preguntas reales, navegación por teclado (1/2/3), contador animado del resultado y 3 mensajes finales según tramo de puntuación. Aquí se muestra un estado de ejemplo (pregunta 3/5 + resultado 80%)."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "fPERI",
-          "name": "Section Coleccion",
+          "name": "08 — Colección XXI (Merchandising)",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$yellow-merch",
-          "layout": "vertical"
+          "layout": "vertical",
+          "gap": 64,
+          "padding": [
+            140,
+            32
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "XY7mm",
+              "name": "Header Colección",
+              "width": 1024,
+              "layout": "vertical",
+              "gap": 28,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "f8Rfo8",
+                  "name": "Kicker",
+                  "opacity": 0.7,
+                  "fill": "$ink",
+                  "content": "COLECCIÓN XXI",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "text",
+                  "id": "C3C5aS",
+                  "name": "Titular",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Lleva lo que piensas.",
+                  "lineHeight": 0.85,
+                  "fontFamily": "$font",
+                  "fontSize": 128,
+                  "fontWeight": "800",
+                  "letterSpacing": -5
+                },
+                {
+                  "type": "text",
+                  "id": "ikXuz",
+                  "name": "Párrafo",
+                  "opacity": 0.8,
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": 576,
+                  "content": "Ropa con voz propia, tazas que toman partido o gorras que tienen algo que decir. Más que moda, es una forma de participar en el cambio.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font",
+                  "fontSize": 18,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "gHR9D",
+              "name": "Marquee",
+              "clip": true,
+              "width": "fill_container",
+              "stroke": "#0A0B0D26",
+              "strokeWidth": {
+                "top": 1,
+                "bottom": 1
+              },
+              "padding": [
+                16,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "V1aVj",
+                  "name": "Marquee Texto",
+                  "fill": "$ink",
+                  "content": "MUY 21  ✦  VERSIÓN 21  ✦  MODO FUTURO  ✦  OPTIMISMO RADICAL  ✦  MUY 21  ✦  VERSIÓN 21  ✦  MODO FUTURO  ✦",
+                  "fontFamily": "$font",
+                  "fontSize": 28,
+                  "fontWeight": "700",
+                  "letterSpacing": -0.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "rdoY1",
+              "name": "Merch Grid",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "QN2Jy",
+                  "name": "Merch Fila 1",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "esj6Y",
+                      "name": "Tile Demoskratos",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "q5t1Q",
+                          "name": "Imagen Tile Demoskratos",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 380,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "public/img/tee-demoskratos.webp",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 16
+                        },
+                        {
+                          "type": "text",
+                          "id": "KSJGN",
+                          "name": "Caption Tile Demoskratos",
+                          "opacity": 0.7,
+                          "fill": "$ink",
+                          "content": "Camiseta — dēmos + kratos  —  Drop 001",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zORat",
+                      "name": "Tile Sudadera 21",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "fSd5D",
+                          "name": "Imagen Tile Sudadera 21",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 380,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "public/img/sudadera-siglo21.webp",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 16
+                        },
+                        {
+                          "type": "text",
+                          "id": "s3mg3",
+                          "name": "Caption Tile Sudadera 21",
+                          "opacity": 0.7,
+                          "fill": "$ink",
+                          "content": "Sudadera — Siglo 21  —  Drop 001",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "N6R4Qz",
+                      "name": "Tile Gorra 21",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Cp7wQ",
+                          "name": "Imagen Tile Gorra 21",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 380,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "public/img/gorra-21.webp",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 16
+                        },
+                        {
+                          "type": "text",
+                          "id": "UhZw2",
+                          "name": "Caption Tile Gorra 21",
+                          "opacity": 0.7,
+                          "fill": "$ink",
+                          "content": "Gorra — Muy 21 / Versión 21  —  Drop 001",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "y90iR",
+                  "name": "Merch Fila 2",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "YrdpF",
+                      "name": "Tile Hoodie",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "aqpSA",
+                          "name": "Imagen Tile Hoodie",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 380,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "public/img/hoodie-noestarde.webp",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 16
+                        },
+                        {
+                          "type": "text",
+                          "id": "e0Lzb",
+                          "name": "Caption Tile Hoodie",
+                          "opacity": 0.7,
+                          "fill": "$ink",
+                          "content": "Sudadera capucha — No es tarde  —  Drop 001",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "bPnZd",
+                      "name": "Tile Chapa",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "k5Vdz3",
+                          "name": "Imagen Tile Chapa",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 380,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "public/img/chapa-escuchar.webp",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 16
+                        },
+                        {
+                          "type": "text",
+                          "id": "A17P1k",
+                          "name": "Caption Tile Chapa",
+                          "opacity": 0.7,
+                          "fill": "$ink",
+                          "content": "Chapa — Escuchar antes de hablar  —  Drop 001",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "h5tOF",
+                      "name": "Tile Tote",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "v1rGL",
+                          "name": "Imagen Tile Tote",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 380,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "public/img/tote-transparencia.webp",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 16
+                        },
+                        {
+                          "type": "text",
+                          "id": "F3toAS",
+                          "name": "Caption Tile Tote",
+                          "opacity": 0.7,
+                          "fill": "$ink",
+                          "content": "Tote bag — Transparencia  —  Drop 001",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "O6Pspj",
+                  "name": "Merch Fila 3",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "OveyM",
+                      "name": "Tile Siglo21",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "p4Gylk",
+                          "name": "Imagen Tile Siglo21",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 380,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "public/img/tee-siglo21.webp",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 16
+                        },
+                        {
+                          "type": "text",
+                          "id": "OgLOe",
+                          "name": "Caption Tile Siglo21",
+                          "opacity": 0.7,
+                          "fill": "$ink",
+                          "content": "Camiseta — Siglo 21  —  Drop 001",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "wXV2f",
+                      "name": "Tile Tipografico 21",
+                      "width": "fill_container",
+                      "height": 428,
+                      "fill": "$ink",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "padding": 28,
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "JdS0I",
+                          "name": "Tipografico 21 Numero",
+                          "fill": "$lime",
+                          "content": "21",
+                          "fontFamily": "$font",
+                          "fontSize": 52,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "uBC0L",
+                          "name": "Tipografico Decide",
+                          "fill": "$lime",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Decide quién decide.",
+                          "fontFamily": "$font",
+                          "fontSize": 34,
+                          "fontWeight": "800"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ij1IM",
+              "name": "Merch Footer",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "LWDPg",
+                  "name": "Merch Footer Texto",
+                  "fill": "$ink",
+                  "content": "Drop 001 — próximamente. Los primeros en la lista lo estrenan.",
+                  "fontFamily": "$font",
+                  "fontSize": 18,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "VuqVf",
+                  "name": "Boton Ponme en la lista",
+                  "fill": "$ink",
+                  "cornerRadius": 999,
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uOuBB",
+                      "name": "Boton Ponme en la lista Label",
+                      "fill": "$paper",
+                      "content": "Ponme en la lista",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "id": "hCBEG",
+              "layoutPosition": "absolute",
+              "x": 1100,
+              "y": 20,
+              "name": "Nota animación Merch",
+              "width": 280,
+              "height": 70,
+              "content": "Anim: cada tile monta la isla MerchTile (WebGL Chroma Card — chromatic aberration + parallax de puntero en hover)."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "eY51n",
-          "name": "Section Unete",
+          "name": "09 — Únete (Newsletter)",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$ink",
-          "layout": "vertical"
+          "gap": 96,
+          "padding": [
+            140,
+            120
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "okMAX",
+              "name": "Unete Copy",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 36,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vpygn",
+                  "name": "Unete Headline",
+                  "fill": "$lime",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "No te apuntes a un partido. Apúntate a lo que viene.",
+                  "lineHeight": 0.95,
+                  "fontFamily": "$font",
+                  "fontSize": 80,
+                  "fontWeight": "800",
+                  "letterSpacing": -4.5
+                },
+                {
+                  "type": "text",
+                  "id": "wVQB4",
+                  "name": "Unete Parrafo",
+                  "fill": "#FFFFFFB3",
+                  "textGrowth": "fixed-width",
+                  "width": 460,
+                  "content": "Ideas, avances, eventos y formas de participar. Sin spam. Sin propaganda.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font",
+                  "fontSize": 20,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "FTq8W",
+              "name": "Unete Card",
+              "width": 520,
+              "fill": "$lime",
+              "cornerRadius": 28,
+              "layout": "vertical",
+              "gap": 24,
+              "padding": 40,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "g7YKW",
+                  "name": "Campo Nombre",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "q5CkW",
+                      "name": "Label Nombre",
+                      "fill": "$ink",
+                      "content": "Nombre",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.5
+                    },
+                    {
+                      "type": "frame",
+                      "id": "mgHGB",
+                      "name": "Input Nombre",
+                      "width": "fill_container",
+                      "fill": "$paper",
+                      "cornerRadius": 12,
+                      "stroke": "#0A0B0D2E",
+                      "strokeWidth": 1,
+                      "padding": [
+                        16,
+                        18
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QsTG4",
+                          "name": "Placeholder Nombre",
+                          "fill": "#0A0B0D80",
+                          "content": "Tu nombre",
+                          "fontFamily": "$font",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "B3bRWt",
+                  "name": "Campo Email",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "mXipw",
+                      "name": "Label Email",
+                      "fill": "$ink",
+                      "content": "Email",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.5
+                    },
+                    {
+                      "type": "frame",
+                      "id": "YFyjk",
+                      "name": "Input Email",
+                      "width": "fill_container",
+                      "fill": "$paper",
+                      "cornerRadius": 12,
+                      "stroke": "#0A0B0D2E",
+                      "strokeWidth": 1,
+                      "padding": [
+                        16,
+                        18
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "nb2bP",
+                          "name": "Placeholder Email",
+                          "fill": "#0A0B0D80",
+                          "content": "tu@email.com",
+                          "fontFamily": "$font",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gguIk",
+                  "name": "Checkbox Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 6,
+                      "id": "cFIWZ",
+                      "name": "Checkbox Box",
+                      "fill": "$paper",
+                      "width": 20,
+                      "height": 20,
+                      "stroke": "#0A0B0D4D",
+                      "strokeWidth": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "yfCIq",
+                      "name": "Checkbox Label",
+                      "fill": "$ink",
+                      "content": "He leído y acepto la política de privacidad",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "rgPVO",
+                  "name": "Checkbox Comunicaciones Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 6,
+                      "id": "B3nWP",
+                      "name": "Checkbox Comunicaciones Box",
+                      "fill": "$paper",
+                      "width": 20,
+                      "height": 20,
+                      "stroke": "#0A0B0D4D",
+                      "strokeWidth": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "gTsP0",
+                      "name": "Checkbox Comunicaciones Label",
+                      "fill": "$ink",
+                      "content": "Quiero recibir novedades de democracia²¹. (opcional)",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "aJTFM",
+                  "name": "Boton Apuntame",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "cornerRadius": 14,
+                  "padding": [
+                    20,
+                    24
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wU4xy",
+                      "name": "Boton Label",
+                      "fill": "$lime",
+                      "content": "Apúntame a la otra política",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700",
+                      "letterSpacing": -0.2
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "RDVy0",
+                  "name": "Link Provisional Row",
+                  "width": "fill_container",
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VJEqU",
+                      "name": "Link Provisional",
+                      "fill": "#0A0B0DB3",
+                      "content": "¿Prefieres el formulario clásico? Está aquí.",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "id": "guNAj",
+              "layoutPosition": "absolute",
+              "x": 1100,
+              "y": 20,
+              "name": "Nota form Unete",
+              "width": 280,
+              "height": 70,
+              "content": "Isla React (JoinForm.tsx): validación de email, envío a PUBLIC_FORM_ENDPOINT o modo demo, estado de éxito con mensaje propio."
+            }
+          ]
         },
         {
           "type": "frame",
           "id": "L2q7BI",
-          "name": "Section Footer",
+          "name": "10 — Footer",
           "width": "fill_container",
-          "height": "fit_content(0)",
           "fill": "$ink",
-          "layout": "vertical"
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "G1I0y",
+              "name": "Footer Marquee",
+              "clip": true,
+              "width": "fill_container",
+              "stroke": "#FFFFFF26",
+              "strokeWidth": {
+                "top": 1,
+                "bottom": 1
+              },
+              "gap": 64,
+              "padding": [
+                22,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "O8s0c",
+                  "name": "Marquee Text 1",
+                  "fill": "$lime",
+                  "content": "21 ES LO QUE SIGUE ✦ NO ES UN NÚMERO. ES UNA FECHA LÍMITE. ✦",
+                  "fontFamily": "$font",
+                  "fontSize": 18,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "sTdnC",
+                  "name": "Marquee Text 2",
+                  "fill": "$lime",
+                  "content": "21 ES LO QUE SIGUE ✦ NO ES UN NÚMERO. ES UNA FECHA LÍMITE. ✦",
+                  "fontFamily": "$font",
+                  "fontSize": 18,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "p6gUQ",
+                  "name": "Marquee Text 3",
+                  "fill": "$lime",
+                  "content": "21 ES LO QUE SIGUE ✦ NO ES UN NÚMERO. ES UNA FECHA LÍMITE. ✦",
+                  "fontFamily": "$font",
+                  "fontSize": 18,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "g2qoUk",
+              "name": "Footer Main",
+              "width": "fill_container",
+              "gap": 80,
+              "padding": [
+                96,
+                120,
+                88,
+                120
+              ],
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "vB8L8",
+                  "name": "Footer Claim",
+                  "width": 560,
+                  "layout": "vertical",
+                  "gap": 36,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "zivlc",
+                      "name": "Claim Texto",
+                      "fill": "$paper",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "La política, por fin, en el siglo que toca.",
+                      "lineHeight": 1.15,
+                      "fontFamily": "$font",
+                      "fontSize": 44,
+                      "fontWeight": "700",
+                      "letterSpacing": -1.5
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xtVcC",
+                      "name": "Boton Pill Wrap",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "mQZWc",
+                          "name": "Boton Pill",
+                          "fill": "$lime",
+                          "cornerRadius": "$--radius-pill",
+                          "padding": [
+                            18,
+                            36
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "oO2vu",
+                              "name": "Pill Label",
+                              "fill": "$ink",
+                              "content": "Únete a democracia²¹",
+                              "fontFamily": "$font",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "C6me4",
+                  "name": "Footer Nav",
+                  "gap": 72,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yvhNM",
+                      "name": "Nav Col 1",
+                      "layout": "vertical",
+                      "gap": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "M6KZa",
+                          "name": "Link Hacia delante",
+                          "fill": "#FFFFFFB3",
+                          "content": "Hacia delante",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "pNV1w",
+                          "name": "Link Manifiesto",
+                          "fill": "#FFFFFFB3",
+                          "content": "Manifiesto",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "e9v4t",
+                          "name": "Link Pilares",
+                          "fill": "#FFFFFFB3",
+                          "content": "Pilares",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "WN3w7",
+                      "name": "Nav Col 2",
+                      "layout": "vertical",
+                      "gap": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "qO0K8",
+                          "name": "Link Colección",
+                          "fill": "#FFFFFFB3",
+                          "content": "Colección",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "llPNi",
+                          "name": "Link Tu papeleta",
+                          "fill": "#FFFFFFB3",
+                          "content": "Tu papeleta",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "MAiSV",
+                          "name": "Link Únete",
+                          "fill": "#FFFFFFB3",
+                          "content": "Únete",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "lEBfO",
+              "name": "Wordmark Wrap",
+              "clip": true,
+              "width": "fill_container",
+              "height": 185,
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "L4U7ja",
+                  "name": "Wordmark",
+                  "fill": "$paper",
+                  "content": "democracia21",
+                  "lineHeight": 0.95,
+                  "fontFamily": "$font",
+                  "fontSize": 238,
+                  "fontWeight": "800",
+                  "letterSpacing": -10
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "GBQtn",
+              "name": "Footer Bar",
+              "width": "fill_container",
+              "stroke": "#FFFFFF26",
+              "strokeWidth": {
+                "top": 1
+              },
+              "padding": [
+                26,
+                120
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "v2uf9",
+                  "name": "Copyright",
+                  "fill": "#FFFFFF80",
+                  "content": "© 2026 Democracia 21",
+                  "fontFamily": "$font",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "BUguh",
+                  "name": "Legal Row",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hiC8x",
+                      "name": "Legal Links",
+                      "fill": "#FFFFFF80",
+                      "content": "Aviso legal · Privacidad ·",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "IGh7H",
+                      "name": "Sin Letra Pequena",
+                      "fill": "$lime",
+                      "content": "Sin letra pequeña",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "f90pHr",
+      "x": 242,
+      "y": -1700,
+      "name": "00 — Design System",
+      "clip": true,
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "gap": 56,
+      "padding": 64,
+      "children": [
+        {
+          "type": "text",
+          "id": "Ps4lj",
+          "name": "DS Title",
+          "fill": "$ink",
+          "content": "Democracia 21 — Design System",
+          "fontFamily": "$font",
+          "fontSize": 32,
+          "fontWeight": "800"
+        },
+        {
+          "type": "text",
+          "id": "xISrM",
+          "name": "DS Colors Title",
+          "fill": "#0A0B0D80",
+          "content": "Color",
+          "fontFamily": "$font",
+          "fontSize": 14,
+          "fontWeight": "700",
+          "letterSpacing": 2
+        },
+        {
+          "type": "frame",
+          "id": "y1rSL6",
+          "name": "DS Colors Row",
+          "width": "fill_container",
+          "gap": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "eONnw",
+              "name": "Swatch lime",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "xmVSw",
+                  "name": "Swatch Color lime",
+                  "fill": "$lime",
+                  "width": "fill_container",
+                  "height": 100,
+                  "stroke": "#0A0B0D1A",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "hNUNd",
+                  "name": "Swatch Name lime",
+                  "fill": "$ink",
+                  "content": "lime",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "Vn3Gk",
+                  "name": "Swatch Hex lime",
+                  "fill": "#0A0B0D80",
+                  "content": "#E8E675",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "nVJE9",
+              "name": "Swatch ink",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "k0nUz",
+                  "name": "Swatch Color ink",
+                  "fill": "$ink",
+                  "width": "fill_container",
+                  "height": 100,
+                  "stroke": "#0A0B0D1A",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "vIIw4",
+                  "name": "Swatch Name ink",
+                  "fill": "$ink",
+                  "content": "ink",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "vxNq5",
+                  "name": "Swatch Hex ink",
+                  "fill": "#0A0B0D80",
+                  "content": "#0A0B0D",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "B2dPfA",
+              "name": "Swatch paper",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "k0BId",
+                  "name": "Swatch Color paper",
+                  "fill": "$paper",
+                  "width": "fill_container",
+                  "height": 100,
+                  "stroke": "#0A0B0D1A",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "i5s9K8",
+                  "name": "Swatch Name paper",
+                  "fill": "$ink",
+                  "content": "paper",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "jqikM",
+                  "name": "Swatch Hex paper",
+                  "fill": "#0A0B0D80",
+                  "content": "#FFFFFF",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "GEF4h",
+              "name": "Swatch turquesa",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "NbmnR",
+                  "name": "Swatch Color turquesa",
+                  "fill": "$turquesa",
+                  "width": "fill_container",
+                  "height": 100,
+                  "stroke": "#0A0B0D1A",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "WInVi",
+                  "name": "Swatch Name turquesa",
+                  "fill": "$ink",
+                  "content": "turquesa",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "OO9ax",
+                  "name": "Swatch Hex turquesa",
+                  "fill": "#0A0B0D80",
+                  "content": "#72E8D6",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yVnyO",
+              "name": "Swatch naranja",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "wIBEb",
+                  "name": "Swatch Color naranja",
+                  "fill": "$naranja",
+                  "width": "fill_container",
+                  "height": 100,
+                  "stroke": "#0A0B0D1A",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "K8RVd",
+                  "name": "Swatch Name naranja",
+                  "fill": "$ink",
+                  "content": "naranja",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "ojmN9",
+                  "name": "Swatch Hex naranja",
+                  "fill": "#0A0B0D80",
+                  "content": "#FF5A34",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WNYQl",
+              "name": "Swatch gris",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "Sxu3I",
+                  "name": "Swatch Color gris",
+                  "fill": "$gris",
+                  "width": "fill_container",
+                  "height": 100,
+                  "stroke": "#0A0B0D1A",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "O2Zqo",
+                  "name": "Swatch Name gris",
+                  "fill": "$ink",
+                  "content": "gris",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "GuJD0",
+                  "name": "Swatch Hex gris",
+                  "fill": "#0A0B0D80",
+                  "content": "#EBEBEB",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "U9zvI",
+              "name": "Swatch yellow-merch",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "ZzaUz",
+                  "name": "Swatch Color yellow-merch",
+                  "fill": "$yellow-merch",
+                  "width": "fill_container",
+                  "height": 100,
+                  "stroke": "#0A0B0D1A",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "v3vtB",
+                  "name": "Swatch Name yellow-merch",
+                  "fill": "$ink",
+                  "content": "yellow-merch",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "NMEWK",
+                  "name": "Swatch Hex yellow-merch",
+                  "fill": "#0A0B0D80",
+                  "content": "#F7D416",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "cQhy3",
+          "name": "DS Type Title",
+          "fill": "#0A0B0D80",
+          "content": "Tipografía — Inter Tight ($font)",
+          "fontFamily": "$font",
+          "fontSize": 14,
+          "fontWeight": "700",
+          "letterSpacing": 2
+        },
+        {
+          "type": "frame",
+          "id": "irqNy",
+          "name": "DS Type Scale",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "lHV79",
+              "name": "Type Row Display / Hero",
+              "width": "fill_container",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "K9fkCY",
+                  "name": "Type Sample Display / Hero",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": 200,
+                  "content": "Aa",
+                  "fontFamily": "$font",
+                  "fontSize": 128,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "L2CSa",
+                  "name": "Type Info Display / Hero",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "KVABg",
+                      "name": "Type Label Display / Hero",
+                      "fill": "$ink",
+                      "content": "Display / Hero — 128px / 800",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "D8KS8",
+                      "name": "Type Usage Display / Hero",
+                      "fill": "#0A0B0D80",
+                      "content": "Claim Hero, Manifiesto climax, titulares Merch/Museo",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "jXNGd",
+              "name": "Type Row Título sección",
+              "width": "fill_container",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "q5szrs",
+                  "name": "Type Sample Título sección",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": 200,
+                  "content": "Aa",
+                  "fontFamily": "$font",
+                  "fontSize": 96,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "NkfHA",
+                  "name": "Type Info Título sección",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "O1zfkb",
+                      "name": "Type Label Título sección",
+                      "fill": "$ink",
+                      "content": "Título sección — 96px / 800",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "zISEb",
+                      "name": "Type Usage Título sección",
+                      "fill": "#0A0B0D80",
+                      "content": "Titulares de sección (Museo, Bento, Quiz)",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "u9pc8",
+              "name": "Type Row Subtítulo grande",
+              "width": "fill_container",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vk0xx",
+                  "name": "Type Sample Subtítulo grande",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": 200,
+                  "content": "Aa",
+                  "fontFamily": "$font",
+                  "fontSize": 52,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "jUXDq",
+                  "name": "Type Info Subtítulo grande",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pEdOC",
+                      "name": "Type Label Subtítulo grande",
+                      "fill": "$ink",
+                      "content": "Subtítulo grande — 52px / 800",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Cbr5g",
+                      "name": "Type Usage Subtítulo grande",
+                      "fill": "#0A0B0D80",
+                      "content": "Titulo de Pilar, claim Footer",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "scCZc",
+              "name": "Type Row Cuerpo grande",
+              "width": "fill_container",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "CAv6I",
+                  "name": "Type Sample Cuerpo grande",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": 200,
+                  "content": "Aa",
+                  "fontFamily": "$font",
+                  "fontSize": 26,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "MYSOD",
+                  "name": "Type Info Cuerpo grande",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NjJ80",
+                      "name": "Type Label Cuerpo grande",
+                      "fill": "$ink",
+                      "content": "Cuerpo grande — 26px / 600",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "hM50H",
+                      "name": "Type Usage Cuerpo grande",
+                      "fill": "#0A0B0D80",
+                      "content": "Subtítulos, párrafos destacados",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "i5m0M",
+              "name": "Type Row Cuerpo",
+              "width": "fill_container",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "L8dSa",
+                  "name": "Type Sample Cuerpo",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": 200,
+                  "content": "Aa",
+                  "fontFamily": "$font",
+                  "fontSize": 18,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "rujMw",
+                  "name": "Type Info Cuerpo",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "l3AHyd",
+                      "name": "Type Label Cuerpo",
+                      "fill": "$ink",
+                      "content": "Cuerpo — 18px / 500",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jcLJK",
+                      "name": "Type Usage Cuerpo",
+                      "fill": "#0A0B0D80",
+                      "content": "Párrafos, descripciones",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kff7B",
+              "name": "Type Row Label / Kicker",
+              "width": "fill_container",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "CFGad",
+                  "name": "Type Sample Label / Kicker",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": 200,
+                  "content": "Aa",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "QpAqL",
+                  "name": "Type Info Label / Kicker",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PPTdy",
+                      "name": "Type Label Label / Kicker",
+                      "fill": "$ink",
+                      "content": "Label / Kicker — 14px / 700",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Z2TBo",
+                      "name": "Type Usage Label / Kicker",
+                      "fill": "#0A0B0D80",
+                      "content": "Kickers, folios, captions uppercase",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "HECqg",
+          "name": "DS Radius Title",
+          "fill": "#0A0B0D80",
+          "content": "Radio de esquina y espaciado",
+          "fontFamily": "$font",
+          "fontSize": 14,
+          "fontWeight": "700",
+          "letterSpacing": 2
+        },
+        {
+          "type": "frame",
+          "id": "T573ao",
+          "name": "DS Radius Row",
+          "width": "fill_container",
+          "gap": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "atRIP",
+              "name": "Radius radius-lg",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radius-lg",
+                  "id": "dDqMM",
+                  "name": "Radius Box radius-lg",
+                  "fill": "$lime",
+                  "width": 96,
+                  "height": 96
+                },
+                {
+                  "type": "text",
+                  "id": "yrOFH",
+                  "name": "Radius Label radius-lg",
+                  "fill": "$ink",
+                  "content": "$radius-lg",
+                  "fontFamily": "$font",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Lfy9F",
+              "name": "Radius radius-xl",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radius-xl",
+                  "id": "L9Kuu",
+                  "name": "Radius Box radius-xl",
+                  "fill": "$lime",
+                  "width": 96,
+                  "height": 96
+                },
+                {
+                  "type": "text",
+                  "id": "RDlwf",
+                  "name": "Radius Label radius-xl",
+                  "fill": "$ink",
+                  "content": "$radius-xl",
+                  "fontFamily": "$font",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "U8USB5",
+              "name": "Radius radius-full",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radius-full",
+                  "id": "k5w9l",
+                  "name": "Radius Box radius-full",
+                  "fill": "$lime",
+                  "width": 96,
+                  "height": 96
+                },
+                {
+                  "type": "text",
+                  "id": "v9XfpH",
+                  "name": "Radius Label radius-full",
+                  "fill": "$ink",
+                  "content": "$radius-full",
+                  "fontFamily": "$font",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dPPL8",
+      "x": 242,
+      "y": -2050,
+      "name": "00 — Nav (overlay fijo)",
+      "width": 600,
+      "fill": "$paper",
+      "cornerRadius": 16,
+      "stroke": "#0A0B0D1A",
+      "strokeWidth": 1,
+      "padding": [
+        20,
+        32
+      ],
+      "justifyContent": "space_between",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "path",
+          "id": "GOZ6m",
+          "name": "Logo Nav Ref",
+          "geometry": "M24.06 60.2c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m24.15-55.77v42.05c0 15.01-10.72 23.96-24.43 23.96s-23.78-9.59-23.78-23.95 9.7-24.15 23.22-24.15c6.71 0 11.56 2.42 13.8 5.32v-23.23h11.19z m39.63 35.44c-1.96-4.57-6.15-7.18-11.75-7.18s-9.7 2.61-11.66 7.18h23.4z m-1.21 15.38h12.22c-3.08 9.42-11.38 15.29-22.66 15.29-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97 24.06 9.6 24.06 23.97c0 1.3-0.09 2.52-0.19 3.73h-36.46c1.21 6.43 5.88 10.16 12.49 10.16 4.66 0 8.3-1.77 10.54-5.03m55.2-25.55c2.89-4.2 7.74-7.46 15.85-7.46 15.39 0 21.45 11.56 21.45 19.68v27.79h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.51c0-6.62-4.85-9.6-10.26-9.6s-10.26 2.98-10.26 9.6v27.51h-11.19v-27.79c0-8.11 6.06-19.68 21.45-19.68 8.11 0 12.96 3.26 15.85 7.46m65.66 30.59c7.83 0 12.96-5.13 12.96-13.8s-5.13-13.8-12.96-13.8-12.87 5.13-12.87 13.8 5.13 13.8 12.87 13.8m0.09-37.86c14.45 0 24.06 9.6 24.06 23.97s-9.6 24.15-24.06 24.15-24.15-9.7-24.15-24.15 9.7-23.97 24.15-23.97m51.94 37.86c5.69 0 9.88-2.7 11.84-7.46h11.65c-2.52 10.82-11.19 17.72-23.4 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m50.37-38.05v10.26c-7.46 0-11.94 3.64-11.94 11.1v26.11h-11.19v-26.11c0-14.17 8.95-21.35 23.12-21.35m24.72 10.44c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m28.26 13.72c5.69 0 9.88-2.7 11.84-7.46h11.66c-2.52 10.82-11.19 17.72-23.41 17.72-14.45 0-24.15-9.7-24.15-24.15s9.7-23.97 24.15-23.97c12.12 0 20.89 6.81 23.31 17.44h-11.66c-1.96-4.57-6.16-7.18-11.75-7.18-7.74 0-12.87 5.13-12.87 13.8s5.13 13.8 12.87 13.8m27.7-37.21h11.19v46.62h-11.19v-46.62z m5.6-19.67c3.45 0 6.15 2.8 6.15 6.15 0 3.54-2.7 6.25-6.15 6.25s-6.15-2.7-6.15-6.25c0-3.36 2.7-6.15 6.15-6.15m33.47 29.28c-7.83 0-12.96 5.13-12.96 13.8s5.13 13.8 12.96 13.8 12.87-5.13 12.87-13.8-5.13-13.8-12.87-13.8m24.06 13.89v23.12h-11.19v-4.48c-2.24 2.89-6.99 5.32-13.8 5.32-13.52 0-23.22-9.7-23.22-24.15s9.7-23.97 24.06-23.97 24.15 9.7 24.15 24.15m21.5-35.04c0-2.66-1.31-5.27-5.22-5.27-3.26 0-6.42 1.79-9.41 4.24l-3.26-5.33c2.88-2.34 7.12-5.16 12.78-5.16 7.77 0 11.91 5.33 11.91 11.63 0 12.07-15.06 13.76-17.51 20.77h17.13v6.25h-24.08v-3.97c0.71-14.41 17.67-13.65 17.67-23.16m13.04-1.69c-1.25 0.76-2.83 1.25-4.62 1.41v-5.6c2.39-0.6 4.95-1.85 5.93-5.06h5.49v38.06h-6.8v-28.81z",
+          "viewBox": [
+            0,
+            0,
+            519.07,
+            70.55
+          ],
+          "fill": "$ink",
+          "width": 130,
+          "height": 18
+        },
+        {
+          "type": "frame",
+          "id": "crNIG",
+          "name": "CTA Unete Ref",
+          "fill": "$ink",
+          "cornerRadius": 999,
+          "padding": [
+            12,
+            24
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "o8P5zx",
+              "name": "CTA Label Ref",
+              "fill": "$lime",
+              "content": "Únete",
+              "fontFamily": "$font",
+              "fontSize": 15,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "id": "Q3bmMF",
+          "layoutPosition": "absolute",
+          "x": 620,
+          "y": 0,
+          "name": "Nota Nav",
+          "width": 260,
+          "height": 100,
+          "content": "Overlay fijo (position:fixed), oculto hasta que el logo del hero se disuelve. Cambia de tema (logo blanco + CTA invertido) sobre secciones oscuras vía IntersectionObserver."
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "KCf6J",
+      "x": 1150,
+      "y": -2050,
+      "name": "00 — Preloader (referencia)",
+      "width": 320,
+      "height": 220,
+      "fill": "$ink",
+      "cornerRadius": 16,
+      "layout": "vertical",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "T27ut",
+          "name": "Preloader Counter",
+          "fill": "$lime",
+          "content": "siglo 21",
+          "fontFamily": "$font",
+          "fontSize": 40,
+          "fontWeight": "800"
+        },
+        {
+          "type": "note",
+          "id": "HnqRO",
+          "layoutPosition": "absolute",
+          "x": 0,
+          "y": 236,
+          "name": "Nota Preloader",
+          "width": 280,
+          "height": 100,
+          "content": "Pantalla de carga (una vez por sesión): contador 1978→2026, remate 'siglo 21', símbolo d²¹ con latido, wipe circular lima al terminar."
         }
       ]
     }
@@ -647,6 +4639,22 @@
     "font": {
       "type": "string",
       "value": "Inter Tight"
+    },
+    "radius-lg": {
+      "type": "number",
+      "value": 24
+    },
+    "radius-xl": {
+      "type": "number",
+      "value": 32
+    },
+    "radius-full": {
+      "type": "number",
+      "value": 999
+    },
+    "gap-section": {
+      "type": "number",
+      "value": 96
     }
   },
   "fileToken": "9e9a026f-b378-4e7d-b800-80fcb094ac80"
