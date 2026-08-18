@@ -61,70 +61,60 @@ const marqueePhrases = [
       </video>
 
       <div class="relative flex flex-col items-center gap-7 md:gap-9">
-        <!-- Pills "el pueblo" / "el poder": absolute, superpuestas POR ENCIMA
-             del H1 (z-index superior), no apiladas en flujo — calca el
-             tratamiento "sello" del Figma (fileKey 1PAfNTosRwDdLafwwUJgZm,
-             nodo 47:3034 "02 Hero-claim"). Nota: Dev Mode MCP de Figma no
-             disponible en esta sesión (requiere Figma desktop) — offsets y
-             rotación son una aproximación fiel al criterio descrito, a
-             validar contra el archivo real. -->
-        <h1
-          class="display relative flex flex-wrap items-center justify-center gap-x-4 gap-y-4 text-[15vw] text-lime sm:text-8xl md:text-9xl lg:text-[9.5rem]"
-        >
-          <span class="relative inline-block">
-            <span
-              class="pointer-events-none absolute -top-3 left-1/2 z-10 -translate-x-1/2 -rotate-6 whitespace-nowrap rounded-full border-2 border-paper bg-ink px-3.5 py-1 text-[0.7rem] font-medium normal-case leading-none tracking-normal text-paper shadow-[0_8px_24px_rgba(0,0,0,0.35)] sm:-top-5 sm:px-5 sm:py-1.5 sm:text-sm md:-top-7 md:px-6 md:py-2 md:text-lg"
-            >
-              el pueblo
-            </span>
-            <span class="relative z-0">Dēmos</span>
-          </span>
-          <span class="relative z-0 text-lime" aria-hidden="true">×</span>
-          <span class="relative inline-block">
-            <span class="relative z-0">Krátos</span>
-            <span
-              class="pointer-events-none absolute -bottom-3 left-1/2 z-10 -translate-x-1/2 rotate-6 whitespace-nowrap rounded-full border-2 border-paper bg-ink px-3.5 py-1 text-[0.7rem] font-medium normal-case leading-none tracking-normal text-paper shadow-[0_8px_24px_rgba(0,0,0,0.35)] sm:-bottom-5 sm:px-5 sm:py-1.5 sm:text-sm md:-bottom-7 md:px-6 md:py-2 md:text-lg"
-            >
-              el poder
-            </span>
-          </span>
+        <!-- Change-order (feedback socios): fuera "Dēmos × Krátos" — nuevo
+             titular directo sobre el vídeo, que ya reproduce en autoplay
+             (silenciado por política del navegador; ver toggle de sonido
+             más abajo, sustituye al lightbox "Escúchala" que pedían quitar). -->
+        <h1 class="display relative text-[15vw] text-lime sm:text-8xl md:text-9xl lg:text-[9.5rem]">
+          Volver a creer
         </h1>
 
         <p class="mt-6 max-w-xl text-lg text-gris md:mt-10 md:text-2xl">
-          Democracia significa exactamente eso. Ya era hora de que alguien se lo tomara en serio.
+          No es un partido más. Es la vez que lo intentamos de verdad.
         </p>
 
-        <button
-          type="button"
-          id="hero-play-trigger"
-          class="group isolate relative inline-flex items-center gap-3 overflow-hidden rounded-full border-2 border-lime py-2 pl-2 pr-5 text-lime transition-colors duration-500 [transition-timing-function:var(--ease-d21)] hover:text-ink"
-          aria-haspopup="dialog"
-          aria-controls="hero-video-lightbox"
-        >
-          <!-- Relleno lime que barre desde la izquierda (clip vía scaleX origin-left),
-               sincronizado con la transición de color del botón. z-0 (nunca negativo):
-               un z-index negativo aquí escapaba a la stacking context de un ancestro
-               lejano (el botón no aislaba su propio contexto) y el barrido acababa
-               pintándose detrás de las capas de fondo del hero. -->
-          <span
-            class="absolute inset-0 z-0 origin-left scale-x-0 rounded-full bg-lime transition-transform duration-500 [transition-timing-function:var(--ease-d21)] group-hover:scale-x-100"
-            aria-hidden="true"
-          ></span>
-          <span
-            class="relative z-10 flex size-8 shrink-0 items-center justify-center transition-transform duration-500 [transition-timing-function:var(--ease-d21)] group-hover:translate-x-0.5 group-hover:scale-110"
-            aria-hidden="true"
+        <div class="mt-2 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#unete"
+            class="rounded-full bg-lime px-7 py-3 text-base font-semibold text-ink transition-transform duration-300 hover:scale-105 active:scale-95 md:text-lg"
+            data-cursor
           >
-            <svg viewBox="0 0 32 32" fill="none" class="size-8">
-              <path
-                d="M22 16C22.0001 16.2426 21.9413 16.4815 21.8287 16.6964C21.7162 16.9113 21.5532 17.0957 21.3537 17.2337L14.8537 21.7337C14.6287 21.8896 14.3652 21.9808 14.092 21.9976C13.8187 22.0144 13.5461 21.9561 13.3036 21.829C13.0611 21.7019 12.8581 21.5108 12.7164 21.2766C12.5748 21.0423 12.4999 20.7738 12.5 20.5V11.5C12.4999 11.2262 12.5748 10.9577 12.7164 10.7234C12.8581 10.4892 13.0611 10.2981 13.3036 10.171C13.5461 10.0439 13.8187 9.98562 14.092 10.0024C14.3652 10.0192 14.6287 10.1104 14.8537 10.2662L21.3537 14.7662C21.5532 14.9043 21.7162 15.0887 21.8287 15.3036C21.9413 15.5185 22.0001 15.7574 22 16ZM29.5 16C29.5 18.67 28.7082 21.2801 27.2248 23.5002C25.7414 25.7203 23.633 27.4506 21.1662 28.4724C18.6994 29.4942 15.985 29.7615 13.3663 29.2406C10.7475 28.7197 8.34207 27.434 6.45406 25.5459C4.56605 23.6579 3.2803 21.2525 2.7594 18.6337C2.2385 16.015 2.50584 13.3006 3.52763 10.8338C4.54941 8.36697 6.27974 6.25856 8.4998 4.77516C10.7199 3.29176 13.33 2.5 16 2.5C19.5792 2.50397 23.0107 3.92756 25.5416 6.45844C28.0724 8.98932 29.496 12.4208 29.5 16ZM26.5 16C26.5 13.9233 25.8842 11.8932 24.7304 10.1665C23.5767 8.4398 21.9368 7.09399 20.0182 6.29926C18.0996 5.50454 15.9884 5.29661 13.9516 5.70175C11.9148 6.1069 10.0438 7.10693 8.57538 8.57538C7.10693 10.0438 6.1069 11.9148 5.70175 13.9516C5.29661 15.9884 5.50454 18.0996 6.29926 20.0182C7.09399 21.9368 8.4398 23.5767 10.1665 24.7304C11.8932 25.8842 13.9233 26.5 16 26.5C18.7839 26.497 21.4528 25.3898 23.4213 23.4213C25.3898 21.4528 26.497 18.7839 26.5 16Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </span>
-          <span class="relative z-10 text-base font-medium md:text-xl">Escúchala — 1 min</span>
-        </button>
+            Únete
+          </a>
+          <a
+            href="#unete"
+            class="rounded-full border-2 border-lime px-7 py-3 text-base font-semibold text-lime transition-transform duration-300 hover:scale-105 active:scale-95 md:text-lg"
+            data-cursor
+          >
+            Dona
+          </a>
+        </div>
       </div>
     </div>
+
+    <!-- Toggle de sonido del vídeo de fondo: reemplaza al lightbox de clic
+         (el cliente pidió quitarlo, el vídeo ya reproduce solo). El vídeo
+         arranca silenciado (autoplay lo exige); este botón deja escuchar a
+         quien quiera sin abrir ningún modal. -->
+    <button
+      type="button"
+      id="hero-mute-toggle"
+      class="absolute bottom-24 right-5 z-10 flex size-11 items-center justify-center rounded-full border border-lime/40 bg-ink/50 text-lime backdrop-blur-sm transition-colors hover:bg-ink/80 md:bottom-28 md:right-8"
+      aria-pressed="false"
+      aria-label="Activar sonido del vídeo"
+    >
+      <svg viewBox="0 0 24 24" fill="none" class="size-5" aria-hidden="true">
+        <path d="M4 9v6h4l5 5V4L8 9H4Z" fill="currentColor" />
+        <path
+          id="hero-mute-waves"
+          d="M16.5 8.5a5 5 0 0 1 0 7"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        />
+        <path id="hero-mute-slash" class="hidden" d="M4 4l16 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </button>
 
     <!-- Fix 2: SVG oculto con la máscara "agujero" del símbolo d²¹. #hero-overlay
          referencia este <mask> vía CSS (mask-image: url(#hero-mask)): rect
@@ -246,56 +236,6 @@ const marqueePhrases = [
       baja, que esto mejora ↓
     </p>
   </div>
-
-  <!-- Lightbox: vídeo de Miriam CON sonido. Accesible: Escape cierra, foco
-       atrapado, pausa el vídeo de fondo mientras está abierto. -->
-  <div
-    id="hero-video-lightbox"
-    class="fixed inset-0 z-[200] hidden items-center justify-center bg-ink/90 px-5 backdrop-blur-sm"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Escucha a Miriam González Durántez"
-    hidden
-  >
-    <div class="relative w-full max-w-4xl">
-      <button
-        type="button"
-        id="hero-lightbox-close"
-        class="absolute -top-14 right-0 flex size-11 items-center justify-center rounded-full border border-paper/30 text-paper transition-colors hover:bg-paper hover:text-ink md:-top-16"
-        aria-label="Cerrar vídeo"
-      >
-        <span aria-hidden="true" class="text-xl leading-none">✕</span>
-      </button>
-
-      <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-2xl">
-        <video
-          id="hero-lightbox-video"
-          class="h-full w-full object-cover"
-          controls
-          playsinline
-          preload="none"
-          poster="/img/hero-claim.webp"
-        >
-          <!-- PLACEHOLDER: sustituir por /video/miriam.mp4 cuando llegue -->
-          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4" />
-        </video>
-
-        <div
-          id="hero-lightbox-fallback"
-          class="absolute inset-0 hidden flex-col items-center justify-center gap-3 text-center"
-        >
-          <img
-            src="/img/hero-claim.webp"
-            alt="Miriam González Durántez"
-            class="absolute inset-0 h-full w-full object-cover opacity-40"
-          />
-          <p class="relative max-w-sm px-6 text-sm font-semibold uppercase tracking-wide text-paper/80">
-            Vídeo disponible muy pronto.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <style>
@@ -334,7 +274,7 @@ const marqueePhrases = [
 </style>
 
 <script>
-  import { gsap, ScrollTrigger, stopScroll, startScroll, prefersReducedMotion } from '@/lib/motion';
+  import { gsap, ScrollTrigger, prefersReducedMotion } from '@/lib/motion';
 
   const section = document.getElementById('top');
   const pin = document.getElementById('hero-pin');
@@ -628,94 +568,20 @@ const marqueePhrases = [
     bgVideo.load();
   }
 
-  // ── Lightbox "Escúchala": vídeo con sonido, accesible ──
-  const trigger = document.getElementById('hero-play-trigger');
-  const lightbox = document.getElementById('hero-video-lightbox');
-  const closeBtn = document.getElementById('hero-lightbox-close');
-  const lightboxVideo = document.getElementById('hero-lightbox-video') as HTMLVideoElement | null;
-  const lightboxFallback = document.getElementById('hero-lightbox-fallback');
+  // ── Toggle de sonido del vídeo de fondo (sustituye al lightbox) ──
+  const muteToggle = document.getElementById('hero-mute-toggle');
+  const muteWaves = document.getElementById('hero-mute-waves');
+  const muteSlash = document.getElementById('hero-mute-slash');
 
-  if (trigger && lightbox && closeBtn && lightboxVideo) {
-    function getFocusable(): HTMLElement[] {
-      if (!lightbox) return [];
-      return Array.from(
-        lightbox.querySelectorAll<HTMLElement>('button, video, [href], [tabindex]:not([tabindex="-1"])')
-      );
-    }
-
-    function openLightbox() {
-      if (!lightbox || !lightboxVideo) return;
-      lightbox.hidden = false;
-      lightbox.classList.remove('hidden');
-      lightbox.classList.add('flex');
-      stopScroll();
-      bgVideo?.pause();
-
-      lightboxVideo.currentTime = 0;
-      lightboxVideo.muted = false;
-      lightboxVideo.preload = 'auto';
-      lightboxVideo.load();
-      lightboxVideo
-        .play()
-        .catch(() => {
-          /* el usuario tendrá que darle a play manualmente desde los controles */
-        });
-
-      closeBtn?.focus();
-      document.addEventListener('keydown', onKeydown);
-    }
-
-    function closeLightbox() {
-      if (!lightbox || !lightboxVideo) return;
-      lightboxVideo.pause();
-      lightbox.hidden = true;
-      lightbox.classList.remove('flex');
-      lightbox.classList.add('hidden');
-      startScroll();
-      document.removeEventListener('keydown', onKeydown);
-
-      if (bgVideo && !bgVideo.classList.contains('hidden') && !prefersReducedMotion()) {
-        bgVideo.play().catch(() => {});
-      }
-
-      // El disparador siempre es el foco de retorno natural del diálogo
-      // (más robusto que lastFocused, que puede ser <body> si el diálogo se
-      // abrió sin un foco de teclado/ratón previo real).
-      trigger?.focus();
-    }
-
-    function onKeydown(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        closeLightbox();
-        return;
-      }
-      // Focus trap básico: Tab/Shift+Tab entre los elementos del diálogo.
-      if (e.key === 'Tab') {
-        const focusable = getFocusable();
-        if (focusable.length === 0) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    }
-
-    lightboxVideo.addEventListener('error', () => {
-      lightboxVideo.classList.add('hidden');
-      lightboxFallback?.classList.remove('hidden');
-      lightboxFallback?.classList.add('flex');
-    });
-
-    trigger.addEventListener('click', openLightbox);
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
+  if (muteToggle && bgVideo) {
+    muteToggle.addEventListener('click', () => {
+      const nextMuted = !bgVideo.muted;
+      bgVideo.muted = nextMuted;
+      if (nextMuted) bgVideo.play().catch(() => {});
+      muteToggle.setAttribute('aria-pressed', String(!nextMuted));
+      muteToggle.setAttribute('aria-label', nextMuted ? 'Activar sonido del vídeo' : 'Silenciar el vídeo');
+      muteWaves?.classList.toggle('hidden', nextMuted);
+      muteSlash?.classList.toggle('hidden', !nextMuted);
     });
   }
 </script>

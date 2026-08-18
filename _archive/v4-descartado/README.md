@@ -16,3 +16,16 @@ actual. Se conservan por si se quieren rescatar ideas/técnicas.
 Dependencias npm que quedaron sin ningún consumidor tras este movimiento y se
 desinstalaron: `ogl` (solo la usaba `FlyingPosters.tsx`) y `motion` (solo la
 usaba `blur-highlight.tsx`).
+
+## Segunda tanda (change-order feedback de socios, 2026-08-18)
+
+| Fichero | Razón |
+|---|---|
+| `components/react-bits/3d-text-reveal.tsx` | React Bits Pro "3D Text Reveal", motor del statement de `Museo.astro` (líneas del byline rotando en círculo 3D). El feedback de los socios pidió quitar el efecto entero ("quitamos la serie de frases cóncavas"): sustituido por 3 bloques de color sticky-stack, mismo patrón que `Pilares.astro`. Sigue siendo un componente Pro instalado y con licencia (`REACTBITS_LICENSE_KEY`) — se conserva por si se quiere reutilizar en otra sección más adelante. |
+| `DESIGN-v1-museo-vieja-politica.md` | Contrato de diseño original: concepto "Museo de la Vieja Política" (atril, micrófono, fax, urna, sillón como piezas expuestas), 5 pilares, quiz de papeleta distinto al actual. Ninguna sección de la web actual coincide ya con este documento — se archiva para no confundir a quien retome el proyecto. |
+| `DESIGN-v2-podium-reactbits.md` | Change-order que introdujo el hero "podium" (vigente), el Museo con FlyingPosters (descartado más arriba), Manifesto con ScrollFloat (portado a vanilla GSAP), Miriam (vigente, con cambios posteriores) y Bento (vigente). Parcialmente superado — ver `DESIGN.md` en la raíz de `web/` para el estado actual real de cada sección. |
+
+`DESIGN.md` en la raíz de `web/` es ahora un documento **reescrito desde cero
+el 2026-08-18** para reflejar la web tal y como está desplegada hoy, no un
+historial de change-orders. Para el historial completo, lee estos ficheros
+en orden más `HANDOFF.md` (raíz de `web/`).

@@ -69,7 +69,7 @@ const tiles: Tile[] = [
     boxRatio: '3/4',
     imageAspectRatio: 0.8,
     col: 'col-span-4 col-start-5 md:col-span-4 md:col-start-9',
-    mt: 'mt-8 md:mt-16',
+    mt: 'mt-4 md:mt-6',
   },
   {
     id: 'gorra-21',
@@ -83,7 +83,7 @@ const tiles: Tile[] = [
     boxRatio: '4/3',
     imageAspectRatio: 1.25,
     col: 'col-span-4 col-start-1 md:col-span-4 md:col-start-13',
-    mt: 'mt-4 md:mt-6',
+    mt: 'mt-2 md:mt-3',
   },
   {
     id: 'hoodie-noestarde',
@@ -97,7 +97,7 @@ const tiles: Tile[] = [
     boxRatio: '3/4',
     imageAspectRatio: 0.8,
     col: 'col-span-4 col-start-5 md:col-span-6 md:col-start-2',
-    mt: 'mt-6 md:mt-24',
+    mt: 'mt-3 md:mt-8',
   },
   {
     id: 'chapa-escuchar',
@@ -111,7 +111,7 @@ const tiles: Tile[] = [
     boxRatio: '3/4',
     imageAspectRatio: 0.57,
     col: 'col-span-4 col-start-1 md:col-span-3 md:col-start-8',
-    mt: 'mt-10 md:mt-4',
+    mt: 'mt-4 md:mt-2',
   },
   {
     id: 'tote-transparencia',
@@ -125,7 +125,7 @@ const tiles: Tile[] = [
     boxRatio: '3/4',
     imageAspectRatio: 0.75,
     col: 'col-span-4 col-start-5 md:col-span-3 md:col-start-11',
-    mt: 'mt-2 md:mt-20',
+    mt: 'mt-1 md:mt-6',
   },
   {
     id: 'tee-siglo21',
@@ -139,22 +139,22 @@ const tiles: Tile[] = [
     boxRatio: '3/4',
     imageAspectRatio: 0.8,
     col: 'col-span-4 col-start-1 md:col-span-9 md:col-start-1',
-    mt: 'mt-8 md:mt-10',
+    mt: 'mt-4 md:mt-3',
   },
 ];
 ---
 
-<section id="coleccion" class="relative overflow-hidden bg-yellow-merch px-5 pb-[14vh] pt-[12vh] text-ink md:px-8">
-  <header class="mx-auto mb-[8vh] max-w-5xl md:mb-[10vh]">
-    <p class="mb-4 text-sm font-bold uppercase tracking-[0.2em] opacity-70">Colección XXI</p>
-    <h2 class="display text-[15vw] leading-[0.85] sm:text-8xl md:text-9xl">Lleva lo que piensas.</h2>
-    <p class="mt-6 max-w-xl text-lg opacity-80 md:text-xl">
+<section id="coleccion" class="relative overflow-hidden bg-yellow-merch px-5 pb-[8vh] pt-[8vh] text-ink md:px-8">
+  <header class="mx-auto mb-[4vh] max-w-5xl md:mb-[5vh]">
+    <p class="mb-3 text-sm font-bold uppercase tracking-[0.2em] opacity-70">Colección XXI</p>
+    <h2 class="display text-6xl leading-[0.85] sm:text-7xl md:text-8xl">Lleva lo que piensas.</h2>
+    <p class="mt-4 max-w-xl text-base opacity-80 md:text-lg">
       Ropa con voz propia, tazas que toman partido o gorras que tienen algo que decir. Más que
       moda, es una forma de participar en el cambio.
     </p>
   </header>
 
-  <div class="mb-[7vh] overflow-hidden border-y border-ink/15 py-4 md:mb-[9vh]">
+  <div class="mb-[4vh] overflow-hidden border-y border-ink/15 py-3 md:mb-[5vh]">
     <div class="marquee-track" style="--marquee-duration: 22s;">
       {
         Array.from({ length: 2 }).map(() => (
@@ -221,7 +221,7 @@ const tiles: Tile[] = [
         Posición reequilibrada (antes col-start-13, ahora col-start-11 y más
         ancho) para ocupar el hueco que dejó el tile "rack" retirado. */}
     <article
-      class="col-span-4 col-start-5 mt-4 flex aspect-[1/1] flex-col justify-between rounded-2xl bg-ink p-6 text-lime md:col-span-5 md:col-start-11 md:mt-32 md:p-8"
+      class="col-span-4 col-start-5 mt-2 flex aspect-[1/1] flex-col justify-between rounded-2xl bg-ink p-6 text-lime md:col-span-5 md:col-start-11 md:mt-10 md:p-8"
       data-merch-tile
     >
       <span class="text-stroke text-5xl font-extrabold text-lime md:text-6xl" aria-hidden="true">21</span>
@@ -229,7 +229,7 @@ const tiles: Tile[] = [
     </article>
   </div>
 
-  <footer class="mx-auto mt-[10vh] max-w-2xl text-center md:mt-[12vh]">
+  <footer class="mx-auto mt-[5vh] max-w-2xl text-center md:mt-[6vh]">
     <p class="text-lg font-semibold md:text-xl">
       Drop 001 — próximamente. Los primeros en la lista lo estrenan.
     </p>
